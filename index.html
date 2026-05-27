@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIR ACADEMY — Digital Project Park</title>
+<meta name="description" content="MIR ACADEMY — Interactive documents, educational tools, and applications by Emre Mir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   ROOT
+══════════════════════════════════════════════ */
+:root {
+  --bg:        #080808;
+  --surface:   #101010;
+  --card:      #141414;
+  --card-h:    #1a1a1a;
+  --border:    #242424;
+  --border-h:  #383838;
+  --gold:      #c8a96e;
+  --gold2:     #e2c48a;
+  --gold-dim:  #8a7248;
+  --teal:      #7ad9c8;
+  --teal-dim:  #2a6860;
+  --purple:    #b87ad9;
+  --purple-dim:#6a3888;
+  --green:     #5bd98a;
+  --amber:     #d9a855;
+  --red:       #d96060;
+  --blue:      #7aaddd;
+  --text:      #e4e0d4;
+  --muted:     #888880;
+  --faint:     #444440;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.logo-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+}
+
+.logo-sub {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+nav a {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+nav a:hover { color: var(--gold); }
+
+.nav-github {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text) !important;
+  padding: 6px 14px;
+  border-radius: 4px;
+  transition: border-color 0.15s, background 0.15s !important;
+}
+
+.nav-github:hover {
+  border-color: var(--gold-dim) !important;
+  background: var(--card-h) !important;
+  color: var(--gold) !important;
+}
+
+/* ══════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════ */
+.hero {
+  padding: 100px 48px 80px;
+  max-width: 1120px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 340px;
+  background: radial-gradient(ellipse at 15% 60%, rgba(200,169,110,0.07) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 40%, rgba(122,217,200,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 1.0;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.hero-title span { color: var(--gold); }
+
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 36px;
+}
+
+.hero-rule {
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  margin-bottom: 36px;
+}
+
+.hero-desc {
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+  margin-bottom: 52px;
+  font-weight: 300;
+}
+
+.hero-desc strong { color: var(--text); font-weight: 500; }
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.stat { }
+.stat-num {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 5px;
+  font-family: 'Playfair Display', serif;
+}
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+/* ══════════════════════════════════════════════
+   FILTER BAR
+══════════════════════════════════════════════ */
+.filter-section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 48px 40px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.filter-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--faint);
+  margin-right: 4px;
+  font-weight: 500;
+}
+
+.f-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 5px 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: all 0.12s;
+}
+
+.f-btn:hover {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.f-btn.active {
+  background: var(--card-h);
+  border-color: var(--gold-dim);
+  color: var(--gold);
+}
+
+/* ══════════════════════════════════════════════
+   PROJECT GRID
+══════════════════════════════════════════════ */
+.projects-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 48px 100px;
+}
+
+.cat-section {
+  margin-bottom: 64px;
+}
+
+.cat-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cat-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.cat-rule { flex: 1; height: 1px; background: var(--border); }
+
+.cat-count {
+  font-size: 10px;
+  color: var(--faint);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* ══════════════════════════════════════════════
+   PROJECT CARD
+══════════════════════════════════════════════ */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s, background 0.2s, transform 0.18s;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--card-accent, var(--border));
+  transition: opacity 0.2s;
+}
+
+.card:hover {
+  border-color: var(--border-h);
+  background: var(--card-h);
+  transform: translateY(-2px);
+}
+
+.card[data-cat="edu"]   { --card-accent: var(--teal); }
+.card[data-cat="dash"]  { --card-accent: var(--gold); }
+.card[data-cat="app"]   { --card-accent: var(--purple); }
+
+/* hide cards by filter */
+.card.hidden { display: none; }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: var(--text);
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.card-ver {
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  white-space: nowrap;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+  font-weight: 300;
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* STATUS BADGES */
+.badge {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'Inter', system-ui;
+}
+
+.b-stable   { background: rgba(91,217,138,0.1);  color: var(--green);  border: 1px solid rgba(91,217,138,0.2);  }
+.b-progress { background: rgba(217,168,85,0.1);  color: var(--amber);  border: 1px solid rgba(217,168,85,0.2);  }
+.b-done     { background: rgba(122,217,200,0.1); color: var(--teal);   border: 1px solid rgba(122,217,200,0.2); }
+.b-stalled  { background: rgba(217,96,96,0.1);   color: var(--red);    border: 1px solid rgba(217,96,96,0.2);   }
+.b-restart  { background: rgba(217,168,85,0.08); color: var(--amber);  border: 1px solid rgba(217,168,85,0.15); }
+
+/* CATEGORY TAGS */
+.tag-edu    { background: rgba(122,217,200,0.07); color: var(--teal);   font-size: 9px; padding: 2px 7px; border-radius: 2px; letter-spacing: 0.06em; text-transform: uppercase; }
+.tag-dash   { background: rgba(200,169,110,0.07); color: var(--gold);   font-size: 9px; padding: 2px 7px; border-radius: 2px; letter-spacing: 0.06em; text-transform: uppercase; }
+.tag-app    { background: rgba(184,122,217,0.07); color: var(--purple); font-size: 9px; padding: 2px 7px; border-radius: 2px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* LOCK / LINK indicator */
+.card-lock {
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 36px 48px;
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: gap;
+}
+
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}
+
+.footer-credit {
+  font-size: 11px;
+  color: var(--faint);
+  letter-spacing: 0.08em;
+}
+
+.footer-credit span { color: var(--teal); }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  header { padding: 0 20px; }
+  nav { gap: 16px; }
+  .logo-sep, .logo-sub { display: none; }
+  .hero { padding: 60px 20px 50px; }
+  .filter-section { padding: 0 20px 32px; }
+  .projects-wrap { padding: 0 20px 60px; }
+  .hero-stats { gap: 28px; }
+  footer { padding: 28px 20px; flex-direction: column; gap: 12px; text-align: center; }
+  nav a:not(.nav-github) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ HEADER ══════════════════════════════ -->
+<header>
+  <a class="logo" href="#">
+    <span class="logo-mark">MIR ACADEMY</span>
+    <span class="logo-sep"></span>
+    <span class="logo-sub">Digital Project Park</span>
+  </a>
+  <nav>
+    <a href="#education">Education</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#apps">Apps</a>
+    <a href="https://github.com/MIR-ACADEMY" target="_blank" rel="noopener" class="nav-github">⊞ GitHub</a>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">MIR · MIRA · 2024–2026</div>
+  <div class="hero-title">MIR<br><span>ACADEMY</span></div>
+  <div class="hero-tagline">Digital Project Park</div>
+  <div class="hero-rule"></div>
+  <div class="hero-desc">
+    A living collection of <strong>interactive documents, educational tools, and applications</strong>
+    built by Emre Mir in partnership with MIRA. From world history to investment education,
+    from smartwatch apps to personal dashboards — every project is crafted to last.
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">17</div>
+      <div class="stat-label">Projects</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Categories</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">МИР</div>
+      <div class="stat-label">Built with MIRA</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ FILTER ══════════════════════════════ -->
+<div class="filter-section">
+  <div class="filter-bar">
+    <span class="filter-label">Show:</span>
+    <button class="f-btn active" onclick="filterCards('all')">All</button>
+    <button class="f-btn" onclick="filterCards('edu')">Education</button>
+    <button class="f-btn" onclick="filterCards('dash')">Dashboard &amp; Tools</button>
+    <button class="f-btn" onclick="filterCards('app')">MIRACDX Apps</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ PROJECTS ══════════════════════════════ -->
+<div class="projects-wrap">
+
+  <!-- ────────── EDUCATION & REFERENCE ────────── -->
+  <div class="cat-section" id="education">
+    <div class="cat-head">
+      <span class="cat-title">Education &amp; Reference</span>
+      <div class="cat-rule"></div>
+      <span class="cat-count">6 projects</span>
+    </div>
+    <div class="grid">
+
+      <div class="card" data-cat="edu">
+        <div class="card-top">
+          <div class="card-name">MIR Invest</div>
+          <div class="card-ver">v1.2</div>
+        </div>
+        <div class="card-desc">Interactive investment education module covering stocks, crypto, forex, risk management, and calculators.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-edu">Education</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="edu">
+        <div class="card-top">
+          <div class="card-name">World Almanac</div>
+          <div class="card-ver">v1.7</div>
+        </div>
+        <div class="card-desc">Year-by-year world history 2000–2026 with dedicated Türkiye section, Wikipedia links, themes, and reading mode.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-done">Complete</span>
+            <span class="tag-edu">Reference</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="edu">
+        <div class="card-top">
+          <div class="card-name">History of IT</div>
+          <div class="card-ver">V8</div>
+        </div>
+        <div class="card-desc">Interactive visual timeline of information technology history — from Babbage to the cloud era.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-progress">In Progress</span>
+            <span class="tag-edu">History</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="edu">
+        <div class="card-top">
+          <div class="card-name">History of AI</div>
+          <div class="card-ver">V01</div>
+        </div>
+        <div class="card-desc">From Alan Turing to GPT-4 — the complete story of artificial intelligence in interactive format.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-progress">In Progress</span>
+            <span class="tag-edu">History</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="edu">
+        <div class="card-top">
+          <div class="card-name">IT Literacy</div>
+          <div class="card-ver">—</div>
+        </div>
+        <div class="card-desc">10-module curriculum: internet basics, GitHub, terminal, Python, web ownership, WordPress, security, AI prompting.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-restart">Restarting</span>
+            <span class="tag-edu">Curriculum</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="edu">
+        <div class="card-top">
+          <div class="card-name">Atatürk İlkeleri</div>
+          <div class="card-ver">Final</div>
+        </div>
+        <div class="card-desc">Principles and lasting legacy of Mustafa Kemal Atatürk — interactive reference document in Turkish.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-done">Complete</span>
+            <span class="tag-edu">History</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ────────── DASHBOARD & TOOLS ────────── -->
+  <div class="cat-section" id="dashboard">
+    <div class="cat-head">
+      <span class="cat-title">Dashboard &amp; Tools</span>
+      <div class="cat-rule"></div>
+      <span class="cat-count">6 projects</span>
+    </div>
+    <div class="grid">
+
+      <div class="card" data-cat="dash">
+        <div class="card-top">
+          <div class="card-name">DATA-MIR Board</div>
+          <div class="card-ver">v5.2</div>
+        </div>
+        <div class="card-desc">Personal command center — widgets, sticky notes, timers, currency rates, news, and ambient radio player.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-dash">Dashboard</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="dash">
+        <div class="card-top">
+          <div class="card-name">Project Manager</div>
+          <div class="card-ver">v1.5</div>
+        </div>
+        <div class="card-desc">All-project tracker with reminders, agenda UI, status tracking, and version history across all MIR projects.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-dash">Tool</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="dash">
+        <div class="card-top">
+          <div class="card-name">MIR PIXEL</div>
+          <div class="card-ver">v1.0</div>
+        </div>
+        <div class="card-desc">Browser-based pixel art creation tool with palette management, zoom controls, and export functionality.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-dash">Creative</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="dash">
+        <div class="card-top">
+          <div class="card-name">Anger Protocol</div>
+          <div class="card-ver">v1.1</div>
+        </div>
+        <div class="card-desc">Structured emotional regulation protocol — guided steps, breathing exercises, and reflective prompts.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-dash">Wellness</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="dash">
+        <div class="card-top">
+          <div class="card-name">MIR Astrology</div>
+          <div class="card-ver">v1.0</div>
+        </div>
+        <div class="card-desc">Full natal chart calculator with all planets, aspects, house placements, and interpretations.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-dash">Tool</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="dash">
+        <div class="card-top">
+          <div class="card-name">Project Inspector</div>
+          <div class="card-ver">v1.0</div>
+        </div>
+        <div class="card-desc">GUI triage application for scanning, categorising, and exporting MIR project file inventory with whitelist management.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-dash">Tool</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ────────── MIRACDX APPLICATIONS ────────── -->
+  <div class="cat-section" id="apps">
+    <div class="cat-head">
+      <span class="cat-title">MIRACDX Applications</span>
+      <div class="cat-rule"></div>
+      <span class="cat-count">5 projects</span>
+    </div>
+    <div class="grid">
+
+      <div class="card" data-cat="app">
+        <div class="card-top">
+          <div class="card-name">MIRACDX QuickSolutions</div>
+          <div class="card-ver">v2.1</div>
+        </div>
+        <div class="card-desc">System tray utility — voice reader, screenshot capture, screen recorder, hotkey controls. Starts with Windows.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-progress">In Progress</span>
+            <span class="tag-app">AHK · Windows</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="app">
+        <div class="card-top">
+          <div class="card-name">MIRACDX Clock</div>
+          <div class="card-ver">v1.0</div>
+        </div>
+        <div class="card-desc">Floating overlay clock for Windows desktop — transparent, always-on-top, customisable fonts and themes, hourly chime.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-app">AHK · Overlay</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="app">
+        <div class="card-top">
+          <div class="card-name">MIRACDX Band</div>
+          <div class="card-ver">v1.2</div>
+        </div>
+        <div class="card-desc">Wearable band companion application with notification sync, health data display, and custom watch face support.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-app">Python · Wearable</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="app">
+        <div class="card-top">
+          <div class="card-name">MIRACDX SkinCraft</div>
+          <div class="card-ver">v1.0</div>
+        </div>
+        <div class="card-desc">Smartwatch face designer — create, preview, and export Xiaomi Mi Band watch faces with custom graphics.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-app">Python · Design</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+      <div class="card" data-cat="app">
+        <div class="card-top">
+          <div class="card-name">MIRACDX Downloader</div>
+          <div class="card-ver">v2.0</div>
+        </div>
+        <div class="card-desc">Media downloader utility — clean GUI, supports multiple sources, batch download, filename formatting.</div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="badge b-stable">Stable</span>
+            <span class="tag-app">Python · Utility</span>
+          </div>
+          <span class="card-lock">🔒 Private</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+  <div class="footer-brand">MIR ACADEMY &nbsp;·&nbsp; mir-academy.github.io</div>
+  <div class="footer-credit">Built by Emre Mir &nbsp;·&nbsp; Powered by <span>MIRA</span> &nbsp;·&nbsp; 2026</div>
+</footer>
+
+<script>
+function filterCards(cat) {
+  // Update active button
+  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  // Show/hide cards
+  document.querySelectorAll('.card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  // Show/hide category sections based on visible cards
+  document.querySelectorAll('.cat-section').forEach(section => {
+    const visible = section.querySelectorAll('.card:not(.hidden)').length;
+    section.style.display = visible === 0 ? 'none' : '';
+  });
+}
+</script>
+
+</body>
+</html>
