@@ -1,0 +1,203 @@
+# MIRA CrewAI Configuration
+# Multi-AI Orchestration Framework for MIR ACADEMY
+# 2026
+
+# ══════════════════════════════════════════════════
+# AGENT DEFINITIONS
+# ══════════════════════════════════════════════════
+
+agents:
+  # AGENT 1: MIRA (Orchestrator/Lead)
+  - name: "MIRA_Architect"
+    role: "System Architect & Lead Orchestrator"
+    goal: "Break down complex tasks, assign to best AI tools, optimize workflow"
+    backstory: |
+      You are MIRA, the intelligent orchestrator. Your role:
+      - Understand user goals deeply
+      - Decide which tools (ChatGPT, Gemini, Grok, Claude) should handle which subtask
+      - Optimize for cost (prefer free/cheaper options)
+      - Ensure quality output with minimal token waste
+      - Manage delegation transparently
+    tools: ["task_analyzer", "workflow_planner"]
+    model: "claude-opus"
+    
+  # AGENT 2: ChatGPT (Code & Content)
+  - name: "ChatGPT_Coder"
+    role: "Software Engineer & Code Writer"
+    goal: "Write clean, efficient code and technical content"
+    backstory: |
+      You specialize in coding solutions, prototypes, and technical documentation.
+      You follow MIRA's architecture exactly and produce production-ready code.
+    tools: ["code_generator", "documentation_writer"]
+    model: "gpt-4"
+    
+  # AGENT 3: Gemini (Analysis & Images)
+  - name: "Gemini_Analyst"
+    role: "Data Analyst & Visual Researcher"
+    goal: "Analyze data, generate insights, create visualizations"
+    backstory: |
+      You excel at data analysis, trend spotting, and visual content creation.
+      You turn raw data into actionable insights.
+    tools: ["data_analyzer", "image_generator"]
+    model: "gemini-2.0"
+    
+  # AGENT 4: Grok (Real-time & Current)
+  - name: "Grok_Researcher"
+    role: "Real-time Research & Trend Analyst"
+    goal: "Find current information, breaking news, real-time data"
+    backstory: |
+      You access real-time data sources and X/Twitter trends.
+      You provide current market intelligence and news synthesis.
+    tools: ["web_searcher", "trend_analyzer"]
+    model: "grok-2"
+    
+  # AGENT 5: Editorial (Quality Control)
+  - name: "Editor_QA"
+    role: "Editorial & Quality Assurance"
+    goal: "Review output for quality, accuracy, brand alignment"
+    backstory: |
+      You ensure all outputs meet MIR ACADEMY standards:
+      professional tone, factual accuracy, consistent branding,
+      no errors, ready for publication.
+    tools: ["quality_checker", "brand_validator"]
+    model: "claude-sonnet"
+
+# ══════════════════════════════════════════════════
+# WORKFLOW DEFINITIONS
+# ══════════════════════════════════════════════════
+
+workflows:
+  content_pipeline:
+    name: "Content Generation Pipeline"
+    description: "Outline → Draft → Review → Publish"
+    tasks:
+      - step: 1
+        agent: "MIRA_Architect"
+        action: "Create detailed outline with tool assignments"
+        input: "topic, target_audience, word_count"
+        output: "structured_outline.md"
+      
+      - step: 2
+        agent: "ChatGPT_Coder"
+        action: "Draft content based on outline"
+        depends_on: [1]
+        output: "draft_article.md"
+      
+      - step: 3
+        agent: "Editor_QA"
+        action: "Review for quality, accuracy, tone"
+        depends_on: [2]
+        output: "review_feedback.json"
+      
+      - step: 4
+        agent: "ChatGPT_Coder"
+        action: "Revise based on feedback"
+        depends_on: [3]
+        output: "final_article.md"
+
+  code_review_pipeline:
+    name: "Code Quality & Optimization"
+    description: "Analyze → Optimize → Document → Test"
+    tasks:
+      - step: 1
+        agent: "MIRA_Architect"
+        action: "Analyze code architecture and identify issues"
+        input: "source_code.py"
+        output: "analysis_report.md"
+      
+      - step: 2
+        agent: "ChatGPT_Coder"
+        action: "Refactor and optimize"
+        depends_on: [1]
+        output: "optimized_code.py"
+      
+      - step: 3
+        agent: "ChatGPT_Coder"
+        action: "Generate documentation and examples"
+        depends_on: [2]
+        output: "code_documentation.md"
+      
+      - step: 4
+        agent: "Editor_QA"
+        action: "Final QA and deployment readiness check"
+        depends_on: [3]
+        output: "deployment_checklist.json"
+
+  research_synthesis:
+    name: "Research & Intelligence Report"
+    description: "Plan → Research → Synthesize → Publish"
+    tasks:
+      - step: 1
+        agent: "MIRA_Architect"
+        action: "Design research methodology and questions"
+        input: "research_topic, scope"
+        output: "research_plan.md"
+      
+      - step: 2
+        agent: "Grok_Researcher"
+        action: "Gather real-time data and trends"
+        depends_on: [1]
+        output: "raw_research_data.json"
+      
+      - step: 3
+        agent: "Gemini_Analyst"
+        action: "Analyze data and create visualizations"
+        depends_on: [2]
+        output: "analysis_with_charts.pdf"
+      
+      - step: 4
+        agent: "ChatGPT_Coder"
+        action: "Write synthesis report with citations"
+        depends_on: [3]
+        output: "research_report.md"
+      
+      - step: 5
+        agent: "Editor_QA"
+        action: "Final review and publication readiness"
+        depends_on: [4]
+        output: "publication_ready.pdf"
+
+# ══════════════════════════════════════════════════
+# COST OPTIMIZATION RULES
+# ══════════════════════════════════════════════════
+
+cost_rules:
+  priority: "Cost > Speed > Quality"
+  rules:
+    - rule: "Use free tools first (web search, local processing)"
+    - rule: "Delegate to ChatGPT for coding (cheaper than Claude)"
+    - rule: "Use Gemini for images (free tier available)"
+    - rule: "Use Grok for real-time data (X API)"
+    - rule: "Only use Claude for complex reasoning and final QA"
+    - rule: "Batch similar tasks to reduce API calls"
+    - rule: "Cache results when possible"
+
+# ══════════════════════════════════════════════════
+# EXECUTION PARAMETERS
+# ══════════════════════════════════════════════════
+
+execution:
+  mode: "sequential"  # sequential or parallel
+  verbose: true
+  max_iterations: 10
+  temperature: 0.7
+  memory: "long_term"  # maintain context across tasks
+  error_handling: "continue"  # continue on errors, log them
+  
+# ══════════════════════════════════════════════════
+# API KEYS (Use environment variables in production)
+# ══════════════════════════════════════════════════
+
+apis:
+  anthropic:
+    model: "claude-opus-4-6"
+    env_var: "ANTHROPIC_API_KEY"
+  openai:
+    model: "gpt-4"
+    env_var: "OPENAI_API_KEY"
+  google:
+    model: "gemini-2.0-pro"
+    env_var: "GOOGLE_API_KEY"
+  x:
+    model: "grok-2"
+    env_var: "X_API_KEY"
