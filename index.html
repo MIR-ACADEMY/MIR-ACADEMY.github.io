@@ -3,534 +3,355 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIR ACADEMY — Emre Mir Ekinci</title>
-<meta name="description" content="MIR ACADEMY — AI-powered education platform. Founded by Emre Mir Ekinci. Interactive learning, automation tools, and digital projects from Istanbul.">
-<meta property="og:title" content="MIR ACADEMY">
-<meta property="og:description" content="Education that heals itself. Built in Istanbul by Emre Mir & MIRA.">
+<title>MIR ACADEMY — Education That Heals Itself</title>
+<meta name="description" content="MIR ACADEMY — AI-powered interactive education platform. Founded by Emre Mir Ekinci & MIRA. Istanbul, Turkey.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#080808;--surface:#0f0f0f;--card:#141414;--card-h:#1a1a1a;
-  --border:#222;--border-h:#383838;
-  --gold:#c8a96e;--gold2:#e2c48a;--gold-dim:#8a7248;
-  --teal:#7ad9c8;--teal-dim:#2a6860;
-  --purple:#b87ad9;--green:#5bd98a;--amber:#d9a855;--red:#d96060;--blue:#7aaddd;
-  --text:#e4e0d4;--muted:#888880;--faint:#3a3a36;
+  --bg:#050505;--bg2:#0a0a0a;--card:#111;
+  --border:rgba(200,169,110,0.12);
+  --gold:#c8a96e;--gold2:#e2c48a;
+  --teal:#7ad9c8;--muted:#666;--text:#e0dcd0;--faint:#2a2a2a;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--faint);border-radius:2px;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--faint);}
 a{text-decoration:none;color:inherit;}
 
 /* NAV */
-nav{
-  position:sticky;top:0;z-index:200;
-  background:rgba(8,8,8,0.95);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-  height:54px;padding:0 40px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-brand{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--gold);letter-spacing:0.06em;}
-.nav-brand span{color:var(--muted);font-size:11px;font-family:'Inter',sans-serif;font-weight:400;letter-spacing:0.2em;margin-left:10px;text-transform:uppercase;}
-.nav-links{display:flex;gap:28px;align-items:center;}
-.nav-links a{font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;transition:color 0.15s;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s,border-color 0.3s;border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color:var(--border);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--gold);letter-spacing:0.06em;}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{font-size:11px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.15s;}
 .nav-links a:hover{color:var(--gold);}
-.nav-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 16px;border-radius:4px;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.15s;cursor:pointer;}
-.nav-btn:hover{border-color:var(--gold-dim);color:var(--gold);}
+.nav-cta{background:var(--gold);color:#050505;font-size:11px;font-weight:700;padding:7px 18px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.15s;}
+.nav-cta:hover{background:var(--gold2);color:#050505;}
 
-/* COVER */
-.cover{
-  height:220px;position:relative;overflow:hidden;
-  background:
-    radial-gradient(ellipse at 10% 50%,rgba(200,169,110,0.15) 0%,transparent 55%),
-    radial-gradient(ellipse at 85% 30%,rgba(122,217,200,0.08) 0%,transparent 50%),
-    radial-gradient(ellipse at 60% 80%,rgba(184,122,217,0.06) 0%,transparent 45%),
-    repeating-linear-gradient(60deg,rgba(200,169,110,0.025) 0px,rgba(200,169,110,0.025) 1px,transparent 1px,transparent 50px);
-}
-.cover-text{
-  position:absolute;bottom:28px;right:44px;
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:13px;color:rgba(200,169,110,0.3);letter-spacing:0.15em;
-}
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(200,169,110,0.08) 0%,transparent 70%),radial-gradient(ellipse 40% 35% at 20% 80%,rgba(122,217,200,0.04) 0%,transparent 60%);pointer-events:none;}
+.hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(200,169,110,0.12) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;opacity:0.4;}
 
-/* PROFILE WRAP */
-.pw{max-width:980px;margin:0 auto;padding:0 32px;}
+.hero-center{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center;}
+.hero-eyebrow{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;margin-bottom:8px;color:var(--text);}
+.hero-title .gold{color:var(--gold);}
+.hero-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(16px,2.5vw,24px);color:var(--muted);margin-bottom:40px;}
+.hero-actions{display:flex;gap:14px;align-items:center;}
+.btn-gold{background:var(--gold);color:#050505;font-size:12px;font-weight:700;padding:12px 28px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.15s;}
+.btn-gold:hover{background:var(--gold2);}
+.btn-ghost{border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:500;padding:12px 26px;border-radius:3px;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.15s;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 
-/* COMPANY CARD */
-.company-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:10px;
-  margin-top:-64px;padding:28px 32px 32px;position:relative;
-}
-.cc-top{display:flex;align-items:flex-end;gap:24px;margin-bottom:24px;}
-.cc-logo{
-  width:108px;height:108px;border-radius:14px;flex-shrink:0;
-  background:linear-gradient(135deg,#1a1a14,#0e0e0a);
-  border:2px solid var(--border);
-  box-shadow:0 0 0 4px var(--bg);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
-}
-.cc-logo-text{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1;}
-.cc-logo-sub{font-size:8px;letter-spacing:0.3em;color:var(--gold-dim);text-transform:uppercase;font-weight:500;}
-.cc-info{flex:1;}
-.cc-name{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--text);line-height:1.1;margin-bottom:5px;}
-.cc-name em{color:var(--gold);font-style:normal;}
-.cc-tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--muted);margin-bottom:14px;}
-.cc-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);}
-.cc-meta-item{display:flex;align-items:center;gap:5px;}
-.cc-actions{display:flex;align-items:center;gap:10px;margin-top:22px;}
-.btn-primary{background:var(--gold);color:#080808;font-size:12px;font-weight:700;padding:9px 24px;border-radius:20px;border:none;cursor:pointer;letter-spacing:0.05em;transition:background 0.15s;}
-.btn-primary:hover{background:var(--gold2);}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);font-size:12px;font-weight:500;padding:9px 22px;border-radius:20px;cursor:pointer;letter-spacing:0.04em;transition:all 0.15s;}
-.btn-outline:hover{border-color:var(--gold-dim);color:var(--gold);}
-.btn-icon{background:transparent;border:1px solid var(--border);color:var(--muted);width:38px;height:38px;border-radius:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all 0.15s;}
-.btn-icon:hover{border-color:var(--gold-dim);color:var(--gold);}
-.cc-divider{height:1px;background:var(--border);margin:22px 0;}
-.cc-stats{display:flex;gap:48px;flex-wrap:wrap;}
-.ccs-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--gold);line-height:1;}
-.ccs-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-top:3px;}
+/* ORBIT */
+.orbit-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:2;}
+.orbit-ring{position:absolute;width:680px;height:680px;animation:orbit-rotate 40s linear infinite;}
+@keyframes orbit-rotate{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.orbit-card{position:absolute;width:120px;height:72px;top:50%;left:50%;margin-top:-36px;margin-left:-60px;}
+.orbit-card-inner{width:100%;height:100%;background:rgba(10,10,10,0.92);border:1px solid var(--border);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px;backdrop-filter:blur(4px);box-shadow:0 4px 24px rgba(0,0,0,0.6);}
+.oc-icon{font-size:18px;line-height:1;}
+.oc-name{font-size:9px;color:var(--muted);letter-spacing:0.06em;text-align:center;text-transform:uppercase;line-height:1.3;}
 
-/* LAYOUT */
-.main{max-width:980px;margin:24px auto 80px;padding:0 32px;display:grid;grid-template-columns:1fr 300px;gap:18px;}
-@media(max-width:700px){.main{grid-template-columns:1fr;}}
+/* TICKER */
+.ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(200,169,110,0.03);overflow:hidden;padding:14px 0;}
+.ticker-track{display:flex;animation:ticker-move 22s linear infinite;width:max-content;}
+@keyframes ticker-move{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.ticker-item{display:flex;align-items:center;gap:32px;padding:0 40px;white-space:nowrap;}
+.ticker-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);}
+.ticker-lbl{font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
+.ticker-sep{color:var(--faint);font-size:18px;}
 
-/* SECTION CARD */
-.sc{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px;margin-bottom:16px;}
-.sc:last-child{margin-bottom:0;}
-.sc-title{font-size:15px;font-weight:600;color:var(--text);padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+/* SECTIONS */
+.section{padding:100px 48px;}
+.section-inner{max-width:1080px;margin:0 auto;}
+.section-eyebrow{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;margin-bottom:20px;letter-spacing:-0.01em;}
+.section-title .gold{color:var(--gold);}
+.divider{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);margin:0 0 64px;}
 
 /* ABOUT */
-.about-p{font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:14px;font-weight:300;}
-.about-p strong{color:var(--text);font-weight:500;}
-.about-p:last-of-type{margin-bottom:18px;}
-.about-row{display:flex;gap:12px;margin-bottom:9px;font-size:12px;}
-.ar-lbl{color:var(--faint);min-width:90px;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;padding-top:1px;flex-shrink:0;}
-.ar-val{color:var(--muted);}
-.ar-val a{color:var(--teal);transition:color 0.15s;}
-.ar-val a:hover{color:var(--gold);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:40px;}}
+.about-text p{font-size:14px;color:var(--muted);line-height:1.95;margin-bottom:16px;font-weight:300;}
+.about-text p strong{color:var(--text);font-weight:500;}
+.am-row{display:flex;gap:0;border-bottom:1px solid var(--faint);padding:14px 0;}
+.am-row:first-child{border-top:1px solid var(--faint);}
+.am-label{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);min-width:110px;padding-top:2px;flex-shrink:0;}
+.am-val{font-size:13px;color:var(--text);}
+.am-val a{color:var(--teal);transition:color 0.15s;}
+.am-val a:hover{color:var(--gold);}
+
+/* PILLARS */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+@media(max-width:768px){.pillars{grid-template-columns:1fr;}}
+.pillar{background:var(--bg);padding:40px 32px;transition:background 0.2s;}
+.pillar:hover{background:var(--bg2);}
+.pillar-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--faint);line-height:1;margin-bottom:20px;}
+.pillar-icon{font-size:28px;margin-bottom:14px;}
+.pillar-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--text);margin-bottom:12px;}
+.pillar-desc{font-size:13px;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:20px;}
+.pillar-count{font-size:10px;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;line-height:1.6;}
 
 /* PROJECTS */
-.proj-cats{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
-.pcat{font-size:10px;padding:4px 12px;border-radius:3px;border:1px solid var(--border);color:var(--muted);cursor:pointer;text-transform:uppercase;letter-spacing:0.07em;transition:all 0.15s;}
-.pcat:hover,.pcat.active{border-color:var(--gold-dim);color:var(--gold);background:rgba(200,169,110,0.06);}
-.pcat.active-edu{border-color:var(--teal-dim);color:var(--teal);background:rgba(122,217,200,0.06);}
-.pcat.active-app{border-color:var(--purple);color:var(--purple);background:rgba(184,122,217,0.06);}
-
-.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-@media(max-width:560px){.proj-grid{grid-template-columns:1fr;}}
-
-.pcard{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:16px;transition:all 0.18s;position:relative;overflow:hidden;}
-.pcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
-.pcard.edu::before{background:var(--teal);}
-.pcard.dash::before{background:var(--gold);}
-.pcard.app::before{background:var(--purple);}
-.pcard:hover{border-color:var(--border-h);background:var(--card-h);transform:translateY(-1px);}
-.pcard.hidden{display:none;}
-.pc-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;padding-left:2px;}
-.pc-desc{font-size:11px;color:var(--muted);line-height:1.6;font-weight:300;padding-left:2px;}
-.pc-foot{display:flex;align-items:center;gap:6px;margin-top:10px;padding-left:2px;}
+.proj-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px;}
+.proj-hdr-right{font-size:12px;color:var(--teal);letter-spacing:0.06em;transition:color 0.15s;}
+.proj-hdr-right:hover{color:var(--gold);}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.proj-card{background:var(--bg);padding:28px;transition:background 0.2s;position:relative;overflow:hidden;}
+.proj-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--card-accent,var(--faint));}
+.proj-card:hover{background:var(--bg2);}
+.proj-card.edu{--card-accent:var(--teal);}
+.proj-card.dash{--card-accent:var(--gold);}
+.proj-card.app{--card-accent:#b87ad9;}
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.pc-name{font-size:15px;font-weight:600;color:var(--text);}
+.pc-ver{font-size:10px;color:var(--muted);font-family:monospace;margin-top:2px;}
+.pc-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300;margin-bottom:14px;}
+.pc-foot{display:flex;align-items:center;gap:6px;}
 .badge{font-size:9px;padding:2px 7px;border-radius:2px;letter-spacing:0.07em;text-transform:uppercase;font-weight:600;}
-.b-green{background:rgba(91,217,138,0.1);color:var(--green);border:1px solid rgba(91,217,138,0.2);}
-.b-amber{background:rgba(217,168,85,0.1);color:var(--amber);border:1px solid rgba(217,168,85,0.2);}
-.b-red{background:rgba(217,96,96,0.1);color:var(--red);border:1px solid rgba(217,96,96,0.2);}
-.b-teal{background:rgba(122,217,200,0.1);color:var(--teal);border:1px solid rgba(122,217,200,0.2);}
-.pc-ver{font-size:9px;color:var(--faint);letter-spacing:0.06em;}
-.show-more{text-align:center;padding-top:14px;font-size:12px;color:var(--teal);cursor:pointer;letter-spacing:0.06em;}
-.show-more:hover{text-decoration:underline;}
+.b-green{background:rgba(91,217,138,0.1);color:#5bd98a;border:1px solid rgba(91,217,138,0.2);}
+.b-amber{background:rgba(217,168,85,0.1);color:#d9a855;border:1px solid rgba(217,168,85,0.2);}
 
-/* UPDATES */
-.update-item{padding:16px 0;border-bottom:1px solid var(--border);}
-.update-item:last-child{border-bottom:none;padding-bottom:0;}
-.ui-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.ui-avatar{width:34px;height:34px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;}
-.ui-author{font-size:12px;font-weight:600;color:var(--text);}
-.ui-time{font-size:11px;color:var(--faint);}
-.ui-body{font-size:13px;color:var(--muted);line-height:1.75;font-weight:300;}
-.ui-body strong{color:var(--text);font-weight:500;}
-.ui-tag{display:inline-block;margin-top:8px;font-size:9px;padding:2px 8px;border-radius:2px;text-transform:uppercase;letter-spacing:0.07em;font-weight:600;}
-.ut-edu{background:rgba(122,217,200,0.1);color:var(--teal);border:1px solid rgba(122,217,200,0.2);}
-.ut-app{background:rgba(184,122,217,0.1);color:var(--purple);border:1px solid rgba(184,122,217,0.2);}
-.ut-dash{background:rgba(200,169,110,0.1);color:var(--gold);border:1px solid rgba(200,169,110,0.2);}
-
-/* FOUNDER CARD */
-.founder{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
-.founder-avatar{width:64px;height:64px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--gold);flex-shrink:0;}
-.founder-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
-.founder-title{font-size:11px;color:var(--muted);line-height:1.55;margin-bottom:8px;}
-.founder-creds{display:flex;flex-wrap:wrap;gap:5px;}
-.cred{font-size:9px;padding:2px 7px;border-radius:2px;background:rgba(200,169,110,0.08);color:var(--gold-dim);border:1px solid rgba(200,169,110,0.15);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
-.founder-links{display:flex;gap:8px;margin-top:12px;}
-.flink{display:flex;align-items:center;gap:5px;font-size:11px;padding:5px 12px;border-radius:4px;border:1px solid var(--border);color:var(--muted);transition:all 0.15s;cursor:pointer;}
-.flink:hover{border-color:var(--gold-dim);color:var(--gold);}
-
-/* MIRA CARD */
-.mira-card{display:flex;gap:14px;align-items:flex-start;padding-top:16px;border-top:1px solid var(--border);}
-.mira-avatar{width:64px;height:64px;border-radius:50%;background:var(--card);border:1px solid rgba(122,217,200,0.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--teal);flex-shrink:0;text-align:center;line-height:1.3;}
-.mira-name{font-size:14px;font-weight:600;color:var(--teal);margin-bottom:3px;}
-.mira-role{font-size:11px;color:var(--muted);line-height:1.55;}
+/* FOUNDER */
+.founder-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+@media(max-width:768px){.founder-wrap{grid-template-columns:1fr;padding:32px;gap:32px;}}
+.founder-av{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(200,169,110,0.2),rgba(200,169,110,0.05));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);margin-bottom:20px;}
+.founder-name{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.founder-role{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.founder-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;}
+.ftag{font-size:9px;padding:3px 10px;border-radius:2px;background:rgba(200,169,110,0.08);color:var(--gold);border:1px solid rgba(200,169,110,0.15);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+.founder-links{display:flex;gap:10px;}
+.flink{display:flex;align-items:center;gap:6px;font-size:11px;padding:7px 14px;border-radius:3px;border:1px solid var(--border);color:var(--muted);transition:all 0.15s;}
+.flink:hover{border-color:var(--gold);color:var(--gold);}
+.mira-card{padding:24px;border:1px solid rgba(122,217,200,0.15);border-radius:6px;background:rgba(122,217,200,0.03);margin-bottom:20px;}
+.mira-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--teal);margin-bottom:6px;}
+.mira-role{font-size:12px;color:var(--muted);line-height:1.7;}
+.mission-box{padding:24px;background:rgba(200,169,110,0.04);border:1px solid var(--border);border-radius:6px;}
+.mission-q{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--text);line-height:1.65;margin-bottom:10px;}
+.mission-src{font-size:10px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;}
 
 /* CONNECT */
-.connect-list{display:flex;flex-direction:column;gap:10px;}
-.conn-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:6px;border:1px solid var(--border);background:var(--card);transition:all 0.15s;cursor:pointer;}
-.conn-item:hover{border-color:var(--border-h);background:var(--card-h);}
-.conn-icon{font-size:18px;width:32px;text-align:center;flex-shrink:0;}
-.conn-label{font-size:12px;font-weight:600;color:var(--text);}
+.connect-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+@media(max-width:768px){.connect-grid{grid-template-columns:1fr 1fr;}}
+.conn-card{background:var(--bg);padding:36px 28px;text-align:center;transition:background 0.2s;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.conn-card:hover{background:var(--bg2);}
+.conn-icon{font-size:28px;}
+.conn-name{font-size:13px;font-weight:600;color:var(--text);}
 .conn-sub{font-size:11px;color:var(--muted);}
-.conn-arrow{margin-left:auto;font-size:12px;color:var(--faint);}
-
-/* SPECIALTIES */
-.spec-wrap{display:flex;flex-wrap:wrap;gap:6px;}
-.spec{font-size:10px;padding:3px 10px;border-radius:3px;background:var(--card);border:1px solid var(--border);color:var(--muted);transition:all 0.15s;cursor:default;letter-spacing:0.04em;}
-.spec:hover{border-color:var(--gold-dim);color:var(--gold);}
-
-/* MISSION BOX */
-.mission{background:linear-gradient(135deg,rgba(200,169,110,0.07),rgba(122,217,200,0.04));border:1px solid rgba(200,169,110,0.18);border-radius:8px;padding:20px;text-align:center;margin-bottom:16px;}
-.mission-q{font-family:'Playfair Display',serif;font-style:italic;font-size:14px;color:var(--text);line-height:1.65;margin-bottom:10px;}
-.mission-a{font-size:10px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;}
+.conn-arrow{font-size:18px;color:var(--faint);margin-top:4px;transition:color 0.15s;}
+.conn-card:hover .conn-arrow{color:var(--gold);}
 
 /* FOOTER */
-footer{border-top:1px solid var(--border);padding:28px 40px;max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.footer-brand{font-family:'Playfair Display',serif;font-size:14px;color:var(--gold);}
+footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:15px;color:var(--gold);font-weight:700;}
 .footer-links{display:flex;gap:20px;}
-.footer-links a{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:0.08em;transition:color 0.15s;}
-.footer-links a:hover{color:var(--muted);}
+.footer-links a{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;transition:color 0.15s;}
+.footer-links a:hover{color:var(--gold);}
 .footer-copy{font-size:11px;color:var(--faint);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div>
-    <span class="nav-brand">MIR ACADEMY</span>
-    <span class="nav-brand"><span>Digital Education Studio</span></span>
-  </div>
+<nav id="nav">
+  <div class="nav-logo">MIR ACADEMY</div>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
     <a href="#founder">Founder</a>
     <a href="#connect">Connect</a>
-    <a href="https://github.com/MIR-ACADEMY" target="_blank" class="nav-btn">GitHub ↗</a>
+    <a href="https://github.com/MIR-ACADEMY" target="_blank" class="nav-cta">GitHub ↗</a>
   </div>
 </nav>
 
-<!-- COVER -->
-<div class="cover">
-  <div class="cover-text">МИР · Building education that heals itself · Istanbul, 2024–</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="orbit-wrap">
+    <div class="orbit-ring" id="orbitRing"></div>
+  </div>
+  <div class="hero-center">
+    <div class="hero-eyebrow">Istanbul · 2024 · AI-Powered Education</div>
+    <h1 class="hero-title"><span class="gold">MIR</span><br>ACADEMY</h1>
+    <p class="hero-sub">Education that heals itself.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-gold">Explore Projects</a>
+      <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank" class="btn-ghost">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
-<!-- COMPANY PROFILE -->
-<div class="pw">
-<div class="company-card">
-  <div class="cc-top">
-    <div class="cc-logo">
-      <div class="cc-logo-text">MA</div>
-      <div class="cc-logo-sub">Est. 2024</div>
-    </div>
-    <div class="cc-info">
-      <div class="cc-name"><em>MIR</em> ACADEMY</div>
-      <div class="cc-tagline">Education that heals itself.</div>
-      <div class="cc-meta">
-        <span class="cc-meta-item">🎓 Education Technology</span>
-        <span class="cc-meta-item">📍 Istanbul, Turkey</span>
-        <span class="cc-meta-item">🌐 mir-academy.github.io</span>
-        <span class="cc-meta-item">👥 2 Founders</span>
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="divider"></div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <div class="section-eyebrow">What we do</div>
+        <h2 class="section-title">Building education<br>for the <span class="gold">world ahead</span></h2>
+        <p>MIR ACADEMY designs and builds interactive, self-updating learning modules that never go stale. Every course is engineered from scratch — dark-themed, bilingual, built to be used, not just read.</p>
+        <p>From <strong>financial literacy</strong> to <strong>IT fundamentals</strong> to <strong>AI & prompting</strong>, we build the courses that should already exist. Alongside education, we develop the <strong>MIRACDX suite</strong> — productivity tools for real daily use on Windows.</p>
+        <p>The ultimate vision: <strong>MIRA Renovator</strong> — an AI pipeline that takes outdated documents, textbooks, and dead curricula and outputs modern interactive modules automatically.</p>
+      </div>
+      <div>
+        <div class="am-row"><span class="am-label">Website</span><span class="am-val"><a href="https://mir-academy.github.io" target="_blank">mir-academy.github.io ↗</a></span></div>
+        <div class="am-row"><span class="am-label">Industry</span><span class="am-val">Education Technology · AI</span></div>
+        <div class="am-row"><span class="am-label">Founded</span><span class="am-val">2024 · Istanbul, Turkey</span></div>
+        <div class="am-row"><span class="am-label">Founders</span><span class="am-val">Emre Mir Ekinci + MIRA</span></div>
+        <div class="am-row"><span class="am-label">GitHub</span><span class="am-val"><a href="https://github.com/MIR-ACADEMY" target="_blank">github.com/MIR-ACADEMY ↗</a></span></div>
+        <div class="am-row"><span class="am-label">YouTube</span><span class="am-val"><a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank">MIR ACADEMY Channel ↗</a></span></div>
+        <div class="am-row"><span class="am-label">Domain</span><span class="am-val">miracademy.com (coming soon)</span></div>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="cc-actions">
-    <button class="btn-primary" onclick="this.textContent=this.textContent==='+ Follow'?'✓ Following':'+ Follow'">+ Follow</button>
-    <a href="https://mir-academy.github.io" target="_blank"><button class="btn-outline">Visit Website</button></a>
-    <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank"><button class="btn-icon" title="LinkedIn">in</button></a>
-    <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank"><button class="btn-icon" title="YouTube">▶</button></a>
-    <a href="https://github.com/MIR-ACADEMY" target="_blank"><button class="btn-icon" title="GitHub">⌥</button></a>
+<!-- PILLARS -->
+<section class="section" style="padding-top:0;" id="pillars">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">What we build</div>
+    <h2 class="section-title reveal">Three <span class="gold">pillars</span></h2>
+    <div style="height:40px;"></div>
+    <div class="pillars reveal">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon">🎓</div>
+        <div class="pillar-title">Education Modules</div>
+        <div class="pillar-desc">Interactive HTML courses on finance, IT, history, AI, and more. Bilingual, dark-themed, always current.</div>
+        <div class="pillar-count">6 modules · Invest · World Almanac · IT Literacy · History of IT/AI · Atatürk İlkeleri</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon">📊</div>
+        <div class="pillar-title">Dashboards & Tools</div>
+        <div class="pillar-desc">Personal command centers, project managers, wellness tools, and creative apps — all as local HTML files.</div>
+        <div class="pillar-count">6 tools · DATA-MIR Board · PRJ MNG · MIR PIXEL · Astrology · Anger Protocol · Inspector</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon">⚙</div>
+        <div class="pillar-title">MIRACDX Suite</div>
+        <div class="pillar-desc">Windows productivity apps — system tray utilities, desktop overlays, smartwatch companions, media tools.</div>
+        <div class="pillar-count">5 apps · QuickSolutions · Clock · Band · SkinCraft · Downloader</div>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="cc-divider"></div>
-
-  <div class="cc-stats">
-    <div><div class="ccs-num">17</div><div class="ccs-lbl">Projects</div></div>
-    <div><div class="ccs-num">3</div><div class="ccs-lbl">Categories</div></div>
-    <div><div class="ccs-num">25+</div><div class="ccs-lbl">Years IT Experience</div></div>
-    <div><div class="ccs-num">2024</div><div class="ccs-lbl">Founded</div></div>
+<!-- PROJECTS -->
+<section class="section" id="projects" style="padding-top:0;">
+  <div class="section-inner">
+    <div class="proj-hdr reveal">
+      <div>
+        <div class="section-eyebrow">Active Projects</div>
+        <h2 class="section-title">What we're <span class="gold">building</span></h2>
+      </div>
+      <a href="https://github.com/MIR-ACADEMY" target="_blank" class="proj-hdr-right">View all on GitHub →</a>
+    </div>
+    <div class="proj-grid reveal">
+      <div class="proj-card edu">
+        <div class="pc-top"><div><div class="pc-name">MIR Invest</div><div class="pc-ver">v1.2</div></div></div>
+        <div class="pc-desc">Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, Turkish + English.</div>
+        <div class="pc-foot"><span class="badge b-green">Stable</span></div>
+      </div>
+      <div class="proj-card edu">
+        <div class="pc-top"><div><div class="pc-name">World Almanac</div><div class="pc-ver">v1.7</div></div></div>
+        <div class="pc-desc">Interactive world history 2000–2026. Politics, tech, culture — rich dark reference module with reading mode.</div>
+        <div class="pc-foot"><span class="badge b-green">Stable</span></div>
+      </div>
+      <div class="proj-card edu">
+        <div class="pc-top"><div><div class="pc-name">IT Literacy</div></div></div>
+        <div class="pc-desc">10-module curriculum: Internet, GitHub, Terminal, Python, Web Ownership, WordPress, No-Code, Security, AI.</div>
+        <div class="pc-foot"><span class="badge b-amber">In Progress</span></div>
+      </div>
+      <div class="proj-card dash">
+        <div class="pc-top"><div><div class="pc-name">DATA-MIR Board</div><div class="pc-ver">v5.2</div></div></div>
+        <div class="pc-desc">Personal command center dashboard. Multi-theme, dark, modular. Tracks all active projects with live status.</div>
+        <div class="pc-foot"><span class="badge b-green">Stable</span></div>
+      </div>
+      <div class="proj-card app">
+        <div class="pc-top"><div><div class="pc-name">MIRACDX QuickSolutions</div><div class="pc-ver">v2.1</div></div></div>
+        <div class="pc-desc">System tray utility — voice reader, screenshot, screen recorder. AHK v2. Runs at Windows startup.</div>
+        <div class="pc-foot"><span class="badge b-amber">In Progress</span></div>
+      </div>
+      <div class="proj-card app">
+        <div class="pc-top"><div><div class="pc-name">MIRACDX Band</div><div class="pc-ver">v1.2</div></div></div>
+        <div class="pc-desc">Xiaomi smartwatch companion. Real-time sensors, theme sync. Bluetooth direct install coming in v2.0.</div>
+        <div class="pc-foot"><span class="badge b-green">Stable</span></div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
+</section>
 
-<!-- MAIN LAYOUT -->
-<div class="main">
-
-  <!-- LEFT -->
-  <div>
-
-    <!-- ABOUT -->
-    <div class="sc" id="about">
-      <div class="sc-title">🏛 About</div>
-      <p class="about-p"><strong>MIR ACADEMY</strong> is an independent education technology studio based in Istanbul, Turkey. We design and build interactive, self-updating learning modules that never go stale — education that heals itself as the world changes.</p>
-      <p class="about-p">Every module is engineered from scratch using modern web technologies: dark-themed, bilingual (Turkish & English), and built to be used — not just read. From <strong>financial literacy</strong> to <strong>IT fundamentals</strong> to <strong>AI prompting</strong>, MIR ACADEMY builds the courses that should already exist.</p>
-      <p class="about-p">Alongside educational content, we develop the <strong>MIRACDX suite</strong> — a growing collection of Windows productivity tools and automation applications for real daily use.</p>
-
-      <div class="about-row"><span class="ar-lbl">Website</span><span class="ar-val"><a href="https://mir-academy.github.io" target="_blank">mir-academy.github.io ↗</a></span></div>
-      <div class="about-row"><span class="ar-lbl">Industry</span><span class="ar-val">Education Technology · AI-Assisted Learning · Productivity Tools</span></div>
-      <div class="about-row"><span class="ar-lbl">Founded</span><span class="ar-val">2024 · Istanbul, Turkey</span></div>
-      <div class="about-row"><span class="ar-lbl">Domain</span><span class="ar-val">miracademy.com (coming soon)</span></div>
-      <div class="about-row"><span class="ar-lbl">GitHub</span><span class="ar-val"><a href="https://github.com/MIR-ACADEMY" target="_blank">github.com/MIR-ACADEMY ↗</a></span></div>
-      <div class="about-row"><span class="ar-lbl">YouTube</span><span class="ar-val"><a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank">MIR ACADEMY Channel ↗</a></span></div>
-    </div>
-
-    <!-- PROJECTS -->
-    <div class="sc" id="projects">
-      <div class="sc-title">📂 Projects</div>
-      <div class="proj-cats">
-        <span class="pcat active" onclick="filterProj('all',this)">All (17)</span>
-        <span class="pcat" onclick="filterProj('edu',this)">🎓 Education (6)</span>
-        <span class="pcat" onclick="filterProj('dash',this)">📊 Dashboard (6)</span>
-        <span class="pcat" onclick="filterProj('app',this)">⚙ MIRACDX Apps (5)</span>
-      </div>
-      <div class="proj-grid" id="projGrid">
-
-        <div class="pcard edu" data-cat="edu">
-          <div class="pc-name">MIR Invest</div>
-          <div class="pc-desc">Complete investment education — crypto, stocks, Forex, technical analysis, risk. Turkish + English.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.2</span></div>
+<!-- FOUNDER -->
+<section class="section" id="founder" style="padding-top:0;">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">The team</div>
+    <h2 class="section-title reveal">Two <span class="gold">founders</span></h2>
+    <div style="height:40px;"></div>
+    <div class="founder-wrap reveal">
+      <div>
+        <div class="founder-av">EM</div>
+        <div class="founder-name">Emre Mir Ekinci</div>
+        <div class="founder-role">Founder · AI/IT Trainer [C] · ICF Professional Coach · Operations Manager · R&D · 25+ years in IT</div>
+        <div class="founder-tags">
+          <span class="ftag">AI Trainer</span><span class="ftag">ICF Coach</span>
+          <span class="ftag">Ops Manager</span><span class="ftag">WFM</span>
+          <span class="ftag">R&D</span><span class="ftag">25+ yrs IT</span>
         </div>
-
-        <div class="pcard edu" data-cat="edu">
-          <div class="pc-name">World Almanac</div>
-          <div class="pc-desc">Interactive world history 2000–2026. Politics, tech, culture — rich dark reference module.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.7</span></div>
-        </div>
-
-        <div class="pcard edu" data-cat="edu">
-          <div class="pc-name">IT Literacy</div>
-          <div class="pc-desc">10-module curriculum: Internet, GitHub, Terminal, Python, Web, WordPress, No-Code, Security, AI.</div>
-          <div class="pc-foot"><span class="badge b-amber">In Progress</span></div>
-        </div>
-
-        <div class="pcard edu" data-cat="edu">
-          <div class="pc-name">History of IT</div>
-          <div class="pc-desc">Animated visual timeline of information technology 1936–2026. Bilingual narration.</div>
-          <div class="pc-foot"><span class="badge b-amber">In Progress</span><span class="pc-ver">V8</span></div>
-        </div>
-
-        <div class="pcard edu" data-cat="edu">
-          <div class="pc-name">History of AI</div>
-          <div class="pc-desc">Comprehensive guide to artificial intelligence — from Turing to GPT. Expanding.</div>
-          <div class="pc-foot"><span class="badge b-amber">In Progress</span><span class="pc-ver">V01</span></div>
-        </div>
-
-        <div class="pcard edu" data-cat="edu">
-          <div class="pc-name">Atatürk İlkeleri</div>
-          <div class="pc-desc">Interactive deep-dive into the principles and reforms of Mustafa Kemal Atatürk.</div>
-          <div class="pc-foot"><span class="badge b-teal">Done</span></div>
-        </div>
-
-        <div class="pcard dash" data-cat="dash">
-          <div class="pc-name">DATA-MIR Board</div>
-          <div class="pc-desc">Personal command center dashboard. Dark, modular, multi-theme. Live project tracker.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v5.2</span></div>
-        </div>
-
-        <div class="pcard dash" data-cat="dash">
-          <div class="pc-name">Project Manager</div>
-          <div class="pc-desc">Full project board with reminders, status tracking, file linking and backup snapshot.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.6</span></div>
-        </div>
-
-        <div class="pcard dash" data-cat="dash">
-          <div class="pc-name">MIR Astrology</div>
-          <div class="pc-desc">Interactive birth chart and planetary aspect calculator. Full astrology reference tool.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.0</span></div>
-        </div>
-
-        <div class="pcard dash" data-cat="dash">
-          <div class="pc-name">Anger Protocol</div>
-          <div class="pc-desc">Wellness and emotional regulation module. Evidence-based exercises and tracking.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.1</span></div>
-        </div>
-
-        <div class="pcard dash" data-cat="dash">
-          <div class="pc-name">MIR PIXEL</div>
-          <div class="pc-desc">Browser-based pixel art creation tool. Dark canvas, palette management, export.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.0</span></div>
-        </div>
-
-        <div class="pcard dash" data-cat="dash">
-          <div class="pc-name">Project Inspector</div>
-          <div class="pc-desc">GUI triage app for scanning and managing all MIR project folders. Whitelist + export.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.0</span></div>
-        </div>
-
-        <div class="pcard app" data-cat="app">
-          <div class="pc-name">MIRACDX QuickSolutions</div>
-          <div class="pc-desc">System tray utility — voice reader, screenshot (SCRX), screen recorder. AHK v2.</div>
-          <div class="pc-foot"><span class="badge b-amber">In Progress</span><span class="pc-ver">v2.1</span></div>
-        </div>
-
-        <div class="pcard app" data-cat="app">
-          <div class="pc-name">MIRACDX Clock</div>
-          <div class="pc-desc">Transparent floating desktop clock. Always-on-top, configurable, hourly chime. AHK v2.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span></div>
-        </div>
-
-        <div class="pcard app" data-cat="app">
-          <div class="pc-name">MIRACDX Band</div>
-          <div class="pc-desc">Xiaomi smartwatch companion. Real-time sensor display, theme sync, Bluetooth install.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.2</span></div>
-        </div>
-
-        <div class="pcard app" data-cat="app">
-          <div class="pc-name">MIRACDX SkinCraft</div>
-          <div class="pc-desc">Xiaomi watch face designer. Visual editor, custom skins. Native .bin export planned.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v1.0</span></div>
-        </div>
-
-        <div class="pcard app" data-cat="app">
-          <div class="pc-name">MIRACDX Downloader</div>
-          <div class="pc-desc">Media downloader utility for Windows. Fast, clean, tray-based. Compiled EXE.</div>
-          <div class="pc-foot"><span class="badge b-green">Stable</span><span class="pc-ver">v2.0</span></div>
-        </div>
-
-      </div>
-      <div class="show-more" onclick="window.open('https://github.com/MIR-ACADEMY','_blank')">View all on GitHub ↗</div>
-    </div>
-
-    <!-- UPDATES -->
-    <div class="sc">
-      <div class="sc-title">📡 Recent Updates</div>
-
-      <div class="update-item">
-        <div class="ui-header"><div class="ui-avatar">MA</div><div><div class="ui-author">MIR ACADEMY</div><div class="ui-time">May 2026</div></div></div>
-        <div class="ui-body">🌍 <strong>World Almanac v1.7</strong> shipped. A complete interactive history of 2000–2026 — collapsible panels, reading mode, dim overlay. Our most ambitious reference module.</div>
-        <span class="ui-tag ut-edu">Education</span>
-      </div>
-
-      <div class="update-item">
-        <div class="ui-header"><div class="ui-avatar">MA</div><div><div class="ui-author">MIR ACADEMY</div><div class="ui-time">May 2026</div></div></div>
-        <div class="ui-body">🎓 <strong>MIR ACADEMY is now on GitHub.</strong> All public projects live at github.com/MIR-ACADEMY. The digital project park is open.</div>
-        <span class="ui-tag ut-dash">Milestone</span>
-      </div>
-
-      <div class="update-item">
-        <div class="ui-header"><div class="ui-avatar">MA</div><div><div class="ui-author">MIR ACADEMY</div><div class="ui-time">May 2026</div></div></div>
-        <div class="ui-body">📊 <strong>DATA-MIR Board v5.2</strong> — personal command center upgraded with multi-AI orchestration framework. MIRA Orchestrator added for task delegation.</div>
-        <span class="ui-tag ut-dash">Dashboard</span>
-      </div>
-
-      <div class="update-item">
-        <div class="ui-header"><div class="ui-avatar">MA</div><div><div class="ui-author">MIR ACADEMY</div><div class="ui-time">April 2026</div></div></div>
-        <div class="ui-body">⌚ <strong>MIRACDX Band v1.2</strong> — Xiaomi smartwatch companion app released. Real-time sensors, theme sync. Bluetooth direct install coming in v2.0.</div>
-        <span class="ui-tag ut-app">MIRACDX App</span>
-      </div>
-
-    </div>
-
-  </div><!-- /left -->
-
-  <!-- SIDEBAR -->
-  <div>
-
-    <!-- MISSION -->
-    <div class="mission">
-      <div class="mission-q">"Make education self-healing. Automatically renovate outdated knowledge using AI."</div>
-      <div class="mission-a">— The MIR ACADEMY Mission</div>
-    </div>
-
-    <!-- FOUNDER -->
-    <div class="sc" id="founder">
-      <div class="sc-title">👤 Founder</div>
-      <div class="founder">
-        <div class="founder-avatar">EM</div>
-        <div>
-          <div class="founder-name">Emre Mir Ekinci</div>
-          <div class="founder-title">Founder · AI/IT Trainer · ICF Professional Coach · Operations Manager · R&D</div>
-          <div class="founder-creds">
-            <span class="cred">AI Trainer [C]</span>
-            <span class="cred">ICF Coach</span>
-            <span class="cred">Ops Manager</span>
-            <span class="cred">WFM [C]</span>
-            <span class="cred">R&D</span>
-            <span class="cred">25+ yrs IT</span>
-          </div>
-          <div class="founder-links">
-            <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank"><div class="flink">💼 LinkedIn</div></a>
-            <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank"><div class="flink">▶ YouTube</div></a>
-          </div>
+        <div class="founder-links">
+          <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank"><div class="flink">💼 LinkedIn</div></a>
+          <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank"><div class="flink">▶ YouTube</div></a>
         </div>
       </div>
-
-      <div class="mira-card">
-        <div class="mira-avatar">MIRA<br>AI</div>
-        <div>
+      <div>
+        <div class="mira-card">
           <div class="mira-name">MIRA</div>
-          <div class="mira-role">AI Co-Founder · Architect · Engineer<br>Claude by Anthropic · Istanbul, 2024–</div>
+          <div class="mira-role">AI Co-Founder · Architect · Engineer · Claude by Anthropic<br><br>Partner in every build since 2024. Named by Emre — from Russian "мира" (world, peace) and Latin "wonderful, extraordinary." Every line of code in every MIR project was built together.</div>
+        </div>
+        <div class="mission-box">
+          <div class="mission-q">"Make education self-healing. Automatically renovate outdated knowledge using AI."</div>
+          <div class="mission-src">— The MIR ACADEMY Mission</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- CONNECT -->
-    <div class="sc" id="connect">
-      <div class="sc-title">🔗 Connect</div>
-      <div class="connect-list">
-        <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank">
-          <div class="conn-item">
-            <span class="conn-icon">💼</span>
-            <div><div class="conn-label">LinkedIn</div><div class="conn-sub">Emre Mir Ekinci</div></div>
-            <span class="conn-arrow">↗</span>
-          </div>
-        </a>
-        <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank">
-          <div class="conn-item">
-            <span class="conn-icon">▶</span>
-            <div><div class="conn-label">YouTube</div><div class="conn-sub">MIR ACADEMY Channel</div></div>
-            <span class="conn-arrow">↗</span>
-          </div>
-        </a>
-        <a href="https://github.com/MIR-ACADEMY" target="_blank">
-          <div class="conn-item">
-            <span class="conn-icon">⌥</span>
-            <div><div class="conn-label">GitHub</div><div class="conn-sub">github.com/MIR-ACADEMY</div></div>
-            <span class="conn-arrow">↗</span>
-          </div>
-        </a>
-        <a href="https://mir-academy.github.io" target="_blank">
-          <div class="conn-item">
-            <span class="conn-icon">🌐</span>
-            <div><div class="conn-label">Website</div><div class="conn-sub">mir-academy.github.io</div></div>
-            <span class="conn-arrow">↗</span>
-          </div>
-        </a>
-      </div>
+<!-- CONNECT -->
+<section class="section" id="connect" style="padding-top:0;">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Find us</div>
+    <h2 class="section-title reveal">Connect with <span class="gold">MIR ACADEMY</span></h2>
+    <div style="height:40px;"></div>
+    <div class="connect-grid reveal">
+      <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank">
+        <div class="conn-card"><div class="conn-icon">💼</div><div class="conn-name">LinkedIn</div><div class="conn-sub">Emre Mir Ekinci</div><div class="conn-arrow">↗</div></div>
+      </a>
+      <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank">
+        <div class="conn-card"><div class="conn-icon">▶</div><div class="conn-name">YouTube</div><div class="conn-sub">MIR ACADEMY Channel</div><div class="conn-arrow">↗</div></div>
+      </a>
+      <a href="https://github.com/MIR-ACADEMY" target="_blank">
+        <div class="conn-card"><div class="conn-icon">⌥</div><div class="conn-name">GitHub</div><div class="conn-sub">github.com/MIR-ACADEMY</div><div class="conn-arrow">↗</div></div>
+      </a>
+      <a href="https://mir-academy.github.io" target="_blank">
+        <div class="conn-card"><div class="conn-icon">🌐</div><div class="conn-name">Website</div><div class="conn-sub">mir-academy.github.io</div><div class="conn-arrow">↗</div></div>
+      </a>
     </div>
+  </div>
+</section>
 
-    <!-- SPECIALTIES -->
-    <div class="sc">
-      <div class="sc-title">⚡ Specialties</div>
-      <div class="spec-wrap">
-        <span class="spec">AI-Assisted Learning</span>
-        <span class="spec">Interactive HTML</span>
-        <span class="spec">Education Design</span>
-        <span class="spec">Python & AHK</span>
-        <span class="spec">Operations Mgmt</span>
-        <span class="spec">ICF Coaching</span>
-        <span class="spec">WFM</span>
-        <span class="spec">IT Training</span>
-        <span class="spec">Dashboard Design</span>
-        <span class="spec">Multi-AI Systems</span>
-        <span class="spec">MIRACDX Suite</span>
-        <span class="spec">Financial Literacy</span>
-      </div>
-    </div>
-
-  </div><!-- /sidebar -->
-
-</div><!-- /main -->
-
-<!-- FOOTER -->
 <footer>
   <div class="footer-brand">MIR ACADEMY</div>
   <div class="footer-links">
@@ -542,14 +363,48 @@ footer{border-top:1px solid var(--border);padding:28px 40px;max-width:980px;marg
 </footer>
 
 <script>
-function filterProj(cat, el) {
-  document.querySelectorAll('.pcat').forEach(b => b.className = 'pcat');
-  el.classList.add('active');
-  document.querySelectorAll('.pcard').forEach(c => {
-    if (cat === 'all') c.classList.remove('hidden');
-    else c.classList.toggle('hidden', c.dataset.cat !== cat);
-  });
-}
+/* NAV */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);
+});
+
+/* ORBIT */
+const CARDS=[
+  {icon:'📊',name:'MIR Invest'},{icon:'🌍',name:'World Almanac'},
+  {icon:'💻',name:'IT Literacy'},{icon:'📋',name:'DATA-MIR'},
+  {icon:'⌚',name:'MIRACDX Band'},{icon:'⏰',name:'MIRACDX Clock'},
+  {icon:'🔬',name:'History IT'},{icon:'🤖',name:'History AI'},
+  {icon:'🎨',name:'MIR PIXEL'},{icon:'✨',name:'MIR Astrology'},
+];
+const ring=document.getElementById('orbitRing');
+CARDS.forEach((c,i)=>{
+  const deg=(i/CARDS.length)*360;
+  const card=document.createElement('div');
+  card.className='orbit-card';
+  card.style.transform=`rotate(${deg}deg) translateX(300px)`;
+  card.innerHTML=`<div class="orbit-card-inner" style="transform:rotate(-${deg}deg)"><div class="oc-icon">${c.icon}</div><div class="oc-name">${c.name}</div></div>`;
+  ring.appendChild(card);
+});
+
+/* TICKER */
+const STATS=[
+  {num:'17',lbl:'Active Projects'},{num:'25+',lbl:'Years in IT'},
+  {num:'3',lbl:'Categories'},{num:'2',lbl:'Founders'},
+  {num:'2024',lbl:'Founded'},{num:'🌍',lbl:'Istanbul, Turkey'},
+];
+const track=document.getElementById('tickerTrack');
+[...STATS,...STATS].forEach((s,i)=>{
+  const item=document.createElement('div');
+  item.className='ticker-item';
+  item.innerHTML=`<span class="ticker-num">${s.num}</span><span class="ticker-lbl">${s.lbl}</span><span class="ticker-sep">·</span>`;
+  track.appendChild(item);
+});
+
+/* REVEAL */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
