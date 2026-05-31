@@ -87,13 +87,13 @@ nav{
 .nav-back{font-size:14px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:color 0.15s;border:1px solid rgba(200,169,110,0.15);padding:6px 16px;border-radius:3px;}
 .nav-back:hover{color:var(--gold);border-color:rgba(200,169,110,0.4);}
 
-/* ── HERO TEXT ── */
+/* ── HERO TEXT — shifted up, clear of conveyor ── */
 .hero-text{
-  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  position:fixed;top:34%;left:50%;transform:translate(-50%,-50%);
   z-index:10;text-align:center;pointer-events:none;
   display:flex;flex-direction:column;align-items:center;gap:12px;
 }
-.hero-eyebrow{font-size:13px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(122,217,200,0.7);font-weight:500;}
+.hero-eyebrow{display:none;}
 
 /* ── SHIMMER ON MIR ACADEMY ── */
 @keyframes shimmer{
@@ -117,7 +117,7 @@ nav{
   background-clip:text;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:shimmer 4s ease-in-out infinite;
+  animation:shimmer 8s ease-in-out infinite;
 }
 .hero-title .g{
   background:linear-gradient(
@@ -132,7 +132,7 @@ nav{
   background-clip:text;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:shimmer 4s ease-in-out infinite;
+  animation:shimmer 8s ease-in-out infinite;
 }
 
 /* ── TAGLINE ── */
@@ -173,7 +173,7 @@ nav{
 /* ── CONVEYOR ── */
 .conveyor{
   display:flex;gap:20px;align-items:stretch;
-  animation:roll 28s linear infinite;
+  animation:roll 52s linear infinite;
   width:max-content;
   padding:20px 0;
   will-change:transform;
@@ -219,9 +219,9 @@ nav{
 .cv-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
 .cv-ver{font-size:12px;color:var(--muted);font-family:monospace;letter-spacing:0.06em;}
 .cv-badge{font-size:11px;padding:3px 9px;border-radius:2px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;}
-.b-stable{background:rgba(91,217,138,0.1);color:#5bd98a;border:1px solid rgba(91,217,138,0.2);}
-.b-prog{background:rgba(217,168,85,0.1);color:#d9a855;border:1px solid rgba(217,168,85,0.2);}
-.b-new{background:rgba(122,173,221,0.1);color:#7aaddd;border:1px solid rgba(122,173,221,0.2);}
+.b-stable{background:rgba(200,169,110,0.1);color:var(--gold);border:1px solid rgba(200,169,110,0.25);}
+.b-prog{background:rgba(200,169,110,0.08);color:var(--gold2);border:1px solid rgba(200,169,110,0.18);}
+.b-new{background:rgba(200,169,110,0.06);color:var(--gold);border:1px solid rgba(200,169,110,0.15);}
 
 /* COLOR VARIANTS */
 .cv-card.edu{--card-color:rgba(122,217,200,0.5);--card-cat:#7ad9c8;}
@@ -254,7 +254,6 @@ nav{
 
 <!-- HERO TEXT -->
 <div class="hero-text">
-  <div class="hero-eyebrow">Istanbul · 2024 · Education Technology</div>
   <div class="hero-title"><span class="g">MIR</span><br>ACADEMY</div>
   <div class="hero-tagline">AD ASTRA PER ASPERA</div>
   <div class="hero-ctas">
