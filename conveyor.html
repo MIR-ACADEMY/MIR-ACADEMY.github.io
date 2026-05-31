@@ -16,12 +16,55 @@
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;}
 
-/* ── BACKGROUND GRID ── */
+/* ── CARBON FIBER BACKGROUND ── */
 body::before{
-  content:'';position:fixed;inset:0;z-index:0;
-  background-image:radial-gradient(rgba(200,169,110,0.07) 1px,transparent 1px);
-  background-size:48px 48px;
-  pointer-events:none;
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  opacity:0.5;
+
+  /* Classic woven carbon fiber — pure CSS, no image */
+  background-color:#141414;
+  background-image:
+    /* Fiber highlight — diagonal right */
+    linear-gradient(
+      27deg,
+      rgba(10,10,10,1) 5px,
+      transparent 5px
+    ) 0 5px,
+    /* Fiber highlight — diagonal left */
+    linear-gradient(
+      207deg,
+      rgba(10,10,10,1) 5px,
+      transparent 5px
+    ) 10px 0,
+    /* Fiber shadow — diagonal right */
+    linear-gradient(
+      27deg,
+      rgba(26,26,26,1) 5px,
+      transparent 5px
+    ) 0 10px,
+    /* Fiber shadow — diagonal left */
+    linear-gradient(
+      207deg,
+      rgba(26,26,26,1) 5px,
+      transparent 5px
+    ) 10px 5px,
+    /* Horizontal groove */
+    linear-gradient(
+      90deg,
+      rgba(20,20,20,1) 10px,
+      transparent 10px
+    ),
+    /* Vertical weave pattern */
+    linear-gradient(
+      rgba(22,22,22,1) 25%,
+      rgba(17,17,17,1) 25%,
+      rgba(17,17,17,1) 50%,
+      transparent 50%,
+      transparent 75%,
+      rgba(28,28,28,1) 75%,
+      rgba(28,28,28,1)
+    );
+  background-size:20px 20px;
 }
 
 /* ── TOP GLOW ── */
