@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIR ACADEMY — Conveyor Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050505;
+  --gold:#c8a96e;--gold2:#e2c48a;--gold-dim:rgba(200,169,110,0.15);
+  --track:#0e0e0e;--track-line:rgba(200,169,110,0.25);
+  --text:#e0dcd0;--muted:#555;--faint:#1a1a1a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;}
+
+/* ── BACKGROUND GRID ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background-image:radial-gradient(rgba(200,169,110,0.07) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;
+}
+
+/* ── TOP GLOW ── */
+.glow{
+  position:fixed;top:-120px;left:50%;transform:translateX(-50%);
+  width:600px;height:300px;
+  background:radial-gradient(ellipse,rgba(200,169,110,0.12) 0%,transparent 70%);
+  pointer-events:none;z-index:1;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:56px;padding:0 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(5,5,5,0.8);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(200,169,110,0.08);
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold);letter-spacing:0.06em;}
+.nav-back{font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:color 0.15s;border:1px solid rgba(200,169,110,0.15);padding:5px 14px;border-radius:3px;}
+.nav-back:hover{color:var(--gold);border-color:rgba(200,169,110,0.4);}
+
+/* ── HERO TEXT ── */
+.hero-text{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:10;text-align:center;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.hero-eyebrow{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(122,217,200,0.7);font-weight:500;}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(60px,9vw,108px);
+  font-weight:900;line-height:0.92;
+  color:var(--text);letter-spacing:-0.03em;
+  text-shadow:0 0 80px rgba(200,169,110,0.15);
+}
+.hero-title .g{color:var(--gold);}
+.hero-tagline{
+  font-family:'Cinzel',serif;
+  font-size:clamp(10px,1.2vw,13px);
+  letter-spacing:0.28em;color:rgba(200,169,110,0.6);
+  font-weight:400;
+}
+.hero-ctas{display:flex;gap:12px;margin-top:8px;pointer-events:all;}
+.btn-main{background:var(--gold);color:#050505;font-size:11px;font-weight:700;padding:10px 24px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.15s;border:none;cursor:pointer;}
+.btn-main:hover{background:var(--gold2);}
+.btn-sec{background:transparent;border:1px solid rgba(200,169,110,0.25);color:rgba(200,169,110,0.6);font-size:11px;font-weight:500;padding:10px 22px;border-radius:3px;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.15s;cursor:pointer;}
+.btn-sec:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── TRACK ── */
+.track-wrap{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  height:42vh;
+  z-index:5;
+  display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;
+  background:linear-gradient(to bottom,transparent 0%,rgba(5,5,5,0.4) 100%);
+}
+
+/* rail lines */
+.track-wrap::before,
+.track-wrap::after{
+  content:'';position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--track-line) 15%,var(--track-line) 85%,transparent);
+}
+.track-wrap::before{top:0;}
+.track-wrap::after{bottom:0;}
+
+/* ── CONVEYOR ── */
+.conveyor{
+  display:flex;gap:20px;align-items:stretch;
+  animation:roll 28s linear infinite;
+  width:max-content;
+  padding:20px 0;
+  will-change:transform;
+}
+.conveyor:hover{animation-play-state:paused;}
+
+@keyframes roll{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+/* ── CARDS ── */
+.cv-card{
+  width:260px;flex-shrink:0;
+  background:rgba(10,10,10,0.85);
+  border:1px solid rgba(200,169,110,0.12);
+  border-radius:10px;
+  padding:24px 22px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:border-color 0.3s,transform 0.3s,background 0.3s;
+  cursor:default;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(6px);
+}
+
+/* accent strip top */
+.cv-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--card-color,rgba(200,169,110,0.3));
+  transition:opacity 0.3s;
+}
+
+.cv-card:hover{
+  border-color:rgba(200,169,110,0.4);
+  background:rgba(18,14,6,0.95);
+  transform:translateY(-6px) scale(1.02);
+}
+
+.cv-icon{font-size:32px;line-height:1;margin-bottom:4px;}
+.cv-cat{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--card-cat,var(--muted));font-weight:500;}
+.cv-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);line-height:1.2;}
+.cv-desc{font-size:11px;color:var(--muted);line-height:1.65;font-weight:300;flex:1;}
+.cv-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.cv-ver{font-size:9px;color:var(--muted);font-family:monospace;letter-spacing:0.06em;}
+.cv-badge{font-size:8px;padding:2px 7px;border-radius:2px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;}
+.b-stable{background:rgba(91,217,138,0.1);color:#5bd98a;border:1px solid rgba(91,217,138,0.2);}
+.b-prog{background:rgba(217,168,85,0.1);color:#d9a855;border:1px solid rgba(217,168,85,0.2);}
+.b-new{background:rgba(122,173,221,0.1);color:#7aaddd;border:1px solid rgba(122,173,221,0.2);}
+
+/* COLOR VARIANTS */
+.cv-card.edu{--card-color:rgba(122,217,200,0.5);--card-cat:#7ad9c8;}
+.cv-card.dash{--card-color:rgba(200,169,110,0.5);--card-cat:#c8a96e;}
+.cv-card.app{--card-color:rgba(184,122,217,0.5);--card-cat:#b87ad9;}
+.cv-card.yt{--card-color:rgba(255,80,80,0.5);--card-cat:#ff6060;}
+
+/* ── BOTTOM LABEL ── */
+.track-label{
+  position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+  font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);
+  z-index:20;
+}
+.pause-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  font-size:10px;letter-spacing:0.12em;color:rgba(200,169,110,0.3);
+  z-index:20;transition:opacity 0.3s;
+}
+</style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MIR ACADEMY</div>
+  <a href="index.html" class="nav-back">← Back to Main</a>
+</nav>
+
+<!-- HERO TEXT -->
+<div class="hero-text">
+  <div class="hero-eyebrow">Istanbul · 2024 · Education Technology</div>
+  <div class="hero-title"><span class="g">MIR</span><br>ACADEMY</div>
+  <div class="hero-tagline">AD ASTRA PER ASPERA</div>
+  <div class="hero-ctas">
+    <a href="index.html" class="btn-main">Explore Projects</a>
+    <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank" class="btn-sec">LinkedIn ↗</a>
+  </div>
+</div>
+
+<!-- FACTORY LINE -->
+<div class="track-wrap">
+  <div class="conveyor" id="conveyor"></div>
+</div>
+
+<div class="pause-hint">hover to pause</div>
+<div class="track-label">MIR ACADEMY · 17 ACTIVE PROJECTS · ISTANBUL 2024</div>
+
+<script>
+const PROJECTS = [
+  {icon:'📊',name:'MIR Invest',desc:'Investment education — crypto, stocks, Forex, technical analysis.',cat:'Education',type:'edu',ver:'v1.2',status:'stable'},
+  {icon:'🌍',name:'World Almanac',desc:'Interactive world history 2000–2026. Politics, tech, culture.',cat:'Education',type:'edu',ver:'v1.7',status:'stable'},
+  {icon:'💻',name:'IT Literacy',desc:'10-module curriculum from Internet basics to AI & prompting.',cat:'Education',type:'edu',ver:'WIP',status:'prog'},
+  {icon:'📋',name:'DATA-MIR Board',desc:'Personal command center. Dark, modular, multi-theme dashboard.',cat:'Dashboard',type:'dash',ver:'v5.2',status:'stable'},
+  {icon:'🗂',name:'Project Manager',desc:'Full project board with reminders, status tracking, file links.',cat:'Dashboard',type:'dash',ver:'v1.9',status:'stable'},
+  {icon:'⌚',name:'MIRACDX Band',desc:'Xiaomi smartwatch companion. Sensors, themes, Bluetooth sync.',cat:'MIRACDX App',type:'app',ver:'v1.2',status:'stable'},
+  {icon:'⏰',name:'MIRACDX Clock',desc:'Transparent floating desktop clock overlay. AHK v2, chime.',cat:'MIRACDX App',type:'app',ver:'v1.0',status:'stable'},
+  {icon:'⚙',name:'QuickSolutions',desc:'System tray utility — voice reader, screenshot, recorder.',cat:'MIRACDX App',type:'app',ver:'v2.1',status:'prog'},
+  {icon:'🔬',name:'History of IT',desc:'Animated timeline of information technology 1936–2026.',cat:'Education',type:'edu',ver:'V8',status:'prog'},
+  {icon:'🤖',name:'History of AI',desc:'Comprehensive guide from Turing to GPT. Expanding.',cat:'Education',type:'edu',ver:'V01',status:'prog'},
+  {icon:'🎨',name:'MIR PIXEL',desc:'Browser-based pixel art creation tool. Dark canvas, export.',cat:'Dashboard',type:'dash',ver:'v1.0',status:'stable'},
+  {icon:'✨',name:'MIR Astrology',desc:'Interactive birth chart and planetary aspect calculator.',cat:'Dashboard',type:'dash',ver:'v1.0',status:'stable'},
+  {icon:'▶',name:'YouTube Growth',desc:'Channel strategy, content planning, MIR ACADEMY videos.',cat:'YouTube',type:'yt',ver:'v1.0',status:'new'},
+  {icon:'🎓',name:'MIR ACADEMY',desc:'The platform — self-healing education for the world ahead.',cat:'Academy',type:'dash',ver:'Live',status:'stable'},
+  {icon:'🏛',name:'Atatürk İlkeleri',desc:'Deep-dive into Atatürk\'s principles and reforms.',cat:'Education',type:'edu',ver:'FINAL',status:'stable'},
+  {icon:'🌐',name:'GitHub Pages',desc:'Free company website — mir-academy.github.io live.',cat:'Academy',type:'dash',ver:'v2.0',status:'stable'},
+  {icon:'🔒',name:'MIRACDX Downloader',desc:'Media downloader utility. Fast, clean, tray-based EXE.',cat:'MIRACDX App',type:'app',ver:'v2.0',status:'stable'},
+];
+
+function buildCard(p){
+  const badge = p.status==='stable'
+    ? '<span class="cv-badge b-stable">Stable</span>'
+    : p.status==='prog'
+    ? '<span class="cv-badge b-prog">In Progress</span>'
+    : '<span class="cv-badge b-new">New</span>';
+  return `
+    <div class="cv-card ${p.type}">
+      <div class="cv-icon">${p.icon}</div>
+      <div class="cv-cat">${p.cat}</div>
+      <div class="cv-name">${p.name}</div>
+      <div class="cv-desc">${p.desc}</div>
+      <div class="cv-foot">
+        <span class="cv-ver">${p.ver}</span>
+        ${badge}
+      </div>
+    </div>`;
+}
+
+/* Build double set for seamless loop */
+const conv = document.getElementById('conveyor');
+const html = [...PROJECTS,...PROJECTS].map(buildCard).join('');
+conv.innerHTML = html;
+</script>
+</body>
+</html>
