@@ -210,11 +210,50 @@ nav{
   transition:opacity 0.3s;
 }
 
+.cv-card{cursor:pointer;}
 .cv-card:hover{
   border-color:rgba(200,169,110,0.4);
   background:rgba(18,14,6,0.95);
   transform:translateY(-6px) scale(1.02);
 }
+
+/* ── MODAL ── */
+.modal-bg{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.25s;
+}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal{
+  background:#0e0e0e;
+  border:1px solid rgba(200,169,110,0.2);
+  border-radius:12px;
+  padding:36px 40px;
+  max-width:480px;width:90%;
+  position:relative;
+  transform:translateY(20px);transition:transform 0.25s;
+}
+.modal-bg.open .modal{transform:translateY(0);}
+.modal-top{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.modal-icon{font-size:40px;line-height:1;}
+.modal-cat{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-weight:500;}
+.modal-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text);line-height:1.15;}
+.modal-strip{height:2px;border-radius:1px;margin-bottom:20px;background:rgba(200,169,110,0.3);}
+.modal-desc{font-size:14px;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:20px;}
+.modal-meta{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;}
+.modal-row{display:flex;gap:12px;font-size:12px;}
+.modal-lbl{color:var(--faint);min-width:80px;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;padding-top:1px;}
+.modal-val{color:var(--text);}
+.modal-foot{display:flex;gap:10px;align-items:center;}
+.modal-btn{font-size:12px;font-weight:700;padding:9px 20px;border-radius:4px;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.15s;border:none;}
+.modal-btn.primary{background:var(--gold);color:#050505;}
+.modal-btn.primary:hover{background:var(--gold2);}
+.modal-btn.secondary{background:transparent;border:1px solid rgba(200,169,110,0.25);color:var(--muted);}
+.modal-btn.secondary:hover{border-color:var(--gold);color:var(--gold);}
+.modal-close{position:absolute;top:16px;right:18px;font-size:20px;color:var(--muted);cursor:pointer;background:none;border:none;transition:color 0.15s;line-height:1;}
+.modal-close:hover{color:var(--gold);}
+.modal-badge{display:inline-block;font-size:9px;padding:3px 9px;border-radius:2px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:1px solid;}
 
 .cv-icon{font-size:35px;line-height:1;margin-bottom:4px;}
 .cv-cat{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--card-cat,var(--muted));font-weight:500;}
@@ -271,38 +310,60 @@ nav{
   <div class="conveyor" id="conveyor"></div>
 </div>
 
-<div class="pause-hint">hover to pause</div>
+<div class="pause-hint">hover to pause · click to explore</div>
 <div class="track-label">MIR ACADEMY · 17 ACTIVE PROJECTS · ISTANBUL 2024</div>
+
+<!-- PROJECT MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-top">
+      <div class="modal-icon" id="mIcon"></div>
+      <div>
+        <div class="modal-cat" id="mCat"></div>
+        <div class="modal-name" id="mName"></div>
+      </div>
+    </div>
+    <div class="modal-strip" id="mStrip"></div>
+    <div class="modal-desc" id="mDesc"></div>
+    <div class="modal-meta">
+      <div class="modal-row"><span class="modal-lbl">Version</span><span class="modal-val" id="mVer"></span></div>
+      <div class="modal-row"><span class="modal-lbl">Status</span><span class="modal-val" id="mStatus"></span></div>
+      <div class="modal-row"><span class="modal-lbl">Next</span><span class="modal-val" id="mNext"></span></div>
+    </div>
+    <div class="modal-foot" id="mFoot"></div>
+  </div>
+</div>
 
 <script>
 const PROJECTS = [
-  {icon:'📊',name:'MIR Invest',desc:'Investment education — crypto, stocks, Forex, technical analysis.',cat:'Education',type:'edu',ver:'v1.2',status:'stable'},
-  {icon:'🌍',name:'World Almanac',desc:'Interactive world history 2000–2026. Politics, tech, culture.',cat:'Education',type:'edu',ver:'v1.7',status:'stable'},
-  {icon:'💻',name:'IT Literacy',desc:'10-module curriculum from Internet basics to AI & prompting.',cat:'Education',type:'edu',ver:'WIP',status:'prog'},
-  {icon:'📋',name:'DATA-MIR Board',desc:'Personal command center. Dark, modular, multi-theme dashboard.',cat:'Dashboard',type:'dash',ver:'v5.2',status:'stable'},
-  {icon:'🗂',name:'Project Manager',desc:'Full project board with reminders, status tracking, file links.',cat:'Dashboard',type:'dash',ver:'v1.9',status:'stable'},
-  {icon:'⌚',name:'MIRACDX Band',desc:'Xiaomi smartwatch companion. Sensors, themes, Bluetooth sync.',cat:'MIRACDX App',type:'app',ver:'v1.2',status:'stable'},
-  {icon:'⏰',name:'MIRACDX Clock',desc:'Transparent floating desktop clock overlay. AHK v2, chime.',cat:'MIRACDX App',type:'app',ver:'v1.0',status:'stable'},
-  {icon:'⚙',name:'QuickSolutions',desc:'System tray utility — voice reader, screenshot, recorder.',cat:'MIRACDX App',type:'app',ver:'v2.1',status:'prog'},
-  {icon:'🔬',name:'History of IT',desc:'Animated timeline of information technology 1936–2026.',cat:'Education',type:'edu',ver:'V8',status:'prog'},
-  {icon:'🤖',name:'History of AI',desc:'Comprehensive guide from Turing to GPT. Expanding.',cat:'Education',type:'edu',ver:'V01',status:'prog'},
-  {icon:'🎨',name:'MIR PIXEL',desc:'Browser-based pixel art creation tool. Dark canvas, export.',cat:'Dashboard',type:'dash',ver:'v1.0',status:'stable'},
-  {icon:'✨',name:'MIR Astrology',desc:'Interactive birth chart and planetary aspect calculator.',cat:'Dashboard',type:'dash',ver:'v1.0',status:'stable'},
-  {icon:'▶',name:'YouTube Growth',desc:'Channel strategy, content planning, MIR ACADEMY videos.',cat:'YouTube',type:'yt',ver:'v1.0',status:'new'},
-  {icon:'🎓',name:'MIR ACADEMY',desc:'The platform — self-healing education for the world ahead.',cat:'Academy',type:'dash',ver:'Live',status:'stable'},
-  {icon:'🏛',name:'Atatürk İlkeleri',desc:'Deep-dive into Atatürk\'s principles and reforms.',cat:'Education',type:'edu',ver:'FINAL',status:'stable'},
-  {icon:'🌐',name:'GitHub Pages',desc:'Free company website — mir-academy.github.io live.',cat:'Academy',type:'dash',ver:'v2.0',status:'stable'},
-  {icon:'🔒',name:'MIRACDX Downloader',desc:'Media downloader utility. Fast, clean, tray-based EXE.',cat:'MIRACDX App',type:'app',ver:'v2.0',status:'stable'},
+  {icon:'📊',name:'MIR Invest',desc:'Complete investment education — crypto, stocks, Forex, technical analysis, risk management. 13 sections, Turkish + English.',cat:'Education',type:'edu',ver:'v1.2',status:'stable',next:'v1.3 — review & Emre feedback',link:null},
+  {icon:'🌍',name:'World Almanac',desc:'Interactive world history 2000–2026. Politics, technology, culture — rich dark reference module with reading mode.',cat:'Education',type:'edu',ver:'v1.7',status:'stable',next:'Stable — content expansion',link:null},
+  {icon:'💻',name:'IT Literacy',desc:'10-module curriculum: Internet, GitHub, Terminal, Python, Web Ownership, WordPress, No-Code, Security, AI & Prompting.',cat:'Education',type:'edu',ver:'WIP',status:'prog',next:'Full curriculum build — 10 modules',link:null},
+  {icon:'📋',name:'DATA-MIR Board',desc:'Personal command center dashboard. Multi-theme, dark, modular. Live project tracker with reminders.',cat:'Dashboard',type:'dash',ver:'v5.2',status:'stable',next:'v5.3 — Ambient radio player',link:null},
+  {icon:'🗂',name:'Project Manager',desc:'Full project board with reminders, status tracking, file linking and backup snapshot.',cat:'Dashboard',type:'dash',ver:'v1.9',status:'stable',next:'Stable — maintenance mode',link:null},
+  {icon:'⌚',name:'MIRACDX Band',desc:'Xiaomi smartwatch companion app. Real-time sensor display, theme sync. Bluetooth direct install planned.',cat:'MIRACDX App',type:'app',ver:'v1.2',status:'stable',next:'v2.0 — Bluetooth direct install',link:null},
+  {icon:'⏰',name:'MIRACDX Clock',desc:'Transparent floating desktop clock overlay. Configurable fonts, colors, hourly chime. AHK v2.',cat:'MIRACDX App',type:'app',ver:'v1.0',status:'stable',next:'Stable — hourly chime done',link:null},
+  {icon:'⚙',name:'QuickSolutions',desc:'System tray utility — voice reader, SCRX screenshot, screen recorder. Starts with Windows, AHK v2.',cat:'MIRACDX App',type:'app',ver:'v2.1',status:'prog',next:'Aria voice integration pending',link:null},
+  {icon:'🔬',name:'History of IT',desc:'Animated visual timeline of information technology 1936–2026. Bilingual narration.',cat:'Education',type:'edu',ver:'V8',status:'prog',next:'Narration & video finalization',link:null},
+  {icon:'🤖',name:'History of AI',desc:'Comprehensive guide to artificial intelligence — from Turing to GPT. Expanding.',cat:'Education',type:'edu',ver:'V01',status:'prog',next:'Content expansion needed',link:null},
+  {icon:'🎨',name:'MIR PIXEL',desc:'Browser-based pixel art creation tool. Dark canvas, palette management, export ready.',cat:'Dashboard',type:'dash',ver:'v1.0',status:'stable',next:'v1.1 — pixel animation tools',link:null},
+  {icon:'✨',name:'MIR Astrology',desc:'Interactive birth chart and planetary aspect calculator. Full astrology reference.',cat:'Dashboard',type:'dash',ver:'v1.0',status:'stable',next:'v1.1 — full planet aspects',link:null},
+  {icon:'▶',name:'YouTube Growth',desc:'MIR ACADEMY YouTube channel — strategy, content planning, education videos. Building our audience.',cat:'YouTube',type:'yt',ver:'v1.0',status:'new',next:'Channel growth strategy & content plan',link:'https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg'},
+  {icon:'🎓',name:'MIR ACADEMY',desc:'The education platform — self-healing, AI-powered, built for the world ahead. Live at mir-academy.github.io.',cat:'Academy',type:'dash',ver:'Live',status:'stable',next:'Logo · LinkedIn company page · Domain',link:'https://mir-academy.github.io'},
+  {icon:'🏛',name:'Atatürk İlkeleri',desc:'Interactive deep-dive into the principles and reforms of Mustafa Kemal Atatürk.',cat:'Education',type:'edu',ver:'FINAL',status:'stable',next:'Awaiting final confirmation',link:null},
+  {icon:'🌐',name:'GitHub Organization',desc:'MIR ACADEMY on GitHub — all public projects, source code, and the live website repository.',cat:'Open Source',type:'dash',ver:'v2.0',status:'stable',next:'More public repos coming',link:'https://github.com/MIR-ACADEMY'},
+  {icon:'📥',name:'MIRACDX Downloader',desc:'Media downloader utility for Windows. Fast, clean, system tray-based. Compiled EXE.',cat:'MIRACDX App',type:'app',ver:'v2.0',status:'stable',next:'Stable — maintenance only',link:null},
 ];
 
-function buildCard(p){
+function buildCard(p, idx){
   const badge = p.status==='stable'
     ? '<span class="cv-badge b-stable">Stable</span>'
     : p.status==='prog'
     ? '<span class="cv-badge b-prog">In Progress</span>'
     : '<span class="cv-badge b-new">New</span>';
   return `
-    <div class="cv-card ${p.type}">
+    <div class="cv-card ${p.type}" data-idx="${idx}">
       <div class="cv-icon">${p.icon}</div>
       <div class="cv-cat">${p.cat}</div>
       <div class="cv-name">${p.name}</div>
@@ -316,8 +377,52 @@ function buildCard(p){
 
 /* Build double set for seamless loop */
 const conv = document.getElementById('conveyor');
-const html = [...PROJECTS,...PROJECTS].map(buildCard).join('');
+const html = [...PROJECTS,...PROJECTS].map((p,i) => buildCard(p,i % PROJECTS.length)).join('');
 conv.innerHTML = html;
+
+/* Click handler */
+conv.addEventListener('click', e => {
+  const card = e.target.closest('.cv-card');
+  if(!card) return;
+  const idx = parseInt(card.dataset.idx);
+  const p = PROJECTS[idx];
+  if(!p) return;
+  if(p.link){ window.open(p.link,'_blank'); return; }
+  openModal(p);
+});
+
+/* Modal */
+function openModal(p){
+  document.getElementById('mIcon').textContent   = p.icon;
+  document.getElementById('mCat').textContent    = p.cat;
+  document.getElementById('mName').textContent   = p.name;
+  document.getElementById('mDesc').textContent   = p.desc;
+  document.getElementById('mVer').textContent    = p.ver;
+  document.getElementById('mNext').textContent   = p.next;
+
+  const statusMap = {stable:'🟢 Stable',prog:'🟡 In Progress',new:'🔵 New'};
+  document.getElementById('mStatus').textContent = statusMap[p.status] || p.status;
+
+  const colorMap = {edu:'rgba(122,217,200,0.5)',dash:'rgba(200,169,110,0.4)',app:'rgba(184,122,217,0.5)',yt:'rgba(255,96,96,0.5)'};
+  document.getElementById('mStrip').style.background = colorMap[p.type] || 'rgba(200,169,110,0.3)';
+
+  const foot = document.getElementById('mFoot');
+  foot.innerHTML = `
+    <span style="font-size:11px;padding:3px 10px;border-radius:2px;border:1px solid rgba(200,169,110,0.2);color:#666;letter-spacing:0.1em;text-transform:uppercase;">
+      🔒 Private Project
+    </span>
+    <button class="modal-btn secondary" onclick="closeModal()">Close</button>`;
+
+  document.getElementById('modalBg').classList.add('open');
+  document.querySelector('.conveyor').style.animationPlayState='paused';
+}
+
+function closeModal(e){
+  if(e && e.target !== document.getElementById('modalBg') && e.type==='click') return;
+  document.getElementById('modalBg').classList.remove('open');
+  document.querySelector('.conveyor').style.animationPlayState='running';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
 </script>
 </body>
 </html>
