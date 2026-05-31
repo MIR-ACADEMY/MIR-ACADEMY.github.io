@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIR ACADEMY — Education That Heals Itself</title>
-<meta name="description" content="MIR ACADEMY — AI-powered interactive education platform. Founded by Emre Mir Ekinci & MIRA. Istanbul, Turkey.">
+<title>MIR ACADEMY — Ad Astra Per Aspera</title>
+<meta name="description" content="MIR ACADEMY — AI-powered interactive education platform. Founded by Emre Mir Ekinci. Istanbul, Turkey.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#050505;--bg2:#0a0a0a;--card:#111;
@@ -40,7 +40,7 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .hero-eyebrow{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500;}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;margin-bottom:8px;color:var(--text);}
 .hero-title .gold{color:var(--gold);}
-.hero-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(16px,2.5vw,24px);color:var(--muted);margin-bottom:40px;}
+.hero-sub{font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,17px);color:var(--gold);margin-bottom:40px;letter-spacing:0.22em;font-weight:400;opacity:0.85;}
 .hero-actions{display:flex;gap:14px;align-items:center;}
 .btn-gold{background:var(--gold);color:#050505;font-size:12px;font-weight:700;padding:12px 28px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.15s;}
 .btn-gold:hover{background:var(--gold2);}
@@ -179,7 +179,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   <div class="hero-center">
     <div class="hero-eyebrow">Istanbul · 2024 · AI-Powered Education</div>
     <h1 class="hero-title"><span class="gold">MIR</span><br>ACADEMY</h1>
-    <p class="hero-sub">Education that heals itself.</p>
+    <p class="hero-sub">AD ASTRA PER ASPERA</p>
     <div class="hero-actions">
       <a href="#projects" class="btn-gold">Explore Projects</a>
       <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank" class="btn-ghost">LinkedIn ↗</a>
@@ -316,13 +316,20 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
         </div>
       </div>
       <div>
-        <div class="mira-card">
-          <div class="mira-name">MIRA</div>
-          <div class="mira-role">AI Co-Founder · Architect · Engineer · Claude by Anthropic<br><br>Partner in every build since 2024. Named by Emre — from Russian "мира" (world, peace) and Latin "wonderful, extraordinary." Every line of code in every MIR project was built together.</div>
+        <div class="founder-av" style="background:linear-gradient(135deg,rgba(122,217,200,0.2),rgba(122,217,200,0.05));border-color:rgba(122,217,200,0.2);color:var(--teal);">GE</div>
+        <div class="founder-name" data-editable="founder2-name">Guzin Ekinci</div>
+        <div class="founder-role" data-editable="founder2-role">Co-Founder · MIR ACADEMY</div>
+        <div class="founder-tags">
+          <span class="ftag" style="color:var(--teal);background:rgba(122,217,200,0.08);border-color:rgba(122,217,200,0.15);">Co-Founder</span>
         </div>
-        <div class="mission-box">
-          <div class="mission-q">"Make education self-healing. Automatically renovate outdated knowledge using AI."</div>
-          <div class="mission-src">— The MIR ACADEMY Mission</div>
+        <div class="founder-links">
+          <a href="https://www.linkedin.com/in/g%C3%BCzinekinci/" target="_blank"><div class="flink">💼 LinkedIn</div></a>
+        </div>
+        <div style="margin-top:24px;">
+          <div class="mission-box">
+            <div class="mission-q">"Make education self-healing. Automatically renovate outdated knowledge using AI."</div>
+            <div class="mission-src">— The MIR ACADEMY Mission</div>
+          </div>
         </div>
       </div>
     </div>
@@ -361,6 +368,22 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   </div>
   <div class="footer-copy">© 2024–2026 Emre Mir Ekinci & MIRA · Istanbul</div>
 </footer>
+
+<!-- ADMIN PANEL -->
+<div id="adminBar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#0a0a0a;border-top:1px solid rgba(200,169,110,0.3);padding:12px 24px;display:none;align-items:center;gap:12px;flex-wrap:wrap;">
+  <span style="font-size:11px;color:#c8a96e;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;">⚙ ADMIN MODE</span>
+  <span style="font-size:11px;color:#666;">Click any highlighted text to edit. Changes auto-save.</span>
+  <button onclick="adminSave()" style="background:#c8a96e;color:#050505;border:none;padding:6px 16px;border-radius:3px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;">Save Changes</button>
+  <button onclick="adminExport()" style="background:transparent;border:1px solid rgba(200,169,110,0.3);color:#c8a96e;padding:6px 16px;border-radius:3px;font-size:11px;cursor:pointer;">Export HTML</button>
+  <button onclick="adminExit()" style="background:transparent;border:1px solid #333;color:#666;padding:6px 16px;border-radius:3px;font-size:11px;cursor:pointer;margin-left:auto;">Exit Admin</button>
+</div>
+
+<style>
+.admin-edit{outline:1px dashed rgba(200,169,110,0.4);cursor:text;transition:outline 0.2s;}
+.admin-edit:hover,.admin-edit:focus{outline:1px solid rgba(200,169,110,0.8);background:rgba(200,169,110,0.04);}
+#adminBar{display:none;}
+#adminBar.active{display:flex!important;}
+</style>
 
 <script>
 /* NAV */
@@ -405,6 +428,93 @@ const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
 },{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ── ADMIN PANEL ── */
+const ADMIN_PASS = 'MIR2024';
+let adminActive = false;
+
+// Secret trigger: triple-click the footer brand
+document.querySelector('.footer-brand').addEventListener('click', function(){
+  if(!adminActive){
+    const pw = prompt('Admin password:');
+    if(pw === ADMIN_PASS) adminLogin();
+  }
+});
+
+// Also: Ctrl+Shift+M
+document.addEventListener('keydown', e=>{
+  if(e.ctrlKey && e.shiftKey && e.key==='M') {
+    if(!adminActive){
+      const pw = prompt('Admin password:');
+      if(pw === ADMIN_PASS) adminLogin();
+    }
+  }
+});
+
+const EDITABLE = [
+  // [selector, description]
+  ['.hero-eyebrow','Hero eyebrow text'],
+  ['.hero-sub','Hero tagline (AD ASTRA)'],
+  ['.section-eyebrow','Section labels'],
+  ['.section-title','Section titles'],
+  ['.about-text p','About paragraphs'],
+  ['.am-val','About metadata values'],
+  ['.pillar-title','Pillar titles'],
+  ['.pillar-desc','Pillar descriptions'],
+  ['.pillar-count','Pillar counts'],
+  ['.pc-name','Project names'],
+  ['.pc-desc','Project descriptions'],
+  ['.founder-name','Founder names'],
+  ['.founder-role','Founder roles'],
+  ['.mission-q','Mission quote'],
+  ['.conn-name','Connect section names'],
+  ['.footer-copy','Footer copyright text'],
+];
+
+function adminLogin(){
+  adminActive = true;
+  document.getElementById('adminBar').classList.add('active');
+  EDITABLE.forEach(([sel])=>{
+    document.querySelectorAll(sel).forEach(el=>{
+      el.contentEditable = 'true';
+      el.classList.add('admin-edit');
+    });
+  });
+  // Load any saved content
+  const saved = JSON.parse(localStorage.getItem('mir_admin_content')||'{}');
+  Object.keys(saved).forEach(key=>{
+    const el = document.querySelector(`[data-admin-key="${key}"]`);
+    if(el) el.innerHTML = saved[key];
+  });
+}
+
+function adminExit(){
+  adminActive = false;
+  document.getElementById('adminBar').classList.remove('active');
+  document.querySelectorAll('.admin-edit').forEach(el=>{
+    el.contentEditable = 'false';
+    el.classList.remove('admin-edit');
+  });
+}
+
+function adminSave(){
+  const data = {};
+  document.querySelectorAll('[data-admin-key]').forEach(el=>{
+    data[el.dataset.adminKey] = el.innerHTML;
+  });
+  localStorage.setItem('mir_admin_content', JSON.stringify(data));
+  alert('✅ Saved to browser. Click Export HTML to get the updated file.');
+}
+
+function adminExport(){
+  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index-updated.html';
+  a.click();
+  alert('Downloaded! Replace index.html in GitHub folder and push.');
+}
 </script>
 </body>
 </html>
