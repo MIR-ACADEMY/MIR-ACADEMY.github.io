@@ -21,6 +21,27 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 ::-webkit-scrollbar-thumb{background:var(--faint);}
 a{text-decoration:none;color:inherit;}
 
+/* ── ANIMATED CARBON BACKGROUND ── */
+@keyframes carbonDrift{
+  0%  {background-position:0 0,10px 0,10px 5px,0 5px,0 0,0 0;}
+  100%{background-position:40px 40px,50px 40px,50px 45px,40px 45px,40px 40px,40px 40px;}
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  opacity:0.7;
+  background-color:#141414;
+  background-image:
+    linear-gradient(27deg,  rgba(8,8,8,1)   5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, rgba(8,8,8,1)   5px, transparent 5px) 10px 0,
+    linear-gradient(27deg,  rgba(22,22,22,1) 5px, transparent 5px) 0 10px,
+    linear-gradient(207deg, rgba(22,22,22,1) 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg,  rgba(16,16,16,1) 10px, transparent 10px),
+    linear-gradient(rgba(20,20,20,1) 25%,rgba(14,14,14,1) 25%,rgba(14,14,14,1) 50%,
+      transparent 50%,transparent 75%,rgba(26,26,26,1) 75%,rgba(26,26,26,1));
+  background-size:20px 20px;
+  animation:carbonDrift 12s linear infinite;
+}
+
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s,border-color 0.3s;border-bottom:1px solid transparent;}
 nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color:var(--border);}
@@ -207,11 +228,11 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
       <div>
         <div class="am-row"><span class="am-label">Website</span><span class="am-val"><a href="https://mir-academy.github.io" target="_blank">mir-academy.github.io ↗</a></span></div>
         <div class="am-row"><span class="am-label">Industry</span><span class="am-val">Education Technology · AI</span></div>
-        <div class="am-row"><span class="am-label">Founded</span><span class="am-val">2024 · Istanbul, Turkey</span></div>
-        <div class="am-row"><span class="am-label">Founders</span><span class="am-val">Emre Mir Ekinci + MIRA</span></div>
+        <div class="am-row"><span class="am-label">Founded</span><span class="am-val">2020 · Istanbul, Turkey</span></div>
+        <div class="am-row"><span class="am-label">Founder</span><span class="am-val">Emre Mir Ekinci</span></div>
         <div class="am-row"><span class="am-label">GitHub</span><span class="am-val"><a href="https://github.com/MIR-ACADEMY" target="_blank">github.com/MIR-ACADEMY ↗</a></span></div>
         <div class="am-row"><span class="am-label">YouTube</span><span class="am-val"><a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank">MIR ACADEMY Channel ↗</a></span></div>
-        <div class="am-row"><span class="am-label">Domain</span><span class="am-val">miracademy.com (coming soon)</span></div>
+        <div class="am-row"><span class="am-label">Domain</span><span class="am-val">mir-academy.net · mir.academy — checking availability</span></div>
       </div>
     </div>
   </div>
@@ -342,7 +363,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
     <div class="section-eyebrow reveal">Find us</div>
     <h2 class="section-title reveal">Connect with <span class="gold">MIR ACADEMY</span></h2>
     <div style="height:40px;"></div>
-    <div class="connect-grid reveal">
+    <div class="connect-grid reveal" style="grid-template-columns:repeat(3,1fr);">
       <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank">
         <div class="conn-card"><div class="conn-icon">💼</div><div class="conn-name">LinkedIn</div><div class="conn-sub">Emre Mir Ekinci</div><div class="conn-arrow">↗</div></div>
       </a>
@@ -351,6 +372,12 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
       </a>
       <a href="https://github.com/MIR-ACADEMY" target="_blank">
         <div class="conn-card"><div class="conn-icon">⌥</div><div class="conn-name">GitHub</div><div class="conn-sub">github.com/MIR-ACADEMY</div><div class="conn-arrow">↗</div></div>
+      </a>
+      <a href="mailto:emremir@miracademy.com">
+        <div class="conn-card"><div class="conn-icon">✉</div><div class="conn-name">Email</div><div class="conn-sub">Coming soon</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
+      </a>
+      <a href="tel:+90">
+        <div class="conn-card"><div class="conn-icon">📞</div><div class="conn-name">Call</div><div class="conn-sub">Number coming soon</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
       </a>
       <a href="https://mir-academy.github.io" target="_blank">
         <div class="conn-card"><div class="conn-icon">🌐</div><div class="conn-name">Website</div><div class="conn-sub">mir-academy.github.io</div><div class="conn-arrow">↗</div></div>
@@ -366,7 +393,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
     <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank">LinkedIn</a>
     <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank">YouTube</a>
   </div>
-  <div class="footer-copy">© 2024–2026 Emre Mir Ekinci & MIRA · Istanbul</div>
+  <div class="footer-copy">© 2020–2026 Emre Mir Ekinci · MIR ACADEMY · Istanbul</div>
 </footer>
 
 <!-- ADMIN PANEL -->
@@ -412,8 +439,8 @@ CARDS.forEach((c,i)=>{
 /* TICKER */
 const STATS=[
   {num:'17',lbl:'Active Projects'},{num:'25+',lbl:'Years in IT'},
-  {num:'3',lbl:'Categories'},{num:'2',lbl:'Founders'},
-  {num:'2024',lbl:'Founded'},{num:'🌍',lbl:'Istanbul, Turkey'},
+  {num:'3',lbl:'Categories'},{num:'25+',lbl:'Yrs Experience'},
+  {num:'2020',lbl:'Founded'},{num:'🌍',lbl:'Istanbul, Turkey'},
 ];
 const track=document.getElementById('tickerTrack');
 [...STATS,...STATS].forEach((s,i)=>{
