@@ -39,7 +39,7 @@ function step(){
     x.fillStyle='rgba(226,196,138,.95)';x.fillText(ch,i*FS,y);
     x.fillStyle='rgba(122,217,200,.25)';x.fillText(glyphs[Math.floor(Math.random()*glyphs.length)],i*FS,y-FS);
     if(y>H&&Math.random()>.975)drops[i]=0;
-    drops[i]+=0.55;
+    drops[i]+=0.30;
   }
   requestAnimationFrame(step);
 }

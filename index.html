@@ -161,7 +161,8 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .cf-av{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,rgba(122,217,200,0.2),rgba(122,217,200,0.05));border:1px solid rgba(122,217,200,0.2);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--teal);}
 .cf-name{font-size:14px;font-weight:600;color:var(--text);}
 .cf-role{font-size:11px;color:var(--muted);letter-spacing:0.04em;}
-.cofounder>div:nth-child(2){flex:1;}
+.cf-main{display:flex;align-items:center;gap:14px;flex:1;transition:opacity 0.15s;}
+.cf-main:hover .cf-name{color:var(--teal);}
 .cf-link{font-size:16px;opacity:0.7;transition:opacity 0.15s,transform 0.15s;}
 .cf-link:hover{opacity:1;transform:scale(1.15);}
 
@@ -354,20 +355,24 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
         <div class="cofounder-label">Co-Founders</div>
         <div class="cofounder-row">
           <div class="cofounder">
-            <div class="cf-av">GE</div>
-            <div>
-              <div class="cf-name">Güzin Ekinci</div>
-              <div class="cf-role">Co-Founder</div>
-            </div>
-            <a href="https://www.linkedin.com/in/g%C3%BCzinekinci/" target="_blank" class="cf-link">💼</a>
+            <a class="cf-main" href="cofounder-guzin.html">
+              <div class="cf-av">GE</div>
+              <div>
+                <div class="cf-name">Güzin Ekinci</div>
+                <div class="cf-role">Co-Founder · English Teacher &amp; Coach</div>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/g%C3%BCzinekinci/" target="_blank" class="cf-link" title="LinkedIn">💼</a>
           </div>
           <div class="cofounder">
-            <div class="cf-av">EE</div>
-            <div>
-              <div class="cf-name">Emrah Ekinci</div>
-              <div class="cf-role">Co-Founder</div>
-            </div>
-            <a href="https://www.linkedin.com/in/emrah-ekinci-1aa91682/" target="_blank" class="cf-link">💼</a>
+            <a class="cf-main" href="cofounder-emrah.html">
+              <div class="cf-av">EE</div>
+              <div>
+                <div class="cf-name">Emrah Ekinci</div>
+                <div class="cf-role">Co-Founder · English Teacher &amp; Tech Wizard</div>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/emrah-ekinci-1aa91682/" target="_blank" class="cf-link" title="LinkedIn">💼</a>
           </div>
         </div>
       </div>

@@ -71,8 +71,12 @@ iframe{width:100%;height:100%;border:0;display:block}
   <div class="sec" id="grpAnim">
     <h2>Background Animation</h2>
     <select id="animSel"></select>
+    <label>Speed — <span id="spVal">0.5×</span> (slower ← → faster)</label>
+    <input type="range" id="animSpeed" min="0.1" max="1.6" step="0.05" value="0.5" style="width:100%">
+    <label>Density — <span id="dnVal">1.0×</span> (sparse ← → dense)</label>
+    <input type="range" id="animDensity" min="0.4" max="1.6" step="0.05" value="1.0" style="width:100%">
     <div class="btns"><button id="animApply">Apply animation</button></div>
-    <div class="hint">Adds a full-page canvas behind the content. Uses the Gold / Gold-light / Teal colors above.</div>
+    <div class="hint">Adds a full-page canvas behind the content. Uses the Gold / Gold-light / Teal colors above. Data Rain default is a calm 0.5× — drag Speed to taste.</div>
   </div>
 
   <div class="sec" id="grpSel">
@@ -183,17 +187,27 @@ $("#bodyFont").onchange=function(){if(doc&&this.value)doc.body.style.fontFamily=
 $("#bodySize").onchange=function(){if(doc)doc.body.style.fontSize=this.value+"px";};
 
 /* ---------- animation ---------- */
-function curColors(){var g={};document.querySelectorAll("[data-var]").forEach(function(i){
-  g[i.dataset.var.replace("--","")]=i.value;});return {gold:g.gold,gold2:g.gold2,teal:g.teal,bg:g.bg};}
-function detectAnim(){var s=doc.querySelector("script[data-mir-anim]");curAnim=s?s.getAttribute("data-mir-anim"):"none";$("#animSel").value=curAnim;}
+function curOpts(){var g={};document.querySelectorAll("[data-var]").forEach(function(i){
+  g[i.dataset.var.replace("--","")]=i.value;});
+  return {gold:g.gold,gold2:g.gold2,teal:g.teal,bg:g.bg,
+    speed:parseFloat($("#animSpeed").value),density:parseFloat($("#animDensity").value)};}
+$("#animSpeed").oninput=function(){$("#spVal").textContent=(+this.value).toFixed(2)+"×";};
+$("#animDensity").oninput=function(){$("#dnVal").textContent=(+this.value).toFixed(2)+"×";};
+function detectAnim(){var s=doc.querySelector("script[data-mir-anim]");
+  curAnim=s?s.getAttribute("data-mir-anim"):"none";$("#animSel").value=curAnim;
+  if(s){var sp=s.getAttribute("data-mir-speed"),dn=s.getAttribute("data-mir-density");
+    if(sp){$("#animSpeed").value=sp;$("#spVal").textContent=(+sp).toFixed(2)+"×";}
+    if(dn){$("#animDensity").value=dn;$("#dnVal").textContent=(+dn).toFixed(2)+"×";}}}
 $("#animApply").onclick=function(){
-  if(!doc)return;var name=$("#animSel").value;
+  if(!doc)return;var name=$("#animSel").value,o=curOpts();
   var old=doc.querySelector("script[data-mir-anim]");if(old)old.remove();
   var cv=doc.getElementById("mir-bg");if(cv&&cv.__mirStop){try{cv.__mirStop();}catch(e){}}
   if(cv&&name==="none")cv.remove();
-  var code=MIRAnim.snippet(name,curColors());
-  var sc=doc.createElement("script");sc.setAttribute("data-mir-anim",name);sc.textContent=code;
-  doc.body.appendChild(sc);curAnim=name;toast("Animation: "+MIRAnim.labels[name]);
+  var code=MIRAnim.snippet(name,o);
+  var sc=doc.createElement("script");sc.setAttribute("data-mir-anim",name);
+  sc.setAttribute("data-mir-speed",o.speed);sc.setAttribute("data-mir-density",o.density);
+  sc.textContent=code;doc.body.appendChild(sc);curAnim=name;
+  toast("Animation: "+MIRAnim.labels[name]+" @ "+o.speed+"×");
 };
 
 /* ---------- click-to-edit ---------- */
