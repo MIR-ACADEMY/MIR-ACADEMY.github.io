@@ -154,6 +154,16 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .mission-box{padding:24px;background:rgba(200,169,110,0.04);border:1px solid var(--border);border-radius:6px;}
 .mission-q{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--text);line-height:1.65;margin-bottom:10px;}
 .mission-src{font-size:10px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;}
+.cofounder-label{font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:var(--teal);margin-bottom:14px;font-weight:600;}
+.cofounder-row{display:flex;flex-direction:column;gap:10px;}
+.cofounder{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:6px;background:rgba(122,217,200,0.02);transition:background 0.2s,border-color 0.2s;}
+.cofounder:hover{background:rgba(122,217,200,0.05);border-color:rgba(122,217,200,0.2);}
+.cf-av{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,rgba(122,217,200,0.2),rgba(122,217,200,0.05));border:1px solid rgba(122,217,200,0.2);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--teal);}
+.cf-name{font-size:14px;font-weight:600;color:var(--text);}
+.cf-role{font-size:11px;color:var(--muted);letter-spacing:0.04em;}
+.cofounder>div:nth-child(2){flex:1;}
+.cf-link{font-size:16px;opacity:0.7;transition:opacity 0.15s,transform 0.15s;}
+.cf-link:hover{opacity:1;transform:scale(1.15);}
 
 /* CONNECT */
 .connect-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
@@ -198,7 +208,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
     <div class="orbit-ring" id="orbitRing"></div>
   </div>
   <div class="hero-center">
-    <div class="hero-eyebrow">Istanbul · 2024 · AI-Powered Education</div>
+    <div class="hero-eyebrow">Istanbul · 2020 · AI-Powered Education</div>
     <h1 class="hero-title"><span class="gold">MIR</span><br>ACADEMY</h1>
     <p class="hero-sub">AD ASTRA PER ASPERA</p>
     <div class="hero-actions">
@@ -318,8 +328,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <!-- FOUNDER -->
 <section class="section" id="founder" style="padding-top:0;">
   <div class="section-inner">
-    <div class="section-eyebrow reveal">The team</div>
-    <h2 class="section-title reveal">Two <span class="gold">founders</span></h2>
+    <div class="section-eyebrow reveal">The team · A family company</div>
+    <h2 class="section-title reveal">Founder &amp; <span class="gold">co-founders</span></h2>
     <div style="height:40px;"></div>
     <div class="founder-wrap reveal">
       <div>
@@ -337,19 +347,27 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
         </div>
       </div>
       <div>
-        <div class="founder-av" style="background:linear-gradient(135deg,rgba(122,217,200,0.2),rgba(122,217,200,0.05));border-color:rgba(122,217,200,0.2);color:var(--teal);">GE</div>
-        <div class="founder-name" data-editable="founder2-name">Guzin Ekinci</div>
-        <div class="founder-role" data-editable="founder2-role">Founder · MIR ACADEMY</div>
-        <div class="founder-tags">
-          <span class="ftag" style="color:var(--teal);background:rgba(122,217,200,0.08);border-color:rgba(122,217,200,0.15);">Founder</span>
+        <div class="mission-box" style="margin-bottom:28px;">
+          <div class="mission-q">"Make education self-healing. Automatically renovate outdated knowledge using AI."</div>
+          <div class="mission-src">— The MIR ACADEMY Mission</div>
         </div>
-        <div class="founder-links">
-          <a href="https://www.linkedin.com/in/g%C3%BCzinekinci/" target="_blank"><div class="flink">💼 LinkedIn</div></a>
-        </div>
-        <div style="margin-top:24px;">
-          <div class="mission-box">
-            <div class="mission-q">"Make education self-healing. Automatically renovate outdated knowledge using AI."</div>
-            <div class="mission-src">— The MIR ACADEMY Mission</div>
+        <div class="cofounder-label">Co-Founders</div>
+        <div class="cofounder-row">
+          <div class="cofounder">
+            <div class="cf-av">GE</div>
+            <div>
+              <div class="cf-name">Güzin Ekinci</div>
+              <div class="cf-role">Co-Founder</div>
+            </div>
+            <a href="https://www.linkedin.com/in/g%C3%BCzinekinci/" target="_blank" class="cf-link">💼</a>
+          </div>
+          <div class="cofounder">
+            <div class="cf-av">EE</div>
+            <div>
+              <div class="cf-name">Emrah Ekinci</div>
+              <div class="cf-role">Co-Founder</div>
+            </div>
+            <a href="https://www.linkedin.com/in/emrah-ekinci-1aa91682/" target="_blank" class="cf-link">💼</a>
           </div>
         </div>
       </div>
