@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MIR ACADEMY — Aurora Mesh</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:#e0dcd0;font-family:system-ui,sans-serif;overflow:hidden}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;filter:blur(60px)}
+.blob{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:.55}
+.b1{width:50vw;height:50vw;background:#c8a96e;top:-10%;left:-5%;animation:f1 18s ease-in-out infinite}
+.b2{width:45vw;height:45vw;background:#7ad9c8;bottom:-15%;right:-5%;animation:f2 22s ease-in-out infinite}
+.b3{width:38vw;height:38vw;background:#8a6a2a;top:30%;left:40%;animation:f3 26s ease-in-out infinite}
+.b4{width:30vw;height:30vw;background:#3aa392;top:10%;right:25%;animation:f1 20s ease-in-out infinite reverse}
+@keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(12vw,8vh) scale(1.2)}}
+@keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-14vw,-6vh) scale(1.15)}}
+@keyframes f3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-8vw,10vh) scale(.85)}}
+.grain{position:fixed;inset:0;z-index:1;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:3px 3px;pointer-events:none}
+.hero{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:#bfeee4;margin-bottom:22px}
+.title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:.95;text-shadow:0 2px 40px rgba(0,0,0,.5)}
+.title .g{color:#f0d9a8}
+.sub{font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,17px);color:#f0d9a8;letter-spacing:.22em;margin-top:14px;opacity:.9}
+.tag{position:fixed;top:18px;left:20px;z-index:20;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#bfeee4;text-transform:uppercase}
+.back{position:fixed;top:18px;right:20px;z-index:20;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#888;text-decoration:none}
+.back:hover{color:#f0d9a8}
+</style></head><body>
+<div class="tag">05 · Aurora Mesh</div>
+<a class="back" href="index.html">← all demos</a>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+<div class="grain"></div>
+<div class="hero">
+  <div class="eyebrow">Istanbul · 2020 · AI-Powered Education</div>
+  <div class="title"><span class="g">MIR</span><br>ACADEMY</div>
+  <div class="sub">AD ASTRA PER ASPERA</div>
+</div>
+</body></html>

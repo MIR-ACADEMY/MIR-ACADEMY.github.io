@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MIR ACADEMY — Animation Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:#e0dcd0;font-family:'Inter',system-ui,sans-serif;min-height:100vh}
+.wrap{max-width:1000px;margin:0 auto;padding:60px 28px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:900;text-align:center}
+h1 .g{color:#c8a96e}
+.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#7ad9c8;text-align:center;margin-bottom:14px}
+.lead{text-align:center;color:#888;font-size:14px;font-weight:300;margin:18px auto 50px;max-width:560px;line-height:1.8}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.card{display:block;text-decoration:none;color:inherit;border:1px solid rgba(200,169,110,.14);border-radius:10px;padding:30px 26px;background:#0a0a0a;transition:all .2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--a,#c8a96e)}
+.card:hover{background:#101010;border-color:rgba(200,169,110,.4);transform:translateY(-3px)}
+.num{font-family:'Playfair Display',serif;font-size:38px;font-weight:900;color:#2a2a2a;line-height:1}
+.name{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;margin:12px 0 6px;color:#e0dcd0}
+.desc{font-size:12.5px;color:#888;font-weight:300;line-height:1.7}
+.vibe{display:inline-block;margin-top:14px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--a,#c8a96e);border:1px solid;padding:3px 10px;border-radius:3px;opacity:.7}
+.foot{text-align:center;margin-top:50px;font-size:12px;color:#555}
+.foot a{color:#7ad9c8;text-decoration:none}
+</style></head><body>
+<div class="wrap">
+  <div class="eyebrow">Hero animation candidates</div>
+  <h1>Pick the <span class="g">MIR vibe</span></h1>
+  <p class="lead">Six standalone hero experiments — gold + teal, dark, no libraries. Open each, watch it breathe, then tell me the winner. None of these touch the live page yet.</p>
+  <div class="grid">
+    <a class="card" href="1-neural.html" style="--a:#7ad9c8"><div class="num">01</div><div class="name">Neural Network</div><div class="desc">Drifting nodes with pulsing links and signals firing between them. Reads instantly as AI.</div><span class="vibe">Most "AI"</span></a>
+    <a class="card" href="2-particles.html" style="--a:#c8a96e"><div class="num">02</div><div class="name">Particle Constellation</div><div class="desc">Floating points that link when near and scatter from your cursor. Clean, modern, alive.</div><span class="vibe">Clean & modern</span></a>
+    <a class="card" href="3-matrix.html" style="--a:#e2c48a"><div class="num">03</div><div class="name">Data Rain</div><div class="desc">Falling glyph streams in gold + teal, with a dark vignette keeping the title readable.</div><span class="vibe">Classic IT</span></a>
+    <a class="card" href="4-grid.html" style="--a:#7ad9c8"><div class="num">04</div><div class="name">Infinite Grid</div><div class="desc">Perspective wireframe flowing toward a glowing horizon. Synthwave tech-startup energy.</div><span class="vibe">Futuristic</span></a>
+    <a class="card" href="5-mesh.html" style="--a:#c8a96e"><div class="num">05</div><div class="name">Aurora Mesh</div><div class="desc">Slow morphing gold/teal light blobs behind the title. Premium, calm, brand-forward.</div><span class="vibe">Premium / calm</span></a>
+    <a class="card" href="6-terminal.html" style="--a:#7ad9c8"><div class="num">06</div><div class="name">Live Terminal</div><div class="desc">A terminal types the MIRA Renovator pipeline running live behind the title. Tells the story.</div><span class="vibe">Storytelling</span></a>
+  </div>
+  <div class="foot">All six are throwaway demos in <code>/anim-demos/</code>. <a href="../index.html">← back to live site</a></div>
+</div>
+</body></html>

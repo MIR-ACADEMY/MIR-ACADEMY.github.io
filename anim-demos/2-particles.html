@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MIR ACADEMY — Particle Constellation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:#e0dcd0;font-family:system-ui,sans-serif;overflow:hidden}
+canvas{position:fixed;inset:0;z-index:0}
+.hero{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:#7ad9c8;margin-bottom:22px}
+.title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:.95}
+.title .g{color:#c8a96e}
+.sub{font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,17px);color:#c8a96e;letter-spacing:.22em;margin-top:14px;opacity:.85}
+.tag{position:fixed;top:18px;left:20px;z-index:20;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#7ad9c8;text-transform:uppercase}
+.back{position:fixed;top:18px;right:20px;z-index:20;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#666;text-decoration:none}
+.back:hover{color:#c8a96e}
+</style></head><body>
+<div class="tag">02 · Particle Constellation</div>
+<a class="back" href="index.html">← all demos</a>
+<canvas id="c"></canvas>
+<div class="hero">
+  <div class="eyebrow">Istanbul · 2020 · AI-Powered Education</div>
+  <div class="title"><span class="g">MIR</span><br>ACADEMY</div>
+  <div class="sub">AD ASTRA PER ASPERA</div>
+</div>
+<script>
+const cv=document.getElementById('c'),x=cv.getContext('2d');
+let W,H,P,mouse={x:-999,y:-999};
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;init()}
+function init(){const n=Math.min(140,Math.floor(W*H/11000));P=[];for(let i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*1.4+.6});}
+addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+const LINK=120;
+function step(){
+  x.clearRect(0,0,W,H);
+  for(let i=0;i<P.length;i++){for(let j=i+1;j<P.length;j++){
+    const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<LINK){const o=(1-d/LINK)*.5;
+      const grad=x.createLinearGradient(a.x,a.y,b.x,b.y);
+      grad.addColorStop(0,'rgba(200,169,110,'+o+')');grad.addColorStop(1,'rgba(122,217,200,'+o+')');
+      x.strokeStyle=grad;x.lineWidth=.5;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();}}}
+  for(const p of P){
+    const mdx=p.x-mouse.x,mdy=p.y-mouse.y,md=Math.hypot(mdx,mdy);
+    if(md<140){p.vx+=mdx/md*.06;p.vy+=mdy/md*.06;}
+    p.vx*=.985;p.vy*=.985;p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+    p.x=Math.max(0,Math.min(W,p.x));p.y=Math.max(0,Math.min(H,p.y));
+    x.fillStyle='rgba(226,196,138,.85)';x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();}
+  requestAnimationFrame(step);
+}
+addEventListener('resize',rs);rs();step();
+</script></body></html>

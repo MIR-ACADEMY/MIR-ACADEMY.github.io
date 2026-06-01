@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MIRACDX Studio</title>
+<script src="anim-lib.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--g:#c8a96e;--t:#7ad9c8;--bg:#0a0a0a;--panel:#111;--line:rgba(200,169,110,.16);--mut:#888;--txt:#e0dcd0}
+body{background:#050505;color:var(--txt);font-family:system-ui,sans-serif;font-size:13px;height:100vh;display:flex;overflow:hidden}
+.panel{width:330px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--line);height:100vh;overflow-y:auto;padding:0 0 40px}
+.brand{padding:16px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel);z-index:5}
+.brand h1{font-size:15px;letter-spacing:.14em;color:var(--g);font-weight:800}
+.brand small{color:var(--mut);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.sec{padding:14px 18px;border-bottom:1px solid rgba(200,169,110,.08)}
+.sec h2{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--t);margin-bottom:12px}
+label{display:block;font-size:11px;color:var(--mut);margin:10px 0 4px}
+select,input[type=text],input[type=number]{width:100%;background:#0a0a0a;border:1px solid var(--line);color:var(--txt);padding:7px 9px;border-radius:5px;font-size:12px;font-family:inherit}
+select:focus,input:focus{outline:none;border-color:var(--g)}
+.row{display:flex;gap:8px;align-items:center}
+.row>*{flex:1}
+.crow{display:flex;align-items:center;gap:10px;margin:7px 0}
+.crow label{margin:0;flex:1;color:var(--txt);font-size:12px}
+input[type=color]{width:38px;height:28px;border:1px solid var(--line);border-radius:5px;background:#0a0a0a;cursor:pointer;padding:2px;flex:none}
+button{background:var(--g);color:#050505;border:none;padding:9px 14px;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.04em;width:100%}
+button:hover{background:#e2c48a}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--mut)}
+button.ghost:hover{border-color:var(--g);color:var(--g)}
+button.ghost.on{border-color:var(--t);color:var(--t);background:rgba(122,217,200,.07)}
+.btns{display:flex;gap:8px;margin-top:10px}
+.main{flex:1;display:flex;flex-direction:column;height:100vh}
+.bar{height:42px;flex-shrink:0;background:#0a0a0a;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 16px;font-size:12px;color:var(--mut)}
+.bar .dot{width:8px;height:8px;border-radius:50%;background:#444}
+.bar .dot.live{background:#5bd98a}
+.frameWrap{flex:1;position:relative;background:#000}
+iframe{width:100%;height:100%;border:0;display:block}
+.hint{font-size:10.5px;color:#666;line-height:1.6;margin-top:8px}
+.sel-info{font-size:11px;color:var(--g);margin-bottom:8px;word-break:break-all;min-height:14px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#111;border:1px solid var(--g);color:var(--g);padding:10px 22px;border-radius:6px;font-size:12px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:99}
+#toast.show{opacity:1}
+.dis{opacity:.4;pointer-events:none}
+</style></head>
+<body>
+<div class="panel">
+  <div class="brand"><h1>MIRACDX STUDIO</h1><small>Local visual editor · no tokens</small></div>
+
+  <div class="sec">
+    <h2>Page</h2>
+    <select id="pageSel"></select>
+    <div class="btns"><button id="loadBtn">Load</button><button class="ghost" id="openBtn">Open ↗</button></div>
+  </div>
+
+  <div class="sec" id="grpTheme">
+    <h2>Theme Colors</h2>
+    <div class="crow"><label>Gold (accent)</label><input type="color" data-var="--gold"></div>
+    <div class="crow"><label>Gold light</label><input type="color" data-var="--gold2"></div>
+    <div class="crow"><label>Teal</label><input type="color" data-var="--teal"></div>
+    <div class="crow"><label>Background</label><input type="color" data-var="--bg"></div>
+    <div class="crow"><label>Text</label><input type="color" data-var="--text"></div>
+    <div class="crow"><label>Muted</label><input type="color" data-var="--muted"></div>
+    <div class="hint">Recolors any page that uses CSS variables (the main page does). Demo pages use fixed colors.</div>
+  </div>
+
+  <div class="sec" id="grpType">
+    <h2>Typography (global)</h2>
+    <label>Body font</label>
+    <select id="bodyFont"></select>
+    <label>Base font size (px)</label>
+    <input type="number" id="bodySize" min="10" max="22" step="1" value="14">
+  </div>
+
+  <div class="sec" id="grpAnim">
+    <h2>Background Animation</h2>
+    <select id="animSel"></select>
+    <div class="btns"><button id="animApply">Apply animation</button></div>
+    <div class="hint">Adds a full-page canvas behind the content. Uses the Gold / Gold-light / Teal colors above.</div>
+  </div>
+
+  <div class="sec" id="grpSel">
+    <h2>Selected element</h2>
+    <button class="ghost" id="pickBtn">▣ Click-to-edit: OFF</button>
+    <div class="sel-info" id="selInfo">— nothing selected —</div>
+    <div id="selControls" class="dis">
+      <label>Text (type to edit)</label>
+      <input type="text" id="selText">
+      <div class="crow"><label>Color</label><input type="color" id="selColor"></div>
+      <label>Font</label><select id="selFont"></select>
+      <div class="row" style="margin-top:8px">
+        <div><label>Size (px)</label><input type="number" id="selSize" min="8" max="120"></div>
+        <div><label>Weight</label>
+          <select id="selWeight"><option value="">auto</option><option>300</option><option>400</option><option>500</option><option>600</option><option>700</option><option>900</option></select>
+        </div>
+      </div>
+      <div class="crow" style="margin-top:10px"><label>Italic</label><input type="checkbox" id="selItalic" style="flex:none;width:auto"></div>
+      <div class="crow"><label>Visible (uncheck = hide)</label><input type="checkbox" id="selVisible" checked style="flex:none;width:auto"></div>
+    </div>
+    <div class="hint">Turn on click-to-edit, then click any text on the page to select it. Edit its words, color, font, size — or hide it entirely.</div>
+  </div>
+
+  <div class="sec">
+    <h2>Save</h2>
+    <button id="saveBtn">💾 Save to file</button>
+    <div class="btns"><button class="ghost" id="reloadBtn">↻ Discard / reload</button></div>
+    <div class="hint">Writes the real .html file. After saving, run <code>git push</code> to publish.</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="bar"><span class="dot" id="liveDot"></span><span id="barPath">No page loaded</span></div>
+  <div class="frameWrap"><iframe id="frame"></iframe></div>
+</div>
+<div id="toast"></div>
+
+<script>
+var FONTS=["Playfair Display","Cinzel","Inter","JetBrains Mono","Georgia, serif",
+  "Arial, sans-serif","system-ui, sans-serif","Courier New, monospace","monospace",
+  "Times New Roman, serif","Verdana, sans-serif","Trebuchet MS, sans-serif",
+  "Impact, sans-serif","Diablo Heavy","Blade","Technology"];
+var $=function(s){return document.querySelector(s);};
+var frame=$("#frame"),curPath="",doc=null,win=null,pickMode=false,selEl=null,curAnim="none";
+
+/* ---------- toast ---------- */
+var toastT;
+function toast(msg){var t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("show");},1900);}
+
+/* ---------- fonts dropdowns ---------- */
+function fillFonts(sel){FONTS.forEach(function(f){var o=document.createElement("option");o.value=f;o.textContent=f.split(",")[0];sel.appendChild(o);});}
+fillFonts($("#bodyFont"));fillFonts($("#selFont"));
+$("#bodyFont").insertAdjacentHTML("afterbegin","<option value=''>— keep —</option>");
+$("#selFont").insertAdjacentHTML("afterbegin","<option value=''>— keep —</option>");
+
+/* ---------- animation dropdown ---------- */
+(function(){var s=$("#animSel");MIRAnim.names.forEach(function(n){var o=document.createElement("option");o.value=n;o.textContent=MIRAnim.labels[n];s.appendChild(o);});})();
+
+/* ---------- page list ---------- */
+fetch("/__list").then(function(r){return r.json();}).then(function(d){
+  var s=$("#pageSel");(d.files||[]).forEach(function(f){
+    if(f.indexOf("studio/")===0)return;
+    var o=document.createElement("option");o.value=f;o.textContent=f;
+    if(f==="index.html")o.selected=true;s.appendChild(o);});
+});
+
+/* ---------- load page ---------- */
+function loadPage(p){curPath=p;$("#liveDot").classList.remove("live");$("#barPath").textContent="Loading "+p+" ...";
+  frame.src="/"+p+"?ts="+Date.now();}
+frame.addEventListener("load",function(){
+  try{doc=frame.contentDocument;win=frame.contentWindow;}catch(e){doc=null;}
+  if(!doc)return;
+  $("#liveDot").classList.add("live");$("#barPath").textContent=curPath;
+  injectStudioStyle();readThemeVars();detectAnim();
+  if(pickMode)bindPick();
+  selEl=null;refreshSel();
+});
+$("#loadBtn").onclick=function(){loadPage($("#pageSel").value);};
+$("#openBtn").onclick=function(){window.open("/"+$("#pageSel").value,"_blank");};
+$("#reloadBtn").onclick=function(){if(curPath)loadPage(curPath);};
+
+/* ---------- studio-only style (for highlight), stripped before save ---------- */
+function injectStudioStyle(){
+  if(doc.getElementById("mir-studio-style"))return;
+  var st=doc.createElement("style");st.id="mir-studio-style";
+  st.textContent=".__mir-hi{outline:2px dashed #7ad9c8 !important;outline-offset:2px;cursor:pointer !important;}";
+  doc.head.appendChild(st);
+}
+
+/* ---------- theme vars ---------- */
+function readThemeVars(){
+  var cs=win.getComputedStyle(doc.documentElement);
+  document.querySelectorAll("[data-var]").forEach(function(inp){
+    var v=cs.getPropertyValue(inp.dataset.var).trim();
+    if(/^#?[0-9a-f]{6}$/i.test(v))inp.value=v[0]==="#"?v:"#"+v;
+    else if(v)inp.value=hexish(v)||inp.value;
+  });
+}
+function hexish(v){var m=v.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);if(!m)return null;
+  return "#"+[m[1],m[2],m[3]].map(function(n){return ("0"+(+n).toString(16)).slice(-2);}).join("");}
+document.querySelectorAll("[data-var]").forEach(function(inp){
+  inp.addEventListener("input",function(){if(!doc)return;
+    doc.documentElement.style.setProperty(inp.dataset.var,inp.value);});
+});
+
+/* ---------- typography ---------- */
+$("#bodyFont").onchange=function(){if(doc&&this.value)doc.body.style.fontFamily=this.value;};
+$("#bodySize").onchange=function(){if(doc)doc.body.style.fontSize=this.value+"px";};
+
+/* ---------- animation ---------- */
+function curColors(){var g={};document.querySelectorAll("[data-var]").forEach(function(i){
+  g[i.dataset.var.replace("--","")]=i.value;});return {gold:g.gold,gold2:g.gold2,teal:g.teal,bg:g.bg};}
+function detectAnim(){var s=doc.querySelector("script[data-mir-anim]");curAnim=s?s.getAttribute("data-mir-anim"):"none";$("#animSel").value=curAnim;}
+$("#animApply").onclick=function(){
+  if(!doc)return;var name=$("#animSel").value;
+  var old=doc.querySelector("script[data-mir-anim]");if(old)old.remove();
+  var cv=doc.getElementById("mir-bg");if(cv&&cv.__mirStop){try{cv.__mirStop();}catch(e){}}
+  if(cv&&name==="none")cv.remove();
+  var code=MIRAnim.snippet(name,curColors());
+  var sc=doc.createElement("script");sc.setAttribute("data-mir-anim",name);sc.textContent=code;
+  doc.body.appendChild(sc);curAnim=name;toast("Animation: "+MIRAnim.labels[name]);
+};
+
+/* ---------- click-to-edit ---------- */
+$("#pickBtn").onclick=function(){pickMode=!pickMode;this.classList.toggle("on",pickMode);
+  this.textContent="▣ Click-to-edit: "+(pickMode?"ON":"OFF");
+  if(doc){pickMode?bindPick():unbindPick();}};
+function onPick(e){e.preventDefault();e.stopPropagation();
+  if(selEl)selEl.classList.remove("__mir-hi");
+  selEl=e.target;selEl.classList.add("__mir-hi");selEl.setAttribute("contenteditable","true");
+  refreshSel();}
+function bindPick(){doc.body.addEventListener("click",onPick,true);}
+function unbindPick(){doc.body.removeEventListener("click",onPick,true);}
+function refreshSel(){
+  var box=$("#selControls");
+  if(!selEl){box.classList.add("dis");$("#selInfo").textContent="— nothing selected —";return;}
+  box.classList.remove("dis");
+  var tag=selEl.tagName.toLowerCase(),cls=selEl.className.toString().replace("__mir-hi","").trim();
+  $("#selInfo").textContent=tag+(cls?"."+cls.split(/\s+/).join("."):"");
+  var cs=win.getComputedStyle(selEl);
+  $("#selText").value=selEl.textContent.trim().slice(0,200);
+  $("#selColor").value=hexish(cs.color)||"#e0dcd0";
+  $("#selSize").value=parseInt(cs.fontSize)||14;
+  $("#selWeight").value="";
+  $("#selItalic").checked=cs.fontStyle==="italic";
+  $("#selVisible").checked=cs.display!=="none";
+}
+$("#selText").oninput=function(){if(selEl)selEl.textContent=this.value;};
+$("#selColor").oninput=function(){if(selEl)selEl.style.color=this.value;};
+$("#selFont").onchange=function(){if(selEl&&this.value)selEl.style.fontFamily=this.value;};
+$("#selSize").oninput=function(){if(selEl)selEl.style.fontSize=this.value+"px";};
+$("#selWeight").onchange=function(){if(selEl)selEl.style.fontWeight=this.value;};
+$("#selItalic").onchange=function(){if(selEl)selEl.style.fontStyle=this.checked?"italic":"normal";};
+$("#selVisible").onchange=function(){if(selEl)selEl.style.display=this.checked?"":"none";};
+
+/* ---------- save ---------- */
+function cleanForSave(){
+  var clone=doc.documentElement.cloneNode(true);
+  var st=clone.querySelector("#mir-studio-style");if(st)st.remove();
+  clone.querySelectorAll(".__mir-hi").forEach(function(el){el.classList.remove("__mir-hi");if(!el.getAttribute("class"))el.removeAttribute("class");});
+  clone.querySelectorAll("[contenteditable]").forEach(function(el){el.removeAttribute("contenteditable");});
+  return "<!DOCTYPE html>\n"+clone.outerHTML;
+}
+$("#saveBtn").onclick=function(){
+  if(!doc||!curPath){toast("Load a page first");return;}
+  var html=cleanForSave();
+  fetch("/__save",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({path:curPath,html:html})})
+    .then(function(r){return r.json();})
+    .then(function(d){toast(d.ok?("Saved ✓ "+d.path):("Error: "+d.error));})
+    .catch(function(e){toast("Save failed: "+e);});
+};
+</script>
+</body></html>

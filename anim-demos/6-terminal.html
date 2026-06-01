@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MIR ACADEMY — Live Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:#e0dcd0;font-family:system-ui,sans-serif;overflow:hidden}
+.bg{position:fixed;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
+.term{width:min(680px,86vw);height:min(420px,60vh);background:rgba(10,10,10,.92);border:1px solid rgba(200,169,110,.18);border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden;opacity:.9}
+.bar{height:34px;background:rgba(200,169,110,.06);border-bottom:1px solid rgba(200,169,110,.12);display:flex;align-items:center;padding:0 14px;gap:7px}
+.dot{width:11px;height:11px;border-radius:50%}
+.d1{background:#e06c6c}.d2{background:#e0c46c}.d3{background:#6ce08a}
+.bar-t{margin-left:14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#666;letter-spacing:.05em}
+.body{padding:18px 20px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.85;color:#9fb8b0}
+.body .p{color:#7ad9c8}.body .g{color:#c8a96e}.body .c{color:#5a6a64}
+#out{white-space:pre-wrap}
+.cur{display:inline-block;width:8px;height:15px;background:#c8a96e;vertical-align:-2px;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.veil{position:fixed;inset:0;z-index:5;background:radial-gradient(ellipse 60% 55% at 50% 48%,rgba(5,5,5,.78),rgba(5,5,5,.45) 55%,rgba(5,5,5,.2))}
+.hero{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:#7ad9c8;margin-bottom:22px}
+.title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:.95;text-shadow:0 4px 30px rgba(5,5,5,.9)}
+.title .g{color:#c8a96e}
+.sub{font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,17px);color:#c8a96e;letter-spacing:.22em;margin-top:14px;opacity:.85}
+.tag{position:fixed;top:18px;left:20px;z-index:20;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#7ad9c8;text-transform:uppercase}
+.back{position:fixed;top:18px;right:20px;z-index:20;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#666;text-decoration:none}
+.back:hover{color:#c8a96e}
+</style></head><body>
+<div class="tag">06 · Live Terminal</div>
+<a class="back" href="index.html">← all demos</a>
+<div class="bg"><div class="term">
+  <div class="bar"><div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><div class="bar-t">mira@renovator: ~/pipeline</div></div>
+  <div class="body"><span id="out"></span><span class="cur"></span></div>
+</div></div>
+<div class="veil"></div>
+<div class="hero">
+  <div class="eyebrow">Istanbul · 2020 · AI-Powered Education</div>
+  <div class="title"><span class="g">MIR</span><br>ACADEMY</div>
+  <div class="sub">AD ASTRA PER ASPERA</div>
+</div>
+<script>
+const lines=[
+ {t:'$ mira renovate --input legacy_curriculum.pdf',c:'g'},
+ {t:'→ parsing document structure...',c:'p'},
+ {t:'→ analyzing: 14 stale topics found',c:'c'},
+ {t:'→ researching current sources...',c:'p'},
+ {t:'→ restructuring for interactive learning',c:'c'},
+ {t:'→ generating module.html [bilingual]',c:'p'},
+ {t:'✓ modern module ready. ad astra per aspera.',c:'g'},
+ {t:'',c:'c'},
+];
+const out=document.getElementById('out');let li=0,ci=0,buf='';
+function tick(){
+  if(li>=lines.length){li=0;ci=0;buf='';out.innerHTML='';setTimeout(tick,1400);return;}
+  const L=lines[li];
+  if(ci<=L.t.length){
+    out.innerHTML=buf+'<span class="'+L.c+'">'+L.t.slice(0,ci)+'</span>';
+    ci++;setTimeout(tick,28+Math.random()*40);
+  }else{
+    buf+='<span class="'+L.c+'">'+L.t+'</span>\n';li++;ci=0;setTimeout(tick,360);
+  }
+}
+tick();
+</script></body></html>

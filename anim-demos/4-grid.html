@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MIR ACADEMY — Infinite Grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:#e0dcd0;font-family:system-ui,sans-serif;overflow:hidden}
+canvas{position:fixed;inset:0;z-index:0}
+.hero{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:#7ad9c8;margin-bottom:22px}
+.title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:.95}
+.title .g{color:#c8a96e}
+.sub{font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,17px);color:#c8a96e;letter-spacing:.22em;margin-top:14px;opacity:.85}
+.tag{position:fixed;top:18px;left:20px;z-index:20;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#7ad9c8;text-transform:uppercase}
+.back{position:fixed;top:18px;right:20px;z-index:20;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:#666;text-decoration:none}
+.back:hover{color:#c8a96e}
+</style></head><body>
+<div class="tag">04 · Infinite Grid</div>
+<a class="back" href="index.html">← all demos</a>
+<canvas id="c"></canvas>
+<div class="hero">
+  <div class="eyebrow">Istanbul · 2020 · AI-Powered Education</div>
+  <div class="title"><span class="g">MIR</span><br>ACADEMY</div>
+  <div class="sub">AD ASTRA PER ASPERA</div>
+</div>
+<script>
+const cv=document.getElementById('c'),x=cv.getContext('2d');
+let W,H,t=0;
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;}
+function step(){
+  x.fillStyle='#050505';x.fillRect(0,0,W,H);
+  const hz=H*0.5,vp=W/2,spacing=46,depth=22;
+  // horizontal lines receding to horizon
+  for(let i=0;i<depth;i++){
+    const p=((i+ (t*0.6)%1)/depth);
+    const y=hz+Math.pow(p,2.2)*(H-hz);
+    const o=(1-p)*.5;
+    x.strokeStyle='rgba(200,169,110,'+o*0.7+')';x.lineWidth=1;
+    x.beginPath();x.moveTo(0,y);x.lineTo(W,y);x.stroke();
+  }
+  // vertical perspective lines
+  const lines=26;
+  for(let i=-lines;i<=lines;i++){
+    const fx=vp+i*spacing;
+    const o=Math.max(0,1-Math.abs(i)/lines)*.5;
+    x.strokeStyle='rgba(122,217,200,'+o+')';x.lineWidth=1;
+    x.beginPath();x.moveTo(vp+i*8,hz);x.lineTo(fx,H);x.stroke();
+  }
+  // horizon glow
+  const g=x.createLinearGradient(0,hz-60,0,hz+60);
+  g.addColorStop(0,'rgba(5,5,5,0)');g.addColorStop(.5,'rgba(200,169,110,.18)');g.addColorStop(1,'rgba(5,5,5,0)');
+  x.fillStyle=g;x.fillRect(0,hz-60,W,120);
+  t+=0.016;
+  requestAnimationFrame(step);
+}
+addEventListener('resize',rs);rs();step();
+</script></body></html>
