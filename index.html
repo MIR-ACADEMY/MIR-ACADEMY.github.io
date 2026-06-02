@@ -212,9 +212,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 
 <!-- HERO -->
 <section class="hero">
-  <div class="orbit-wrap">
-    <div class="orbit-ring" id="orbitRing"></div>
-  </div>
+  <!-- orbit removed (rotating text was disturbing); hero motion = light gold rain (+ conveyor belt coming) -->
+
   <div class="hero-center">
     <div class="hero-eyebrow">Istanbul · 2020 · AI-Powered Education</div>
     <h1 class="hero-title"><span class="gold">MIR</span><br>ACADEMY</h1>
@@ -457,15 +456,7 @@ const CARDS=[
   {icon:'🔬',name:'History IT'},{icon:'🤖',name:'History AI'},
   {icon:'🎨',name:'MIR PIXEL'},{icon:'✨',name:'MIR Astrology'},
 ];
-const ring=document.getElementById('orbitRing');
-CARDS.forEach((c,i)=>{
-  const deg=(i/CARDS.length)*360;
-  const card=document.createElement('div');
-  card.className='orbit-card';
-  card.style.transform=`rotate(${deg}deg) translateX(300px)`;
-  card.innerHTML=`<div class="orbit-card-inner" style="transform:rotate(-${deg}deg)"><div class="oc-icon">${c.icon}</div><div class="oc-name">${c.name}</div></div>`;
-  ring.appendChild(card);
-});
+/* orbit removed — hero motion now: light gold rain (+ conveyor belt next). CARDS kept for the belt. */
 
 /* TICKER */
 const STATS=[
@@ -578,20 +569,23 @@ function adminExport(){
 /* ── GENTLE GOLD DATA RAIN (kind, slow, not-Matrix: Latin + Roman numerals, no katakana) ── */
 (function(){
   var cv=document.getElementById('mir-bg');if(!cv)return;
-  var x=cv.getContext('2d'),W,H,cols,drops,FS=20;
+  var x=cv.getContext('2d'),W,H,cols,drops,active,FS=30;
   var glyphs='MIRACADEMY0123456789·/<>=+{}IVXLCDM∑λπΔ';
-  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.floor(W/FS);drops=new Array(cols);for(var i=0;i<cols;i++)drops[i]=Math.random()*-60;}
+  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.floor(W/FS);
+    drops=new Array(cols);active=new Array(cols);
+    for(var i=0;i<cols;i++){drops[i]=Math.random()*-80;active[i]=Math.random()<0.35;}} /* only ~35% columns rain = few drops */
   function step(){
-    x.fillStyle='rgba(5,5,5,0.10)';x.fillRect(0,0,W,H);              /* soft fade trail */
+    x.fillStyle='rgba(5,5,5,0.08)';x.fillRect(0,0,W,H);
     x.font=FS+'px "Courier New",monospace';
     for(var i=0;i<cols;i++){
+      if(!active[i])continue;
       var y=drops[i]*FS;
-      x.fillStyle='rgba(226,196,138,0.50)';                          /* lead: warm gold, gentle */
+      x.fillStyle='rgba(226,196,138,0.35)';                          /* lead: faint warm gold */
       x.fillText(glyphs[Math.floor(Math.random()*glyphs.length)],i*FS,y);
-      x.fillStyle='rgba(200,169,110,0.16)';                          /* trail: dim gold */
+      x.fillStyle='rgba(200,169,110,0.10)';                          /* trail: barely-there gold */
       x.fillText(glyphs[Math.floor(Math.random()*glyphs.length)],i*FS,y-FS);
-      if(y>H&&Math.random()>0.985)drops[i]=Math.random()*-20;
-      drops[i]+=0.22;                                                /* slow & kind */
+      if(y>H&&Math.random()>0.99){drops[i]=Math.random()*-30;active[i]=Math.random()<0.5;} /* columns rest = sparse */
+      drops[i]+=0.12;                                                /* very slow — first drops of light rain */
     }
     requestAnimationFrame(step);
   }
