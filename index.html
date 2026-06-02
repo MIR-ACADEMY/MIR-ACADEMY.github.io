@@ -53,23 +53,24 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .nav-cta:hover{background:var(--gold2);color:#050505;}
 
 /* HERO */
-.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero{min-height:auto;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden;padding:150px 36px 26px;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(200,169,110,0.08) 0%,transparent 70%),radial-gradient(ellipse 40% 35% at 20% 80%,rgba(122,217,200,0.04) 0%,transparent 60%);pointer-events:none;}
 .hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(200,169,110,0.12) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;opacity:0.4;}
 
-.hero-center{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center;margin-top:-5vh;}
+.hero-center{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center;margin-top:0;}
 .hero-eyebrow{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;margin-bottom:8px;
-  background:linear-gradient(110deg,#8a6a2a 0%,#c8a96e 28%,#fff0b0 47%,#e2c48a 58%,#c8a96e 72%,#8a6a2a 100%);
-  background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
-  animation:titleSheen 7s linear infinite;}
-@keyframes titleSheen{to{background-position:220% center;}}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;word-spacing:0.55em;margin-bottom:18px;
+  background:radial-gradient(circle at 50% 50%, #fff3c0 0%, rgba(255,243,192,0) 38%), linear-gradient(0deg,#c8a96e,#c8a96e);
+  background-repeat:no-repeat;background-position:center,center;background-size:0% 0%,100% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  animation:titleGlint 9s ease-out infinite;}
+@keyframes titleGlint{0%{background-size:0% 0%,100% 100%;}28%{background-size:300% 300%,100% 100%;}55%,100%{background-size:0% 0%,100% 100%;}}
 .hero-title .gold{color:var(--gold);}
-.hero-sub{font-family:'Cinzel',serif;font-size:clamp(19px,3.25vw,33px);margin-bottom:40px;letter-spacing:0.14em;font-weight:600;text-decoration:none;display:block;color:#a8843a;}
+.hero-sub{font-family:'Cinzel',serif;font-size:clamp(24px,4vw,41px);margin-bottom:24px;letter-spacing:0.14em;font-weight:600;text-decoration:none;display:block;color:#a8843a;}
 .mbrk{display:inline-block;color:#8a6a2a;opacity:0;animation:mbrkfade .7s ease .05s forwards;}
 @keyframes mbrkfade{to{opacity:1;}}
-.mw{display:inline-block;margin:0 0.45em;opacity:0;color:#a8843a;animation:mwspin 1.1s cubic-bezier(.2,.7,.25,1) forwards;}
-.mw1{animation-delay:.25s;}.mw2{animation-delay:.95s;}.mw3{animation-delay:1.65s;}
+.mw{display:inline-block;margin:0 0.45em;opacity:0;color:#a8843a;}
+/* motto swivel is driven by JS (plays on load, then replays every 30s) */
 @keyframes mwspin{
   0%{opacity:0;transform:perspective(700px) rotateY(-92deg) scale(.45);color:#060606;text-shadow:none;}
   55%{opacity:1;color:#9beee0;text-shadow:0 0 32px rgba(122,217,200,0.95),0 0 12px rgba(122,217,200,0.9);}
@@ -82,14 +83,17 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .btn-ghost{border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:500;padding:12px 26px;border-radius:3px;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.15s;}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 /* PROJECT BELT (slow L→R marquee) */
-.belt{width:100%;overflow:hidden;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(200,169,110,0.02);}
+.belt{width:100%;overflow:hidden;padding:22px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(200,169,110,0.02);}
 .belt-track{display:flex;gap:14px;width:max-content;animation:beltmove 64s linear infinite;}
 .belt:hover .belt-track{animation-play-state:paused;}
 @keyframes beltmove{from{transform:translateX(-50%);}to{transform:translateX(0);}}
-.belt-card{flex:0 0 auto;width:190px;height:118px;background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);}
+.belt-card{flex:0 0 auto;width:285px;height:177px;background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);}
 .belt-card:hover{border-color:var(--gold);transform:translateY(-3px);background:#121110;}
-.belt-ic{font-size:30px;line-height:1;}
-.belt-nm{font-size:12.5px;color:var(--muted);letter-spacing:.05em;text-align:center;text-transform:uppercase;line-height:1.3;padding:0 6px;}
+.belt-ic{color:#c8a96e;line-height:0;}
+.belt-ic svg{width:46px;height:46px;}
+.belt-card:hover .belt-ic{color:#e2c48a;}
+.pmic svg{width:44px;height:44px;color:var(--gold);}
+.belt-nm{font-size:17px;color:var(--muted);letter-spacing:.06em;text-align:center;text-transform:uppercase;line-height:1.3;padding:0 8px;}
 .belt-card:hover .belt-nm{color:var(--gold);}
 /* PROJECT MODAL */
 .pmodal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.78);backdrop-filter:blur(6px);padding:24px;}
@@ -505,12 +509,12 @@ const CARDS=[
 ];
 /* orbit removed — hero motion = light gold rain + PROJECT BELT below */
 const PROJECTS=[
-  {ic:'📊',nm:'MIR Invest',cat:'Education · Finance',desc:'Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, Turkish + English.',note:'Interactive module — full version coming online soon.'},
-  {ic:'🌍',nm:'World Almanac',cat:'Education · History',desc:'Interactive world history 2000–2026 — politics, technology, and culture in a rich dark reference.',note:'Interactive module — coming online soon.'},
-  {ic:'💻',nm:'IT Literacy',cat:'Education · IT',desc:'A 10-module curriculum: the Internet, GitHub, terminal, Python, web ownership, security, AI & more.',note:'In development — first modules coming soon.'},
-  {ic:'📋',nm:'DATA-MIR Board',cat:'Dashboard',desc:'Personal command-center dashboard — multi-theme, modular, with live project tracking.',note:'Personal tool.'},
-  {ic:'🛠',nm:'MIRACDX QuickSolutions',cat:'MIRACDX · Windows App',desc:'System-tray utility: voice reader, screenshot, and screen recorder. Runs at Windows startup.',note:'Windows desktop app.'},
-  {ic:'⌚',nm:'MIRACDX Band',cat:'MIRACDX · Windows App',desc:'Xiaomi smartwatch companion — real-time sensors and theme sync.',note:'Windows desktop app.'}
+  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M12 20v-9M18 20v-13"/><path d="M5 9l5-4 3 2 6-5"/></svg>',nm:'MIR Invest',cat:'Education · Finance',desc:'Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, Turkish + English.',note:'Interactive module — full version coming online soon.'},
+  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>',nm:'World Almanac',cat:'Education · History',desc:'Interactive world history 2000–2026 — politics, technology, and culture in a rich dark reference.',note:'Interactive module — coming online soon.'},
+  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M9 21h6M12 17v4"/><path d="M7 9l2.4 2L7 13"/><path d="M12.6 13H16"/></svg>',nm:'IT Literacy',cat:'Education · IT',desc:'A 10-module curriculum: the Internet, GitHub, terminal, Python, web ownership, security, AI & more.',note:'In development — first modules coming soon.'},
+  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></svg>',nm:'DATA-MIR Board',cat:'Dashboard',desc:'Personal command-center dashboard — multi-theme, modular, with live project tracking.',note:'Personal tool.'},
+  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>',nm:'MIRACDX QuickSolutions',cat:'MIRACDX · Windows App',desc:'System-tray utility: voice reader, screenshot, and screen recorder. Runs at Windows startup.',note:'Windows desktop app.'},
+  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2.5"/><path d="M9.5 7l.8-4h3.4l.8 4M9.5 17l.8 4h3.4l.8-4"/><path d="M12 10v2.6l1.6 1"/></svg>',nm:'MIRACDX Band',cat:'MIRACDX · Windows App',desc:'Xiaomi smartwatch companion — real-time sensors and theme sync.',note:'Windows desktop app.'}
 ];
 (function(){
   var bt=document.getElementById('beltTrack');if(!bt)return;
@@ -519,12 +523,12 @@ const PROJECTS=[
     var idx=i%PROJECTS.length;
     var c=document.createElement('div');c.className='belt-card';
     c.addEventListener('click',function(){openProj(idx);});
-    c.innerHTML='<div class="belt-ic">'+p.ic+'</div><div class="belt-nm">'+p.nm+'</div>';
+    c.innerHTML='<div class="belt-ic">'+p.svg+'</div><div class="belt-nm">'+p.nm+'</div>';
     bt.appendChild(c);
   });
 })();
 function openProj(i){var p=PROJECTS[i];
-  document.getElementById('pmIc').textContent=p.ic;
+  document.getElementById('pmIc').innerHTML=p.svg;
   document.getElementById('pmNm').textContent=p.nm;
   document.getElementById('pmCat').textContent=p.cat;
   document.getElementById('pmDesc').textContent=p.desc;
@@ -532,6 +536,10 @@ function openProj(i){var p=PROJECTS[i];
   document.getElementById('pmodal').classList.add('open');}
 function closeProj(){document.getElementById('pmodal').classList.remove('open');}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProj();});
+
+/* MOTTO swivel — play on load, then replay every 30s (the gem) */
+function playMotto(){var ws=document.querySelectorAll('.hero-sub .mw');ws.forEach(function(w,i){w.style.animation='none';void w.offsetWidth;w.style.animation='mwspin 1.15s cubic-bezier(.2,.7,.25,1) '+(0.15+i*0.7).toFixed(2)+'s both';});}
+playMotto();setInterval(playMotto,30000);
 
 /* TICKER */
 const STATS=[
