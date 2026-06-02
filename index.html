@@ -59,9 +59,14 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 
 .hero-center{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center;margin-top:-5vh;}
 .hero-eyebrow{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;margin-bottom:8px;color:var(--text);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;margin-bottom:8px;
+  background:linear-gradient(110deg,#8a6a2a 0%,#c8a96e 28%,#fff0b0 47%,#e2c48a 58%,#c8a96e 72%,#8a6a2a 100%);
+  background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  animation:titleSheen 7s linear infinite;}
+@keyframes titleSheen{to{background-position:220% center;}}
 .hero-title .gold{color:var(--gold);}
-.hero-sub{font-family:'Cinzel',serif;font-size:clamp(19px,3.25vw,33px);color:var(--gold);margin-bottom:40px;letter-spacing:0.16em;font-weight:600;opacity:0.95;text-shadow:0 1px 20px rgba(200,169,110,0.2);text-decoration:none;display:block;}
+.hero-sub{font-family:'Cinzel',serif;font-size:clamp(19px,3.25vw,33px);color:var(--gold);margin-bottom:40px;letter-spacing:0.16em;font-weight:600;opacity:0.95;text-decoration:none;display:block;
+  text-shadow:0 1px 1px rgba(255,238,200,0.18), 0 -1px 1px rgba(0,0,0,0.55), 0 0 24px rgba(200,169,110,0.22);}
 .hero-sub:hover{opacity:1;}
 .hero-actions{display:flex;gap:14px;align-items:center;}
 .btn-gold{background:var(--gold);color:#050505;font-size:12px;font-weight:700;padding:12px 28px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.15s;}
@@ -239,7 +244,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   <!-- orbit removed (rotating text was disturbing); hero motion = light gold rain (+ conveyor belt coming) -->
 
   <div class="hero-center">
-    <h1 class="hero-title"><span class="gold">MIR</span> ACADEMY</h1>
+    <h1 class="hero-title">MIR ACADEMY</h1>
     <a href="index.html" class="hero-sub">[ EDUCARE · RENOVARE · TRANSCENDERE ]</a>
     <div class="belt"><div class="belt-track" id="beltTrack"></div></div>
   </div>
