@@ -82,7 +82,7 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .btn-ghost{border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:500;padding:12px 26px;border-radius:3px;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.15s;}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 /* PROJECT BELT (slow L→R marquee) */
-.belt{width:100%;max-width:1000px;margin-top:8px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);}
+.belt{width:100%;overflow:hidden;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(200,169,110,0.02);}
 .belt-track{display:flex;gap:14px;width:max-content;animation:beltmove 64s linear infinite;}
 .belt:hover .belt-track{animation-play-state:paused;}
 @keyframes beltmove{from{transform:translateX(-50%);}to{transform:translateX(0);}}
@@ -114,8 +114,8 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 
 /* TICKER */
 .ticker{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(200,169,110,0.03);overflow:hidden;padding:14px 0;}
-.ticker-track{display:flex;animation:ticker-move 22s linear infinite;width:max-content;}
-@keyframes ticker-move{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.ticker-track{display:flex;animation:ticker-move 64s linear infinite;width:max-content;}
+@keyframes ticker-move{from{transform:translateX(-50%);}to{transform:translateX(0);}}
 .ticker-item{display:flex;align-items:center;gap:32px;padding:0 40px;white-space:nowrap;}
 .ticker-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--gold);}
 .ticker-lbl{font-size:11px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
@@ -254,9 +254,11 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   <div class="hero-center">
     <h1 class="hero-title">MIR ACADEMY</h1>
     <a href="index.html" class="hero-sub"><span class="mbrk">[</span><span class="mw mw1">EDUCARE</span><span class="mw mw2">RENOVARE</span><span class="mw mw3">TRANSCENDERE</span><span class="mbrk">]</span></a>
-    <div class="belt"><div class="belt-track" id="beltTrack"></div></div>
   </div>
 </section>
+
+<!-- PROJECT BELT (full-width band, slow L→R) -->
+<div class="belt"><div class="belt-track" id="beltTrack"></div></div>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -646,17 +648,19 @@ function adminExport(){
   var glyphs='MIRACADEMY0123456789·/<>=+{}IVXLCDM∑λπΔ';
   var streams=[], steps=[1,3,5,8], si=0, target=steps[0];   /* build up: 1 -> 3 -> 5 -> 8 lines, then hold */
   function R(){return glyphs[Math.floor(Math.random()*glyphs.length)];}
-  function spawn(){return {col:Math.floor(Math.random()*Math.max(1,cols)), y:Math.random()*-25, sp:0.06+Math.random()*0.05, len:6+Math.floor(Math.random()*8)};}
+  function spawn(){return {col:Math.floor(Math.random()*Math.max(1,cols)), y:Math.random()*-25, sp:0.06+Math.random()*0.05, len:6+Math.floor(Math.random()*8), gold:Math.random()<0.5};}
   function ensure(){while(streams.length<target)streams.push(spawn());}
   function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.floor(W/FS);ensure();}
   setInterval(function(){if(si<steps.length-1){si++;target=steps[si];ensure();}},9000);  /* add a line every ~9s */
   function step(){
-    x.fillStyle='rgba(5,5,5,0.06)';x.fillRect(0,0,W,H);             /* gentle fade */
+    x.fillStyle='rgba(5,5,5,0.16)';x.fillRect(0,0,W,H);             /* stronger fade — clears leftover trails */
     x.font=FS+'px "Courier New",monospace';
     for(var s=0;s<streams.length;s++){
       var st=streams[s], yy=st.y*FS;
-      x.fillStyle='rgba(226,196,138,0.42)';x.fillText(R(),st.col*FS,yy);       /* lead: warm gold */
-      x.fillStyle='rgba(200,169,110,0.12)';x.fillText(R(),st.col*FS,yy-FS);    /* trail: dim gold */
+      var lead=st.gold?'rgba(226,196,138,0.55)':'rgba(122,217,200,0.50)';     /* each stream: gold OR cyan (motto color) */
+      var trail=st.gold?'rgba(200,169,110,0.16)':'rgba(122,217,200,0.16)';
+      x.fillStyle=lead;x.fillText(R(),st.col*FS,yy);
+      x.fillStyle=trail;x.fillText(R(),st.col*FS,yy-FS);
       st.y+=st.sp;                                                              /* slow */
       if(yy>H+st.len*FS){streams[s]=spawn();}                                   /* respawn when fully past */
     }
