@@ -65,9 +65,17 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
   animation:titleSheen 7s linear infinite;}
 @keyframes titleSheen{to{background-position:220% center;}}
 .hero-title .gold{color:var(--gold);}
-.hero-sub{font-family:'Cinzel',serif;font-size:clamp(19px,3.25vw,33px);color:var(--gold);margin-bottom:40px;letter-spacing:0.16em;font-weight:600;opacity:0.95;text-decoration:none;display:block;
-  text-shadow:0 1px 1px rgba(255,238,200,0.18), 0 -1px 1px rgba(0,0,0,0.55), 0 0 24px rgba(200,169,110,0.22);}
-.hero-sub:hover{opacity:1;}
+.hero-sub{font-family:'Cinzel',serif;font-size:clamp(19px,3.25vw,33px);margin-bottom:40px;letter-spacing:0.14em;font-weight:600;text-decoration:none;display:block;color:#a8843a;}
+.mbrk{display:inline-block;color:#8a6a2a;opacity:0;animation:mbrkfade .7s ease .05s forwards;}
+@keyframes mbrkfade{to{opacity:1;}}
+.mw{display:inline-block;margin:0 0.45em;opacity:0;color:#a8843a;animation:mwspin 1.1s cubic-bezier(.2,.7,.25,1) forwards;}
+.mw1{animation-delay:.25s;}.mw2{animation-delay:.95s;}.mw3{animation-delay:1.65s;}
+@keyframes mwspin{
+  0%{opacity:0;transform:perspective(700px) rotateY(-92deg) scale(.45);color:#060606;text-shadow:none;}
+  55%{opacity:1;color:#9beee0;text-shadow:0 0 32px rgba(122,217,200,0.95),0 0 12px rgba(122,217,200,0.9);}
+  100%{opacity:1;transform:perspective(700px) rotateY(0deg) scale(1);color:#a8843a;text-shadow:0 0 16px rgba(122,217,200,0.22);}
+}
+.hero-sub:hover .mw{color:#c8a96e;}
 .hero-actions{display:flex;gap:14px;align-items:center;}
 .btn-gold{background:var(--gold);color:#050505;font-size:12px;font-weight:700;padding:12px 28px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.15s;}
 .btn-gold:hover{background:var(--gold2);}
@@ -245,7 +253,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 
   <div class="hero-center">
     <h1 class="hero-title">MIR ACADEMY</h1>
-    <a href="index.html" class="hero-sub">[ EDUCARE · RENOVARE · TRANSCENDERE ]</a>
+    <a href="index.html" class="hero-sub"><span class="mbrk">[</span><span class="mw mw1">EDUCARE</span><span class="mw mw2">RENOVARE</span><span class="mw mw3">TRANSCENDERE</span><span class="mbrk">]</span></a>
     <div class="belt"><div class="belt-track" id="beltTrack"></div></div>
   </div>
 </section>
