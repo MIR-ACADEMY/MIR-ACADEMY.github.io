@@ -140,7 +140,7 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 /* SECTIONS */
 .section{padding:100px 48px;}
 .section-inner{max-width:1080px;margin:0 auto;}
-.section-eyebrow{font-size:12px;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500;}
+.section-eyebrow{font-size:15px;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500;}
 .section-eyebrow .ew{display:inline-block;opacity:0;}
 @keyframes ebspin{0%{opacity:0;transform:perspective(500px) rotateY(-90deg) scale(.5);color:#060606;text-shadow:none;}55%{opacity:1;color:#9beee0;text-shadow:0 0 16px rgba(122,217,200,0.95);}100%{opacity:1;transform:perspective(500px) rotateY(0deg) scale(1);color:#7ad9c8;text-shadow:none;}}
 .section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;margin-bottom:20px;letter-spacing:-0.01em;}
@@ -578,7 +578,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProj();
 
 /* MOTTO swivel — play on load, then replay every 30s (the gem) */
 function playMotto(){var ws=document.querySelectorAll('.hero-sub .mw');ws.forEach(function(w,i){w.style.animation='none';void w.offsetWidth;w.style.animation='mwspin 1.15s cubic-bezier(.2,.7,.25,1) '+(0.15+i*0.7).toFixed(2)+'s both';});}
-playMotto();setInterval(playMotto,30000);
+playMotto();setInterval(playMotto,15000);
 /* MOTTO explanation popup (click motto to open; click popup to close) */
 function openMotto(){document.getElementById('mmodal').classList.add('open');}
 function closeMotto(){document.getElementById('mmodal').classList.remove('open');}
@@ -586,7 +586,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMotto()
 /* EYEBROWS — same per-word swivel as the motto; replays every 30s */
 function setupEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){if(eb.dataset.ebsplit)return;eb.dataset.ebsplit='1';var ws=eb.textContent.trim().split(/\s+/);eb.innerHTML=ws.map(function(w){return '<span class="ew">'+w+'</span>';}).join(' ');});}
 function playEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){eb.querySelectorAll('.ew').forEach(function(w,i){w.style.animation='none';void w.offsetWidth;w.style.animation='ebspin 1s cubic-bezier(.2,.7,.25,1) '+(i*0.18).toFixed(2)+'s both';});});}
-setupEyebrows();playEyebrows();setInterval(playEyebrows,30000);
+setupEyebrows();playEyebrows();setInterval(playEyebrows,15000);
 
 /* TICKER */
 const STATS=[
