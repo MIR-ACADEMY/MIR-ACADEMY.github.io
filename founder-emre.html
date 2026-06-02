@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Emre Mir Ekinci — Founder, MIR ACADEMY</title>
+<meta name="description" content="Emre Mir Ekinci — Founder of MIR ACADEMY. Operations Manager, AI Systems Builder, Technical Trainer, Certified Life Coach. Istanbul, Turkey.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--bg2:#0a0a0a;--border:rgba(200,169,110,.16);--gold:#c8a96e;--gold2:#e2c48a;--teal:#7ad9c8;--muted:#777;--text:#e0dcd0;--faint:#2a2a2a}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--faint)}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(5,5,5,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.nav-back{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;transition:color .15s}
+.nav-back:hover{color:var(--gold)}
+.hero{padding:130px 36px 50px;max-width:920px;margin:0 auto;position:relative}
+.hero::before{content:'';position:absolute;top:90px;left:36px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(200,169,110,.14),transparent 70%);filter:blur(12px)}
+.av{width:108px;height:108px;border-radius:50%;background:linear-gradient(135deg,rgba(200,169,110,.28),rgba(200,169,110,.05));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--gold);position:relative;margin-bottom:24px}
+.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(40px,6.5vw,64px);font-weight:900;line-height:1;margin-bottom:14px}
+.role{font-size:15.5px;color:var(--gold);font-weight:500;letter-spacing:.01em;margin-bottom:22px;line-height:1.5}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.tag{font-size:10px;padding:5px 13px;border-radius:3px;background:rgba(200,169,110,.07);color:var(--gold);border:1px solid var(--border);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.link{display:inline-flex;align-items:center;gap:7px;font-size:12px;padding:9px 18px;border-radius:4px;border:1px solid var(--border);color:var(--muted);transition:all .15s}
+.link:hover{border-color:var(--gold);color:var(--gold)}
+.wrap{max-width:920px;margin:0 auto;padding:0 36px 100px}
+.block{padding:36px 0;border-top:1px solid rgba(200,169,110,.1)}
+.block h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px}
+.block .lead{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:18px}
+.block p{color:var(--muted);font-weight:300;line-height:1.95;font-size:14.5px}
+.block p strong{color:var(--text);font-weight:500}
+/* timeline */
+.tl{position:relative;padding-left:26px}
+.tl::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:var(--border)}
+.tl-item{position:relative;padding:0 0 24px}
+.tl-item::before{content:'';position:absolute;left:-23px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(200,169,110,.12)}
+.tl-when{font-size:10.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.tl-role{font-size:15px;font-weight:600;color:var(--text)}
+.tl-org{font-size:12.5px;color:var(--gold);margin:1px 0 6px}
+.tl-desc{font-size:13px;color:var(--muted);font-weight:300;line-height:1.7}
+/* skills */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:11px;color:var(--muted);padding:5px 12px;border:1px solid var(--border);border-radius:3px;transition:all .15s}
+.chip:hover{color:var(--gold);border-color:var(--gold)}
+/* certs */
+.certs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:640px){.certs{grid-template-columns:1fr}}
+.cert{padding:11px 14px;background:rgba(200,169,110,.03);border:1px solid var(--border);border-radius:5px}
+.cert-n{font-size:12.5px;font-weight:600;color:var(--text)}
+.cert-a{font-size:10.5px;color:var(--muted);margin-top:2px}
+/* edu + lang */
+.edu-item{display:grid;grid-template-columns:120px 1fr;gap:16px;margin-bottom:14px}
+.edu-when{font-size:10.5px;color:var(--muted);text-align:right;padding-top:2px;letter-spacing:.04em}
+.edu-deg{font-size:14px;font-weight:600;color:var(--text)}
+.edu-org{font-size:12px;color:var(--gold)}
+.langs{display:flex;flex-wrap:wrap;gap:10px}
+.lang{font-size:12.5px;color:var(--muted)}
+.lang b{color:var(--text);font-weight:500}
+footer{border-top:1px solid var(--border);padding:28px 36px;text-align:center;font-size:11px;color:var(--faint)}
+footer a{color:var(--gold)}
+</style></head><body>
+<nav><div class="nav-logo">MIR ACADEMY</div><a class="nav-back" href="index.html#founder">← Back to team</a></nav>
+
+<section class="hero">
+  <div class="av">EM</div>
+  <div class="eyebrow">Founder &amp; CEO · MIR ACADEMY</div>
+  <h1>Emre Mir Ekinci</h1>
+  <div class="role">Operations Manager · AI Systems Builder · Technical Trainer · Certified Life Coach</div>
+  <div class="tags">
+    <span class="tag">20+ yrs in IT &amp; Ops</span><span class="tag">AI Systems</span>
+    <span class="tag">Workforce Mgmt</span><span class="tag">ISO Certified ×5</span>
+    <span class="tag">Technical Trainer</span><span class="tag">Life Coach</span>
+  </div>
+  <div class="links">
+    <a class="link" href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank">💼 LinkedIn ↗</a>
+    <a class="link" href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank">▶ YouTube ↗</a>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="block">
+    <div class="lead">Profile</div>
+    <h2>Summary</h2>
+    <p>Results-driven <strong>Operations Manager</strong> with 20+ years across BPO management, workforce planning, AI systems development, and technical training. <strong>Founder of MIR ACADEMY</strong>, an AI-powered educational platform. ISO-certified across five management-system frameworks. Proven record driving operational excellence, leading cross-functional teams, and delivering KPI results at global organizations including <strong>TELUS International</strong>, <strong>Teleperformance</strong>, and <strong>Xerox</strong>.</p>
+  </div>
+
+  <div class="block">
+    <div class="lead">Experience</div>
+    <h2>Career</h2>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-when">Jan 2020 – Present · Istanbul</div>
+        <div class="tl-role">Founder &amp; CEO</div>
+        <div class="tl-org">MIR ACADEMY</div>
+        <div class="tl-desc">Designed and built AI orchestration systems and multi-agent workflow architectures. Developed Python-based automation tools and GitHub-based development environments. Leading MIR ACADEMY as an AI-powered global education platform.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Sep 2023 – Dec 2024</div>
+        <div class="tl-role">Operations Manager</div>
+        <div class="tl-org">TELUS International — Istanbul</div>
+        <div class="tl-desc">Led BPO operational functions for a global service-delivery organization; managed cross-functional teams, drove KPI performance, and implemented operational-excellence initiatives aligned to international quality standards.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Mar 2021 – Oct 2023</div>
+        <div class="tl-role">Resource Planning &amp; Controlling Senior Specialist</div>
+        <div class="tl-org">Teleperformance — Istanbul</div>
+        <div class="tl-desc">Analyzed project data and built risk-mitigation strategies; managed forecasts, accruals, and cash-flow projections; defined KPIs and oversaw resource allocation, change orders, and schedule adherence.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Aug 2020 – Mar 2021</div>
+        <div class="tl-role">Technical Trainer</div>
+        <div class="tl-org">Conectys — Istanbul</div>
+        <div class="tl-desc">Created and delivered training across R1/R2/QA/Labeling tracks; built documentation and monitoring systems for continuous competency development.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Jan 2018 – Dec 2018</div>
+        <div class="tl-role">Senior Technical Trainer</div>
+        <div class="tl-org">Teleperformance Turkey — Istanbul</div>
+        <div class="tl-desc">Conducted training-needs assessments, designed technical curriculum, and delivered software/systems training programs.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Oct 2014 – Mar 2016</div>
+        <div class="tl-role">AppleCare Technical Support Specialist (T2)</div>
+        <div class="tl-org">Xerox (Apple Contract)</div>
+        <div class="tl-desc">Tier-2 technical support for iOS, iTunes, iCloud, and Apple Watch, to Apple premium service-quality standards.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Mar 2016 – Nov 2016</div>
+        <div class="tl-role">WFM Specialist</div>
+        <div class="tl-org">Conduent — Istanbul</div>
+        <div class="tl-desc">Intraday management and service-level management for contact-center operations.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">2005 – 2008 · Ankara</div>
+        <div class="tl-role">Technical Specialist — ADSL T2 Helpdesk</div>
+        <div class="tl-org">Türk Telekom</div>
+        <div class="tl-desc">Tier-2 ADSL technical support; managed escalated issues and service-quality benchmarks.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">2004 – 2005 · Ankara</div>
+        <div class="tl-role">IT Specialist</div>
+        <div class="tl-org">CTD Systems</div>
+        <div class="tl-desc">Information-technology support and systems management.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="lead">Core Competencies</div>
+    <h2>Skills</h2>
+    <div class="chips">
+      <span class="chip">Operations Management</span><span class="chip">Workforce Management</span>
+      <span class="chip">Resource Planning &amp; Controlling</span><span class="chip">AI Systems Development</span>
+      <span class="chip">Multi-Agent Workflows</span><span class="chip">Python</span><span class="chip">GitHub</span>
+      <span class="chip">Technical Training</span><span class="chip">ISO Management Systems</span>
+      <span class="chip">BPO Operations</span><span class="chip">Project Management</span>
+      <span class="chip">KPI Management</span><span class="chip">Customer Experience</span>
+      <span class="chip">Life Coaching</span><span class="chip">Process Optimization</span>
+      <span class="chip">Six Sigma</span><span class="chip">ITIL</span><span class="chip">CRM</span>
+      <span class="chip">Strategic Planning</span><span class="chip">Business Analysis</span>
+      <span class="chip">Data Analysis</span><span class="chip">Forecasting / RTA</span>
+      <span class="chip">R&amp;D</span><span class="chip">Color Management</span>
+      <span class="chip">Int'l Project Management</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="lead">Credentials</div>
+    <h2>Certifications</h2>
+    <div class="certs">
+      <div class="cert"><div class="cert-n">Certified Life Coach</div><div class="cert-a">Istanbul Esenyurt University · 2025</div></div>
+      <div class="cert"><div class="cert-n">ISO/IEC 27001:2022 — Information Security</div><div class="cert-a">CFE Certification · 2022</div></div>
+      <div class="cert"><div class="cert-n">ISO 19011:2018 — Internal Auditor</div><div class="cert-a">CFE Certification · 2022</div></div>
+      <div class="cert"><div class="cert-n">ISO 45001:2018 — Occupational H&amp;S</div><div class="cert-a">CFE Certification · 2022</div></div>
+      <div class="cert"><div class="cert-n">ISO 14001:2015 — Environmental</div><div class="cert-a">CFE Certification · 2022</div></div>
+      <div class="cert"><div class="cert-n">ISO 10002:2018 — Customer Satisfaction</div><div class="cert-a">CFE Certification · 2022</div></div>
+      <div class="cert"><div class="cert-n">Professional Technical Trainer (PTT)</div><div class="cert-a">Sakarya University · 2019</div></div>
+      <div class="cert"><div class="cert-n">Certified Workforce Specialist (CWS)</div><div class="cert-a">Majorel</div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="lead">Education</div>
+    <h2>Studies</h2>
+    <div class="edu-item">
+      <div class="edu-when">2022 – 2026</div>
+      <div><div class="edu-deg">BBA — Human Resource Management</div><div class="edu-org">Anadolu University · In Progress</div></div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-when">2002 – 2004</div>
+      <div><div class="edu-deg">Associate of Science</div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="lead">Languages</div>
+    <h2>Spoken</h2>
+    <div class="langs">
+      <span class="lang"><b>Turkish</b> — Native</span>
+      <span class="lang"><b>English</b> — Native / Bilingual</span>
+      <span class="lang"><b>German</b> — Elementary</span>
+      <span class="lang"><b>Spanish</b> — Elementary</span>
+    </div>
+  </div>
+</div>
+
+<footer>© 2020–2026 MIR ACADEMY · A family company · <a href="index.html">mir-academy.github.io</a></footer>
+</body></html>
