@@ -141,8 +141,8 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .section{padding:100px 48px;}
 .section-inner{max-width:1080px;margin:0 auto;}
 .section-eyebrow{font-size:12px;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500;}
-.reveal.visible .section-eyebrow,.section-eyebrow.reveal.visible{animation:eyebrowSwivel 0.9s cubic-bezier(.2,.7,.25,1) both;transform-origin:left bottom;}
-@keyframes eyebrowSwivel{0%{opacity:0;transform:perspective(800px) rotateX(-82deg);text-shadow:0 0 22px rgba(122,217,200,0.9);}60%{opacity:1;text-shadow:0 0 16px rgba(122,217,200,0.6);}100%{transform:perspective(800px) rotateX(0);text-shadow:none;}}
+.section-eyebrow .ew{display:inline-block;opacity:0;}
+@keyframes ebspin{0%{opacity:0;transform:perspective(500px) rotateY(-90deg) scale(.5);color:#060606;text-shadow:none;}55%{opacity:1;color:#9beee0;text-shadow:0 0 16px rgba(122,217,200,0.95);}100%{opacity:1;transform:perspective(500px) rotateY(0deg) scale(1);color:#7ad9c8;text-shadow:none;}}
 .section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;margin-bottom:20px;letter-spacing:-0.01em;}
 .section-title .gold{color:var(--gold);}
 .divider{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);margin:0 0 64px;}
@@ -583,6 +583,10 @@ playMotto();setInterval(playMotto,30000);
 function openMotto(){document.getElementById('mmodal').classList.add('open');}
 function closeMotto(){document.getElementById('mmodal').classList.remove('open');}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMotto();});
+/* EYEBROWS — same per-word swivel as the motto; replays every 30s */
+function setupEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){if(eb.dataset.ebsplit)return;eb.dataset.ebsplit='1';var ws=eb.textContent.trim().split(/\s+/);eb.innerHTML=ws.map(function(w){return '<span class="ew">'+w+'</span>';}).join(' ');});}
+function playEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){eb.querySelectorAll('.ew').forEach(function(w,i){w.style.animation='none';void w.offsetWidth;w.style.animation='ebspin 1s cubic-bezier(.2,.7,.25,1) '+(i*0.18).toFixed(2)+'s both';});});}
+setupEyebrows();playEyebrows();setInterval(playEyebrows,30000);
 
 /* TICKER */
 const STATS=[
