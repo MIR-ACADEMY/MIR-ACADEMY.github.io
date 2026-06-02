@@ -28,7 +28,7 @@ a{text-decoration:none;color:inherit;}
 }
 body::before{
   content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
-  opacity:0.2;
+  opacity:0;
   background-color:#141414;
   background-image:
     linear-gradient(27deg,  rgba(8,8,8,1)   5px, transparent 5px) 0 5px,
@@ -653,7 +653,7 @@ function adminExport(){
   function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.floor(W/FS);ensure();}
   setInterval(function(){if(si<steps.length-1){si++;target=steps[si];ensure();}},9000);  /* add a line every ~9s */
   function step(){
-    x.fillStyle='rgba(5,5,5,0.16)';x.fillRect(0,0,W,H);             /* stronger fade — clears leftover trails */
+    x.fillStyle='rgba(5,5,5,0.28)';x.fillRect(0,0,W,H);             /* strong fade — no leftover lines */
     x.font=FS+'px "Courier New",monospace';
     for(var s=0;s<streams.length;s++){
       var st=streams[s], yy=st.y*FS;
