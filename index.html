@@ -27,8 +27,8 @@ a{text-decoration:none;color:inherit;}
   100%{background-position:40px 40px,50px 40px,50px 45px,40px 45px,40px 40px,40px 40px;}
 }
 body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  opacity:0.7;
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  opacity:0.2;
   background-color:#141414;
   background-image:
     linear-gradient(27deg,  rgba(8,8,8,1)   5px, transparent 5px) 0 5px,
@@ -39,8 +39,8 @@ body::before{
     linear-gradient(rgba(20,20,20,1) 25%,rgba(14,14,14,1) 25%,rgba(14,14,14,1) 50%,
       transparent 50%,transparent 75%,rgba(26,26,26,1) 75%,rgba(26,26,26,1));
   background-size:20px 20px;
-  animation:carbonDrift 12s linear infinite;
 }
+#mir-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s,border-color 0.3s;border-bottom:1px solid transparent;}
@@ -196,6 +196,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 </style>
 </head>
 <body>
+
+<canvas id="mir-bg"></canvas>
 
 <nav id="nav">
   <div class="nav-logo">MIR ACADEMY</div>
@@ -571,6 +573,30 @@ function adminExport(){
   a.click();
   alert('Downloaded! Replace index.html in GitHub folder and push.');
 }
+</script>
+<script>
+/* ── GENTLE GOLD DATA RAIN (kind, slow, not-Matrix: Latin + Roman numerals, no katakana) ── */
+(function(){
+  var cv=document.getElementById('mir-bg');if(!cv)return;
+  var x=cv.getContext('2d'),W,H,cols,drops,FS=20;
+  var glyphs='MIRACADEMY0123456789·/<>=+{}IVXLCDM∑λπΔ';
+  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.floor(W/FS);drops=new Array(cols);for(var i=0;i<cols;i++)drops[i]=Math.random()*-60;}
+  function step(){
+    x.fillStyle='rgba(5,5,5,0.10)';x.fillRect(0,0,W,H);              /* soft fade trail */
+    x.font=FS+'px "Courier New",monospace';
+    for(var i=0;i<cols;i++){
+      var y=drops[i]*FS;
+      x.fillStyle='rgba(226,196,138,0.50)';                          /* lead: warm gold, gentle */
+      x.fillText(glyphs[Math.floor(Math.random()*glyphs.length)],i*FS,y);
+      x.fillStyle='rgba(200,169,110,0.16)';                          /* trail: dim gold */
+      x.fillText(glyphs[Math.floor(Math.random()*glyphs.length)],i*FS,y-FS);
+      if(y>H&&Math.random()>0.985)drops[i]=Math.random()*-20;
+      drops[i]+=0.22;                                                /* slow & kind */
+    }
+    requestAnimationFrame(step);
+  }
+  addEventListener('resize',rs);rs();step();
+})();
 </script>
 </body>
 </html>
