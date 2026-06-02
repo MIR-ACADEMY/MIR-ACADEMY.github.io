@@ -61,7 +61,7 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .hero-eyebrow{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500;}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;margin-bottom:8px;color:var(--text);}
 .hero-title .gold{color:var(--gold);}
-.hero-sub{font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,17px);color:var(--gold);margin-bottom:40px;letter-spacing:0.22em;font-weight:400;opacity:0.85;}
+.hero-sub{font-family:'Cinzel',serif;font-size:clamp(15px,2.6vw,26px);color:var(--gold);margin-bottom:40px;letter-spacing:0.16em;font-weight:600;opacity:0.95;text-shadow:0 1px 20px rgba(200,169,110,0.2);}
 .hero-actions{display:flex;gap:14px;align-items:center;}
 .btn-gold{background:var(--gold);color:#050505;font-size:12px;font-weight:700;padding:12px 28px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.15s;}
 .btn-gold:hover{background:var(--gold2);}
@@ -215,9 +215,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   <!-- orbit removed (rotating text was disturbing); hero motion = light gold rain (+ conveyor belt coming) -->
 
   <div class="hero-center">
-    <div class="hero-eyebrow">Istanbul · 2020 · AI-Powered Education</div>
     <h1 class="hero-title"><span class="gold">MIR</span><br>ACADEMY</h1>
-    <p class="hero-sub">AD ASTRA PER ASPERA</p>
+    <p class="hero-sub">EDUCARE · RENOVARE · TRANSCENDERE</p>
     <div class="hero-actions">
       <a href="#projects" class="btn-gold">Explore Projects</a>
       <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank" class="btn-ghost">LinkedIn ↗</a>
@@ -569,23 +568,23 @@ function adminExport(){
 /* ── GENTLE GOLD DATA RAIN (kind, slow, not-Matrix: Latin + Roman numerals, no katakana) ── */
 (function(){
   var cv=document.getElementById('mir-bg');if(!cv)return;
-  var x=cv.getContext('2d'),W,H,cols,drops,active,FS=30;
+  var x=cv.getContext('2d'),W,H,cols,FS=30;
   var glyphs='MIRACADEMY0123456789·/<>=+{}IVXLCDM∑λπΔ';
-  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.floor(W/FS);
-    drops=new Array(cols);active=new Array(cols);
-    for(var i=0;i<cols;i++){drops[i]=Math.random()*-80;active[i]=Math.random()<0.35;}} /* only ~35% columns rain = few drops */
+  var streams=[], steps=[1,3,5,8], si=0, target=steps[0];   /* build up: 1 -> 3 -> 5 -> 8 lines, then hold */
+  function R(){return glyphs[Math.floor(Math.random()*glyphs.length)];}
+  function spawn(){return {col:Math.floor(Math.random()*Math.max(1,cols)), y:Math.random()*-25, sp:0.06+Math.random()*0.05, len:6+Math.floor(Math.random()*8)};}
+  function ensure(){while(streams.length<target)streams.push(spawn());}
+  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.floor(W/FS);ensure();}
+  setInterval(function(){if(si<steps.length-1){si++;target=steps[si];ensure();}},9000);  /* add a line every ~9s */
   function step(){
-    x.fillStyle='rgba(5,5,5,0.08)';x.fillRect(0,0,W,H);
+    x.fillStyle='rgba(5,5,5,0.06)';x.fillRect(0,0,W,H);             /* gentle fade */
     x.font=FS+'px "Courier New",monospace';
-    for(var i=0;i<cols;i++){
-      if(!active[i])continue;
-      var y=drops[i]*FS;
-      x.fillStyle='rgba(226,196,138,0.35)';                          /* lead: faint warm gold */
-      x.fillText(glyphs[Math.floor(Math.random()*glyphs.length)],i*FS,y);
-      x.fillStyle='rgba(200,169,110,0.10)';                          /* trail: barely-there gold */
-      x.fillText(glyphs[Math.floor(Math.random()*glyphs.length)],i*FS,y-FS);
-      if(y>H&&Math.random()>0.99){drops[i]=Math.random()*-30;active[i]=Math.random()<0.5;} /* columns rest = sparse */
-      drops[i]+=0.12;                                                /* very slow — first drops of light rain */
+    for(var s=0;s<streams.length;s++){
+      var st=streams[s], yy=st.y*FS;
+      x.fillStyle='rgba(226,196,138,0.42)';x.fillText(R(),st.col*FS,yy);       /* lead: warm gold */
+      x.fillStyle='rgba(200,169,110,0.12)';x.fillText(R(),st.col*FS,yy-FS);    /* trail: dim gold */
+      st.y+=st.sp;                                                              /* slow */
+      if(yy>H+st.len*FS){streams[s]=spawn();}                                   /* respawn when fully past */
     }
     requestAnimationFrame(step);
   }
