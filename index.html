@@ -87,13 +87,13 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .belt-track{display:flex;gap:14px;width:max-content;animation:beltmove 64s linear infinite;}
 .belt:hover .belt-track{animation-play-state:paused;}
 @keyframes beltmove{from{transform:translateX(-50%);}to{transform:translateX(0);}}
-.belt-card{flex:0 0 auto;width:285px;height:177px;background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);}
+.belt-card{flex:0 0 auto;width:356px;height:221px;background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);}
 .belt-card:hover{border-color:var(--gold);transform:translateY(-3px);background:#121110;}
 .belt-ic{color:#c8a96e;line-height:0;}
-.belt-ic svg{width:46px;height:46px;}
+.belt-ic svg{width:58px;height:58px;}
 .belt-card:hover .belt-ic{color:#e2c48a;}
 .pmic svg{width:44px;height:44px;color:var(--gold);}
-.belt-nm{font-size:17px;color:var(--muted);letter-spacing:.06em;text-align:center;text-transform:uppercase;line-height:1.3;padding:0 8px;}
+.belt-nm{font-size:21px;color:var(--muted);letter-spacing:.06em;text-align:center;text-transform:uppercase;line-height:1.3;padding:0 8px;}
 .belt-card:hover .belt-nm{color:var(--gold);}
 /* PROJECT MODAL */
 .pmodal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.78);backdrop-filter:blur(6px);padding:24px;}
@@ -128,20 +128,24 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 /* SECTIONS */
 .section{padding:100px 48px;}
 .section-inner{max-width:1080px;margin:0 auto;}
-.section-eyebrow{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500;}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;margin-bottom:20px;letter-spacing:-0.01em;}
+.section-eyebrow{font-size:12px;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(38px,4.8vw,62px);font-weight:700;line-height:1.12;margin-bottom:22px;letter-spacing:0.01em;word-spacing:0.12em;}
+.section-title::before{content:"[ ";color:var(--gold);}
+.section-title::after{content:" ]";color:var(--gold);}
+.reveal.visible .section-title,.section-title.reveal.visible{animation:titleSwivel 1s cubic-bezier(.2,.7,.25,1) both;transform-origin:center bottom;}
+@keyframes titleSwivel{0%{opacity:0;transform:perspective(800px) rotateX(-82deg);text-shadow:0 0 30px rgba(122,217,200,0.85);}60%{opacity:1;text-shadow:0 0 22px rgba(122,217,200,0.5);}100%{transform:perspective(800px) rotateX(0);text-shadow:none;}}
 .section-title .gold{color:var(--gold);}
 .divider{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);margin:0 0 64px;}
 
 /* ABOUT */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
 @media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:40px;}}
-.about-text p{font-size:14px;color:var(--muted);line-height:1.95;margin-bottom:16px;font-weight:300;}
+.about-text p{font-size:16px;color:var(--muted);line-height:1.95;margin-bottom:16px;font-weight:300;}
 .about-text p strong{color:var(--text);font-weight:500;}
 .am-row{display:flex;gap:0;border-bottom:1px solid var(--faint);padding:14px 0;}
 .am-row:first-child{border-top:1px solid var(--faint);}
-.am-label{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);min-width:110px;padding-top:2px;flex-shrink:0;}
-.am-val{font-size:13px;color:var(--text);}
+.am-label{font-size:12px;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);min-width:110px;padding-top:2px;flex-shrink:0;}
+.am-val{font-size:15px;color:var(--text);}
 .am-val a{color:var(--teal);transition:color 0.15s;}
 .am-val a:hover{color:var(--gold);}
 
@@ -281,7 +285,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
         <p>From <strong>financial literacy</strong> to <strong>IT fundamentals</strong> to <strong>AI & prompting</strong>, we build the courses that should already exist. Alongside education, we develop the <strong>MIRACDX suite</strong> — productivity tools for real daily use on Windows.</p>
         <p>The ultimate vision: <strong>MIRA Renovator</strong> — an AI pipeline that takes outdated documents, textbooks, and dead curricula and outputs modern interactive modules automatically.</p>
       </div>
-      <div>
+      <div id="aboutMeta" style="display:none">
         <div class="am-row"><span class="am-label">Website</span><span class="am-val"><a href="https://mir-academy.github.io" target="_blank">mir-academy.github.io ↗</a></span></div>
         <div class="am-row"><span class="am-label">Industry</span><span class="am-val">Education Technology · AI</span></div>
         <div class="am-row"><span class="am-label">Founded</span><span class="am-val">2020 · Istanbul, Turkey</span></div>
