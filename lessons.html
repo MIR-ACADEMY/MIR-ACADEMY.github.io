@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MIR — Engineering Lessons</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c8a96e;--gold2:#e2c48a;--teal:#7ad9c8;--bg:#070707;--card:#0d0c0a;--bd:rgba(200,169,110,.16);--mut:#9a948a;--txt:#e7e2d6}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;font-size:17px;line-height:1.7;padding:34px 20px 80px}
+.wrap{max-width:680px;margin:0 auto}
+.top{text-align:center;margin-bottom:38px}
+.eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--gold)}
+.sub{font-size:13.5px;color:var(--mut);margin-top:12px;line-height:1.6;font-style:italic}
+.lesson{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:26px 24px;margin-bottom:22px}
+.lnum{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:var(--teal);text-transform:uppercase}
+.ltitle{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:var(--gold);margin:4px 0 16px}
+.principle{background:rgba(200,169,110,.07);border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 8px 8px 0;font-size:16px;color:var(--gold2);margin-bottom:16px}
+.lesson p{margin-bottom:13px}
+.lesson b,.lesson strong{color:var(--txt);font-weight:600}
+.tag{display:inline-block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(122,217,200,.25);padding:3px 9px;border-radius:3px;margin:14px 0 6px}
+.ex{font-size:14.5px;color:var(--mut);border-top:1px solid rgba(200,169,110,.1);padding-top:14px;margin-top:14px}
+.foot{text-align:center;font-size:12px;color:#555;margin-top:30px;line-height:1.8}
+.foot b{color:var(--gold)}
+</style></head><body>
+<div class="wrap">
+  <div class="top">
+    <div class="eyebrow">MIR ACADEMY · Private Course</div>
+    <h1>Engineering Lessons</h1>
+    <div class="sub">The education earned by building. One principle at a time, named plainly, tied to real work. No tuition, no closed doors. — Educare · Renovare · Transcendere</div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">Lesson 1</div>
+    <div class="ltitle">Abstraction — the master key</div>
+    <div class="principle">Hide complexity behind a simple handle.</div>
+    <p>You turn a <b>steering wheel</b> — you never think about the rack-and-pinion underneath. A simple front, a complex inside. That's an <b>abstraction</b>. So is a <b>function</b>. So was every <b>Delphi / Visual Basic component</b> you ever dragged onto a form.</p>
+    <p><b>Why it's the master key:</b> no single mind can hold a whole big system at once. Abstraction lets you <i>forget the insides</i> and work only with the front — then stack boxes on boxes. That's how humans build things far bigger than any one head can contain.</p>
+    <p><b>Where we used it:</b> the procedures library — <code>motto-swivel</code> is a box you call by name; you don't re-read the 3D-rotate math, it's hidden behind a simple handle.</p>
+    <span class="tag">Take it with you</span>
+    <p>When something gets too complex to hold — <b>wrap it in a box with a simple front and a complex inside. Name it well. Build on the box, not the guts.</b></p>
+    <div class="ex">🪜 <b>Exercise:</b> name three abstractions you used today without thinking about their insides. (You used dozens — that's the point.)</div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">Lesson 2</div>
+    <div class="ltitle">Sensible Defaults — design that respects the user</div>
+    <div class="principle">Don't make someone decide what the system can decide well on its own.</div>
+    <p>A great tool works <b>beautifully out of the box</b>. You only change a setting if you actually want to — the defaults already carry 90% of the cases. Every option a tool <i>forces</i> on you is a tiny tax on your attention; great design quietly removes those decisions while still leaving them available.</p>
+    <p><b>Where we saw it:</b> <b>Fooocus</b> bakes in ~30 expert choices and hands you one prompt box. <b>MIRACDX Studio</b> opens with Data Rain already at a calm 0.5×. A good phone just <i>works</i> on first boot. None of them ask you to be an expert before you can begin.</p>
+    <p><b>How it pairs with Lesson 1:</b> Abstraction hides <i>complexity</i>; Sensible Defaults hide <i>decisions</i>. Together, they're why the best tools feel effortless — the hard parts are handled, and the choices are pre-made <i>well</i>, not removed.</p>
+    <p>The engineer's name for this is <b>"Convention over Configuration"</b> — agree on a smart default convention, so nobody has to configure the obvious.</p>
+    <span class="tag">Take it with you</span>
+    <p>When you build anything for a person (even future-you): <b>make it work great with zero setup, then let them tune it if they wish.</b> Defaults are a kindness.</p>
+    <div class="ex">⚙️ <b>Exercise:</b> open an app you love and notice how <i>little</i> you had to set up to start. That smoothness is defaults working — someone made the decisions for you, well.</div>
+  </div>
+
+  <div class="foot">
+    More lessons land here as we build. Read them again and again — that's how they sink in.<br>
+    <b>Educare · Renovare · Transcendere</b>
+  </div>
+</div>
+</body></html>
