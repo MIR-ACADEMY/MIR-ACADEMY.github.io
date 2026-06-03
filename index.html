@@ -41,6 +41,12 @@ body::before{
   background-size:20px 20px;
 }
 #mir-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+/* ANCIENT-KNOWLEDGE WALLPAPER (left/right margins + faint backdrop), under the rain */
+.bg-fade{position:fixed;inset:0;z-index:-3;background:url('assets/bg/backdrop.jpg') center/cover no-repeat;opacity:.55;pointer-events:none;}
+.bg-edge{position:fixed;top:0;bottom:0;width:32vw;z-index:-2;background:url('assets/bg/cosmos.jpg') left center/cover no-repeat;opacity:.16;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,#000 22%,transparent);mask-image:linear-gradient(90deg,#000 22%,transparent);}
+.bg-left{left:0;}
+.bg-right{right:0;transform:scaleX(-1);}
+@media(max-width:768px){.bg-edge{width:55vw;opacity:.12;}}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s,border-color 0.3s;border-bottom:1px solid transparent;}
@@ -253,6 +259,9 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <body>
 
 <canvas id="mir-bg"></canvas>
+<div class="bg-fade"></div>
+<div class="bg-edge bg-left"></div>
+<div class="bg-edge bg-right"></div>
 
 <nav id="nav">
   <div class="nav-logo">MIR ACADEMY</div>
