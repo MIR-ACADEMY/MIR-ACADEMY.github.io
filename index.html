@@ -13,7 +13,26 @@
   --border:rgba(200,169,110,0.12);
   --gold:#c8a96e;--gold2:#e2c48a;
   --teal:#7ad9c8;--muted:#666;--text:#e0dcd0;--faint:#2a2a2a;
+  --panel:#0c0b0a;--beltcard:rgba(10,10,10,0.9);--navbg:rgba(5,5,5,0.95);
+  --t1:#c8a96e;--t2:#e2c48a;--t3:#9beee0; /* hero-title gradient stops */
 }
+/* ☀ LIGHT THEME — warm parchment, fits the "ancient knowledge" brand (darker gold/teal for contrast on light) */
+html[data-theme="light"]{
+  --bg:#f6f1e7;--bg2:#efe7d6;--card:#fffdf8;
+  --border:rgba(120,90,40,0.20);
+  --gold:#977734;--gold2:#7c6029;
+  --teal:#2c8a78;--muted:#6c6354;--text:#2b2620;--faint:#ddd3bf;
+  --panel:#fffdf7;--beltcard:rgba(255,253,247,0.92);--navbg:rgba(248,244,236,0.95);
+  --t1:#9a7b3f;--t2:#7d6230;--t3:#2c8a78;
+}
+/* in light mode the dark photo wallpaper + carbon would muddy the page → hide them */
+html[data-theme="light"] .bg-fade,
+html[data-theme="light"] .bg-edge{display:none;}
+/* hero title: swap the light-gold foil for a deep bronze→teal gradient that reads on parchment */
+html[data-theme="light"] .hero-title{background:linear-gradient(0deg,#8a6c30,#8a6c30);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+html[data-theme="light"] .fx-foil{background:linear-gradient(110deg,#8a6c30,#a8843a,#2c8a78,#a8843a,#8a6c30)!important;background-size:300% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;}
+html[data-theme="light"] .hero-sub,html[data-theme="light"] .mw{color:#8a6c30;}
+html[data-theme="light"] .hero::after{opacity:0.18;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;overflow-x:hidden;}
@@ -50,7 +69,7 @@ body::before{
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s,border-color 0.3s;border-bottom:1px solid transparent;}
-nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color:var(--border);}
+nav.scrolled{background:var(--navbg);backdrop-filter:blur(16px);border-color:var(--border);}
 .nav-logo{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--gold);letter-spacing:0.06em;}
 .nav-links{display:flex;gap:32px;align-items:center;}
 .nav-links a{font-size:11px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.15s;}
@@ -115,7 +134,7 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 @keyframes kf-pulse{0%{opacity:0;transform:scale(.8)}55%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
 @keyframes kf-spin{from{opacity:0;transform:rotate(-180deg) scale(.5)}to{opacity:1;transform:rotate(0) scale(1)}}
 @keyframes kf-swivelblur{from{opacity:0;transform:rotateY(-92deg);filter:blur(14px)}to{opacity:1;transform:rotateY(0);filter:blur(0)}}
-.belt-card{flex:1 1 0;min-width:0;height:200px;background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);}
+.belt-card{flex:1 1 0;min-width:0;height:200px;background:var(--beltcard);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);}
 .belt-card:hover{border-color:var(--gold);transform:translateY(-3px);background:#121110;}
 .belt-ic{color:#c8a96e;line-height:0;}
 .belt-ic svg{width:58px;height:58px;}
@@ -127,7 +146,7 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 /* PROJECT MODAL */
 .pmodal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.78);backdrop-filter:blur(6px);padding:24px;}
 .pmodal.open{display:flex;}
-.pmbox{max-width:460px;width:100%;background:#0c0b0a;border:1px solid var(--border);border-radius:14px;padding:32px;position:relative;}
+.pmbox{max-width:460px;width:100%;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:32px;position:relative;}
 .pmic{font-size:34px;line-height:1;}
 .pmbox h3{font-family:'Playfair Display',serif;font-size:24px;margin:12px 0 4px;color:var(--text);}
 .pmcat{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;}
@@ -138,7 +157,7 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 /* MOTTO EXPLANATION MODAL */
 .mmodal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.82);backdrop-filter:blur(7px);padding:24px;cursor:pointer;}
 .mmodal.open{display:flex;}
-.mmbox{max-width:620px;width:100%;max-height:84vh;overflow-y:auto;background:#0c0b0a;border:1px solid var(--border);border-radius:16px;padding:40px 42px;text-align:center;}
+.mmbox{max-width:620px;width:100%;max-height:84vh;overflow-y:auto;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:40px 42px;text-align:center;}
 .mm-latin{font-family:'Cinzel',serif;font-size:clamp(17px,2.4vw,26px);font-weight:700;letter-spacing:.12em;color:var(--gold);text-shadow:0 0 22px rgba(200,169,110,.25);}
 .mm-en{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--teal);margin:10px 0 28px;}
 .mm-term{text-align:left;margin:0 auto 22px;max-width:520px;}
@@ -277,6 +296,51 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══ PLATFORM / RESPONSIVE OPTIMIZATION (Windows desktop · Android tablet · Android phone; iOS inherits) ══ */
+/* bigger touch targets on any touch device */
+@media(hover:none){.nav-links a,.btn-gold,.btn-ghost,.nav-cta,#langBtn,#themeBtn{min-height:40px;display:inline-flex;align-items:center;}}
+/* ── TABLET (Android tablet & small laptops) ── */
+@media(max-width:1024px){
+  nav{padding:0 28px;}
+  .nav-links{gap:20px;}
+  .section{padding:80px 32px;}
+  .belt-card{height:175px;}
+  .pillars{grid-template-columns:1fr 1fr;}
+}
+/* ── PHONE (Android phone) ── */
+@media(max-width:680px){
+  nav{padding:0 16px;height:54px;}
+  .nav-links{gap:12px;}
+  .nav-links a[href^="#"]{display:none;}          /* hide section anchors on phone (page scrolls); keep GitHub + toggles */
+  .nav-logo{font-size:15px;}
+  .nav-cta{padding:6px 12px;font-size:10px;}
+  .hero{padding:112px 18px 22px;}
+  .hero-title{font-size:clamp(40px,13vw,60px);word-spacing:0.3em;}
+  .hero-sub{font-size:clamp(19px,6vw,28px);letter-spacing:0.08em;}
+  .belt{padding:16px 0;}
+  .belt-track{gap:10px;padding:0 14px;}
+  .belt-card{flex:1 1 44%;min-width:0;height:140px;gap:10px;border-radius:13px;}
+  .belt-ic svg{width:38px;height:38px;}
+  .belt-nm{font-size:15px;}
+  .section{padding:60px 18px;}
+  .section-title{font-size:clamp(26px,7vw,34px);}
+  .section-eyebrow{font-size:14px;letter-spacing:0.22em;}
+  .divider{margin-bottom:40px;}
+  .pillars{grid-template-columns:1fr;}
+  .proj-grid{grid-template-columns:1fr;}
+  .connect-grid{grid-template-columns:1fr 1fr;}
+  .founder-wrap{padding:28px 22px;gap:28px;}
+  .founder-name{font-size:28px;}
+  .pmbox,.mmbox{padding:26px 22px;}
+  .mmbox{padding:30px 22px;}
+  footer{padding:26px 18px;}
+}
+/* very small phones */
+@media(max-width:380px){
+  .hero-title{word-spacing:0.18em;}
+  .belt-card{flex:1 1 100%;}
+}
 </style>
 </head>
 <body>
@@ -294,6 +358,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
     <a href="#founder" data-i18n="nav.team">Team</a>
     <a href="#connect" data-i18n="nav.connect">Connect</a>
     <a href="https://github.com/MIR-ACADEMY" target="_blank" class="nav-cta">GitHub ↗</a>
+    <button id="themeBtn" onclick="toggleTheme()" title="Light / Dark" aria-label="Toggle light or dark theme"
+      style="background:transparent;border:1px solid rgba(200,169,110,.4);color:var(--gold);font-size:13px;line-height:1;padding:5px 9px;border-radius:4px;cursor:pointer;transition:.15s;">☀</button>
     <button id="langBtn" onclick="toggleLang()" title="Türkçe / English"
       style="background:transparent;border:1px solid rgba(200,169,110,.4);color:var(--gold);font-family:Inter,system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;padding:5px 11px;border-radius:4px;cursor:pointer;transition:.15s;">EN</button>
   </div>
@@ -512,7 +578,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   </div>
   <div class="footer-copy" data-i18n="footer.copy">© 2020–2026 Emre Mir Ekinci · MIR ACADEMY · Istanbul</div>
 </footer>
-<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v1.4 · 2026-06-05</div>
+<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v1.5 · 2026-06-05</div>
 
 <!-- PROJECT MODAL -->
 <div class="pmodal" id="pmodal" onclick="if(event.target===this)closeProj()">
@@ -693,6 +759,19 @@ function applyLang(lang){
 function toggleLang(){ applyLang(window.MIR_LANG==='tr'?'en':'tr'); }
 (function(){ var saved; try{saved=localStorage.getItem('mirLang');}catch(e){} applyLang(saved||'tr'); })();
 
+/* ☀ THEME (light/dark) — persisted; first visit follows the OS preference */
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  var b=document.getElementById('themeBtn'); if(b) b.textContent=(t==='light'?'☾':'☀');
+  try{localStorage.setItem('mirTheme',t);}catch(e){}
+  window.MIR_THEME=t;
+}
+function toggleTheme(){ applyTheme(window.MIR_THEME==='light'?'dark':'light'); }
+(function(){ var s; try{s=localStorage.getItem('mirTheme');}catch(e){}
+  if(!s){ s=(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark'; }
+  applyTheme(s);
+})();
+
 /* TICKER */
 const STATS=[
   {num:'17',lbl:'Active Projects'},{num:'25+',lbl:'Years in IT'},
@@ -728,12 +807,13 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;cols=Math.floor(W/FS);ensure();}
   setInterval(function(){if(si<steps.length-1){si++;target=steps[si];ensure();}},9000);  /* add a line every ~9s */
   function step(){
-    x.fillStyle='rgba(5,5,5,0.28)';x.fillRect(0,0,W,H);             /* strong fade — no leftover lines */
+    var L=document.documentElement.getAttribute('data-theme')==='light';
+    x.fillStyle=L?'rgba(246,241,231,0.34)':'rgba(5,5,5,0.28)';x.fillRect(0,0,W,H); /* fade matches theme bg — no leftover lines */
     x.font=FS+'px "Courier New",monospace';
     for(var s=0;s<streams.length;s++){
       var st=streams[s], yy=st.y*FS;
-      var lead=st.gold?'rgba(226,196,138,0.55)':'rgba(122,217,200,0.50)';     /* each stream: gold OR cyan (motto color) */
-      var trail=st.gold?'rgba(200,169,110,0.16)':'rgba(122,217,200,0.16)';
+      var lead=st.gold?(L?'rgba(150,118,55,0.42)':'rgba(226,196,138,0.55)'):(L?'rgba(36,128,108,0.40)':'rgba(122,217,200,0.50)');     /* each stream: gold OR cyan (motto color) */
+      var trail=st.gold?(L?'rgba(150,118,55,0.13)':'rgba(200,169,110,0.16)'):(L?'rgba(36,128,108,0.12)':'rgba(122,217,200,0.16)');
       x.fillStyle=lead;x.fillText(R(),st.col*FS,yy);
       x.fillStyle=trail;x.fillText(R(),st.col*FS,yy-FS);
       st.y+=st.sp;                                                              /* slow */
