@@ -287,13 +287,15 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <div class="bg-edge bg-right"></div>
 
 <nav id="nav">
-  <div class="nav-logo">MIR ACADEMY</div>
+  <div class="nav-logo" data-i18n="nav.logo">MIR ACADEMY</div>
   <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#founder">Team</a>
-    <a href="#connect">Connect</a>
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#projects" data-i18n="nav.projects">Projects</a>
+    <a href="#founder" data-i18n="nav.team">Team</a>
+    <a href="#connect" data-i18n="nav.connect">Connect</a>
     <a href="https://github.com/MIR-ACADEMY" target="_blank" class="nav-cta">GitHub ↗</a>
+    <button id="langBtn" onclick="toggleLang()" title="Türkçe / English"
+      style="background:transparent;border:1px solid rgba(200,169,110,.4);color:var(--gold);font-family:Inter,system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;padding:5px 11px;border-radius:4px;cursor:pointer;transition:.15s;">EN</button>
   </div>
 </nav>
 
@@ -302,7 +304,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   <!-- orbit removed (rotating text was disturbing); hero motion = light gold rain (+ conveyor belt coming) -->
 
   <div class="hero-center">
-    <h1 class="hero-title">MIR ACADEMY</h1>
+    <h1 class="hero-title" data-i18n="hero.title">MIR ACADEMY</h1>
     <a href="#" onclick="openMotto();return false;" class="hero-sub"><span class="mbrk">[</span><span class="mw mw1">EDUCARE</span><span class="mw mw2">RENOVARE</span><span class="mw mw3">TRANSCENDERE</span><span class="mbrk">]</span></a>
   </div>
 </section>
@@ -321,11 +323,11 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
     <div class="divider"></div>
     <div class="about-grid reveal">
       <div class="about-text">
-        <div class="section-eyebrow">What we do</div>
-        <h2 class="section-title">We are <span class="gold">renovating</span> the future<br>by <span class="gold">educating</span> it.</h2>
-        <p>MIR ACADEMY designs and builds interactive, self-updating learning modules that never go stale. Every course is engineered from scratch — dark-themed, bilingual, built to be used, not just read.</p>
-        <p>From <strong>financial literacy</strong> to <strong>IT fundamentals</strong> to <strong>AI & prompting</strong>, we build the courses that should already exist. Alongside education, we develop the <strong>MIRACDX suite</strong> — productivity tools for real daily use on Windows.</p>
-        <p>The ultimate vision: <strong>MIRA Renovator</strong> — an AI pipeline that takes outdated documents, textbooks, and dead curricula and outputs modern interactive modules automatically.</p>
+        <div class="section-eyebrow" data-i18n="about.eyebrow">What we do</div>
+        <h2 class="section-title" data-i18n="about.title" data-i18n-html="1">We are <span class="gold">renovating</span> the future<br>by <span class="gold">educating</span> it.</h2>
+        <p data-i18n="about.p1">MIR ACADEMY designs and builds interactive, self-updating learning modules that never go stale. Every course is engineered from scratch — dark-themed, bilingual, built to be used, not just read.</p>
+        <p data-i18n="about.p2" data-i18n-html="1">From <strong>financial literacy</strong> to <strong>IT fundamentals</strong> to <strong>AI & prompting</strong>, we build the courses that should already exist. Alongside education, we develop the <strong>MIRACDX suite</strong> — productivity tools for real daily use on Windows.</p>
+        <p data-i18n="about.p3" data-i18n-html="1">The ultimate vision: <strong>MIRA Renovator</strong> — an AI pipeline that takes outdated documents, textbooks, and dead curricula and outputs modern interactive modules automatically.</p>
       </div>
       <div id="aboutMeta" style="display:none">
         <div class="am-row"><span class="am-label">Website</span><span class="am-val"><a href="https://mir-academy.github.io" target="_blank">mir-academy.github.io ↗</a></span></div>
@@ -343,30 +345,30 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <!-- PILLARS -->
 <section class="section" style="padding-top:0;" id="pillars">
   <div class="section-inner">
-    <div class="section-eyebrow reveal">What we build</div>
-    <h2 class="section-title reveal">Three <span class="gold">pillars</span></h2>
+    <div class="section-eyebrow reveal" data-i18n="pillars.eyebrow">What we build</div>
+    <h2 class="section-title reveal" data-i18n="pillars.title" data-i18n-html="1">Three <span class="gold">pillars</span></h2>
     <div style="height:40px;"></div>
     <div class="pillars reveal">
       <div class="pillar">
         <div class="pillar-num">01</div>
         <div class="pillar-icon">🎓</div>
-        <div class="pillar-title">Education Modules</div>
-        <div class="pillar-desc">Interactive HTML courses on finance, IT, history, AI, and more. Bilingual, dark-themed, always current.</div>
-        <div class="pillar-count">6 modules · Invest · World Almanac · IT Literacy · History of IT/AI · Atatürk İlkeleri</div>
+        <div class="pillar-title" data-i18n="p1.title">Education Modules</div>
+        <div class="pillar-desc" data-i18n="p1.desc">Interactive HTML courses on finance, IT, history, AI, and more. Bilingual, dark-themed, always current.</div>
+        <div class="pillar-count" data-i18n="p1.count">6 modules · Invest · World Almanac · IT Literacy · History of IT/AI · Atatürk İlkeleri</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">02</div>
         <div class="pillar-icon">📊</div>
-        <div class="pillar-title">Dashboards & Tools</div>
-        <div class="pillar-desc">Personal command centers, project managers, wellness tools, and creative apps — all as local HTML files.</div>
-        <div class="pillar-count">6 tools · DATA-MIR Board · PRJ MNG · MIR PIXEL · Astrology · Anger Protocol · Inspector</div>
+        <div class="pillar-title" data-i18n="p2.title">Dashboards & Tools</div>
+        <div class="pillar-desc" data-i18n="p2.desc">Personal command centers, project managers, wellness tools, and creative apps — all as local HTML files.</div>
+        <div class="pillar-count" data-i18n="p2.count">6 tools · DATA-MIR Board · PRJ MNG · MIR PIXEL · Astrology · Anger Protocol · Inspector</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">03</div>
         <div class="pillar-icon">⚙</div>
-        <div class="pillar-title">MIRACDX Suite</div>
-        <div class="pillar-desc">Windows productivity apps — system tray utilities, desktop overlays, smartwatch companions, media tools.</div>
-        <div class="pillar-count">5 apps · QuickSolutions · Clock · Band · SkinCraft · Downloader</div>
+        <div class="pillar-title" data-i18n="p3.title">MIRACDX Suite</div>
+        <div class="pillar-desc" data-i18n="p3.desc">Windows productivity apps — system tray utilities, desktop overlays, smartwatch companions, media tools.</div>
+        <div class="pillar-count" data-i18n="p3.count">5 apps · QuickSolutions · Clock · Band · SkinCraft · Downloader</div>
       </div>
     </div>
   </div>
@@ -377,41 +379,41 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   <div class="section-inner">
     <div class="proj-hdr reveal">
       <div>
-        <div class="section-eyebrow">Active Projects</div>
-        <h2 class="section-title">What we're <span class="gold">building</span></h2>
+        <div class="section-eyebrow" data-i18n="proj.eyebrow">Active Projects</div>
+        <h2 class="section-title" data-i18n="proj.title" data-i18n-html="1">What we're <span class="gold">building</span></h2>
       </div>
-      <a href="https://github.com/MIR-ACADEMY" target="_blank" class="proj-hdr-right">View all on GitHub →</a>
+      <a href="https://github.com/MIR-ACADEMY" target="_blank" class="proj-hdr-right" data-i18n="proj.viewall">View all on GitHub →</a>
     </div>
     <div class="proj-grid reveal">
       <div class="proj-card edu">
         <div class="pc-top"><div><div class="pc-name">MIR Invest</div><div class="pc-ver">v1.2</div></div></div>
-        <div class="pc-desc">Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, Turkish + English.</div>
-        <div class="pc-foot"><span class="badge b-green">Stable</span></div>
+        <div class="pc-desc" data-i18n="proj.d1">Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, Turkish + English.</div>
+        <div class="pc-foot"><span class="badge b-green" data-i18n="badge.stable">Stable</span></div>
       </div>
       <div class="proj-card edu">
         <div class="pc-top"><div><div class="pc-name">World Almanac</div><div class="pc-ver">v1.7</div></div></div>
-        <div class="pc-desc">Interactive world history 2000–2026. Politics, tech, culture — rich dark reference module with reading mode.</div>
-        <div class="pc-foot"><span class="badge b-green">Stable</span></div>
+        <div class="pc-desc" data-i18n="proj.d2">Interactive world history 2000–2026. Politics, tech, culture — rich dark reference module with reading mode.</div>
+        <div class="pc-foot"><span class="badge b-green" data-i18n="badge.stable">Stable</span></div>
       </div>
       <div class="proj-card edu">
         <div class="pc-top"><div><div class="pc-name">IT Literacy</div></div></div>
-        <div class="pc-desc">10-module curriculum: Internet, GitHub, Terminal, Python, Web Ownership, WordPress, No-Code, Security, AI.</div>
-        <div class="pc-foot"><span class="badge b-amber">In Progress</span></div>
+        <div class="pc-desc" data-i18n="proj.d3">10-module curriculum: Internet, GitHub, Terminal, Python, Web Ownership, WordPress, No-Code, Security, AI.</div>
+        <div class="pc-foot"><span class="badge b-amber" data-i18n="badge.progress">In Progress</span></div>
       </div>
       <div class="proj-card dash">
         <div class="pc-top"><div><div class="pc-name">DATA-MIR Board</div><div class="pc-ver">v5.2</div></div></div>
-        <div class="pc-desc">Personal command center dashboard. Multi-theme, dark, modular. Tracks all active projects with live status.</div>
-        <div class="pc-foot"><span class="badge b-green">Stable</span></div>
+        <div class="pc-desc" data-i18n="proj.d4">Personal command center dashboard. Multi-theme, dark, modular. Tracks all active projects with live status.</div>
+        <div class="pc-foot"><span class="badge b-green" data-i18n="badge.stable">Stable</span></div>
       </div>
       <div class="proj-card app">
         <div class="pc-top"><div><div class="pc-name">MIRACDX QuickSolutions</div><div class="pc-ver">v2.1</div></div></div>
-        <div class="pc-desc">System tray utility — voice reader, screenshot, screen recorder. AHK v2. Runs at Windows startup.</div>
-        <div class="pc-foot"><span class="badge b-amber">In Progress</span></div>
+        <div class="pc-desc" data-i18n="proj.d5">System tray utility — voice reader, screenshot, screen recorder. AHK v2. Runs at Windows startup.</div>
+        <div class="pc-foot"><span class="badge b-amber" data-i18n="badge.progress">In Progress</span></div>
       </div>
       <div class="proj-card app">
         <div class="pc-top"><div><div class="pc-name">MIRACDX Band</div><div class="pc-ver">v1.2</div></div></div>
-        <div class="pc-desc">Xiaomi smartwatch companion. Real-time sensors, theme sync. Bluetooth direct install coming in v2.0.</div>
-        <div class="pc-foot"><span class="badge b-green">Stable</span></div>
+        <div class="pc-desc" data-i18n="proj.d6">Xiaomi smartwatch companion. Real-time sensors, theme sync. Bluetooth direct install coming in v2.0.</div>
+        <div class="pc-foot"><span class="badge b-green" data-i18n="badge.stable">Stable</span></div>
       </div>
     </div>
   </div>
@@ -420,21 +422,21 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <!-- FOUNDER -->
 <section class="section" id="founder" style="padding-top:0;">
   <div class="section-inner">
-    <div class="section-eyebrow reveal">The team · The family</div>
-    <h2 class="section-title reveal">Founder &amp; <span class="gold">co-founders</span></h2>
+    <div class="section-eyebrow reveal" data-i18n="founder.eyebrow">The team · The family</div>
+    <h2 class="section-title reveal" data-i18n="founder.title" data-i18n-html="1">Founder &amp; <span class="gold">co-founders</span></h2>
     <div style="height:40px;"></div>
     <div class="founder-wrap reveal">
       <div>
         <div class="founder-av">EM</div>
         <div class="founder-name"><a href="founder-emre.html">Emre Mir Ekinci</a></div>
-        <div class="founder-role">Founder · AI/IT Trainer [C] · ICF Professional Coach · Operations Manager · R&D · 25+ years in IT</div>
+        <div class="founder-role" data-i18n="founder.role">Founder · AI/IT Trainer [C] · ICF Professional Coach · Operations Manager · R&D · 25+ years in IT</div>
         <div class="founder-tags">
           <span class="ftag">AI Trainer</span><span class="ftag">ICF Coach</span>
           <span class="ftag">Ops Manager</span><span class="ftag">WFM</span>
           <span class="ftag">R&D</span><span class="ftag">25+ yrs IT</span>
         </div>
         <div class="founder-links">
-          <a href="founder-emre.html"><div class="flink">📄 Full profile &amp; CV</div></a>
+          <a href="founder-emre.html"><div class="flink" data-i18n="founder.cv">📄 Full profile &amp; CV</div></a>
           <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank"><div class="flink">💼 LinkedIn</div></a>
           <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank"><div class="flink">▶ YouTube</div></a>
         </div>
@@ -444,14 +446,14 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
           <a href="#" onclick="openMotto();return false;" style="text-decoration:none;"><div class="motto-latin">EDUCARE&nbsp;·&nbsp;RENOVARE&nbsp;·&nbsp;TRANSCENDERE</div></a>
           <div class="motto-rule"></div>
         </div>
-        <div class="cofounder-label">Co-Founders</div>
+        <div class="cofounder-label" data-i18n="cofounder.label">Co-Founders</div>
         <div class="cofounder-row">
           <div class="cofounder">
             <a class="cf-main" href="cofounder-guzin.html">
               <div class="cf-av">GE</div>
               <div>
                 <div class="cf-name">Güzin Ekinci</div>
-                <div class="cf-role">Co-Founder · English Teacher &amp; Professional Coach</div>
+                <div class="cf-role" data-i18n="cf.role.guzin">Co-Founder · English Teacher &amp; Professional Coach</div>
               </div>
             </a>
             <a href="https://www.linkedin.com/in/g%C3%BCzinekinci/" target="_blank" class="cf-link" title="LinkedIn">💼</a>
@@ -461,7 +463,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
               <div class="cf-av">EE</div>
               <div>
                 <div class="cf-name">Emrah Ekinci</div>
-                <div class="cf-role">Co-Founder · English Teacher &amp; Tech Wizard</div>
+                <div class="cf-role" data-i18n="cf.role.emrah">Co-Founder · English Teacher &amp; Tech Wizard</div>
               </div>
             </a>
             <a href="https://www.linkedin.com/in/emrah-ekinci-1aa91682/" target="_blank" class="cf-link" title="LinkedIn">💼</a>
@@ -475,8 +477,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <!-- CONNECT -->
 <section class="section" id="connect" style="padding-top:0;">
   <div class="section-inner">
-    <div class="section-eyebrow reveal">Find us</div>
-    <h2 class="section-title reveal">Connect with <span class="gold">MIR ACADEMY</span></h2>
+    <div class="section-eyebrow reveal" data-i18n="connect.eyebrow">Find us</div>
+    <h2 class="section-title reveal" data-i18n="connect.title" data-i18n-html="1">Connect with <span class="gold">MIR ACADEMY</span></h2>
     <div style="height:40px;"></div>
     <div class="connect-grid reveal" style="grid-template-columns:repeat(3,1fr);">
       <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank">
@@ -489,28 +491,28 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
         <div class="conn-card"><div class="conn-icon">⌥</div><div class="conn-name">GitHub</div><div class="conn-sub">github.com/MIR-ACADEMY</div><div class="conn-arrow">↗</div></div>
       </a>
       <a href="mailto:emremir@miracademy.com">
-        <div class="conn-card"><div class="conn-icon">✉</div><div class="conn-name">Email</div><div class="conn-sub">Coming soon</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
+        <div class="conn-card"><div class="conn-icon">✉</div><div class="conn-name" data-i18n="conn.email">Email</div><div class="conn-sub" data-i18n="conn.soon">Coming soon</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
       </a>
       <a href="tel:+90">
-        <div class="conn-card"><div class="conn-icon">📞</div><div class="conn-name">Call</div><div class="conn-sub">Number coming soon</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
+        <div class="conn-card"><div class="conn-icon">📞</div><div class="conn-name" data-i18n="conn.call">Call</div><div class="conn-sub" data-i18n="conn.numsoon">Number coming soon</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
       </a>
       <a href="https://mir-academy.github.io" target="_blank">
-        <div class="conn-card"><div class="conn-icon">🌐</div><div class="conn-name">Website</div><div class="conn-sub">mir-academy.github.io</div><div class="conn-arrow">↗</div></div>
+        <div class="conn-card"><div class="conn-icon">🌐</div><div class="conn-name" data-i18n="conn.website">Website</div><div class="conn-sub">mir-academy.github.io</div><div class="conn-arrow">↗</div></div>
       </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-brand">MIR ACADEMY</div>
+  <div class="footer-brand" data-i18n="nav.logo">MIR ACADEMY</div>
   <div class="footer-links">
     <a href="https://github.com/MIR-ACADEMY" target="_blank">GitHub</a>
     <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank">LinkedIn</a>
     <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank">YouTube</a>
   </div>
-  <div class="footer-copy">© 2020–2026 Emre Mir Ekinci · MIR ACADEMY · Istanbul</div>
+  <div class="footer-copy" data-i18n="footer.copy">© 2020–2026 Emre Mir Ekinci · MIR ACADEMY · Istanbul</div>
 </footer>
-<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v1.2 · 2026-06-05</div>
+<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v1.3 · 2026-06-05</div>
 
 <!-- PROJECT MODAL -->
 <div class="pmodal" id="pmodal" onclick="if(event.target===this)closeProj()">
@@ -622,6 +624,74 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMotto()
 function setupEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){if(eb.dataset.ebsplit)return;eb.dataset.ebsplit='1';var ws=eb.textContent.trim().split(/\s+/);eb.innerHTML=ws.map(function(w){return '<span class="ew">'+w+'</span>';}).join(' ');});}
 function playEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){eb.querySelectorAll('.ew').forEach(function(w,i){w.style.animation='none';void w.offsetWidth;w.style.animation='ebspin 1s cubic-bezier(.2,.7,.25,1) '+(i*0.18).toFixed(2)+'s both';});});}
 setupEyebrows();playEyebrows();setInterval(playEyebrows,15000);
+
+/* ── LANGUAGE (TR default · EN/TR toggle · motto stays Latin) ── */
+var I18N={
+  "nav.logo":{en:"MIR ACADEMY",tr:"MIR AKADEMİ"},
+  "nav.about":{en:"About",tr:"Hakkımızda"},
+  "nav.projects":{en:"Projects",tr:"Projeler"},
+  "nav.team":{en:"Team",tr:"Ekip"},
+  "nav.connect":{en:"Connect",tr:"İletişim"},
+  "hero.title":{en:"MIR ACADEMY",tr:"MIR AKADEMİ"},
+  "about.eyebrow":{en:"What we do",tr:"Ne yapıyoruz"},
+  "about.title":{en:'We are <span class="gold">renovating</span> the future<br>by <span class="gold">educating</span> it.',tr:'Geleceği <span class="gold">eğiterek</span><br><span class="gold">yeniliyoruz</span>.'},
+  "about.p1":{en:"MIR ACADEMY designs and builds interactive, self-updating learning modules that never go stale. Every course is engineered from scratch — dark-themed, bilingual, built to be used, not just read.",tr:"MIR AKADEMİ, asla eskimeyen, kendini güncelleyen etkileşimli öğrenme modülleri tasarlar ve geliştirir. Her kurs sıfırdan inşa edilir — koyu temalı, iki dilli, sadece okunmak için değil kullanılmak için yapılmış."},
+  "about.p2":{en:'From <strong>financial literacy</strong> to <strong>IT fundamentals</strong> to <strong>AI & prompting</strong>, we build the courses that should already exist. Alongside education, we develop the <strong>MIRACDX suite</strong> — productivity tools for real daily use on Windows.',tr:'Finansal okuryazarlıktan <strong>BT temellerine</strong>, <strong>yapay zekâ ve prompt yazımına</strong> kadar — var olması gereken kursları biz inşa ediyoruz. Eğitimin yanı sıra, gerçek günlük kullanım için <strong>MIRACDX paketini</strong> (Windows üretkenlik araçları) geliştiriyoruz.'},
+  "about.p3":{en:'The ultimate vision: <strong>MIRA Renovator</strong> — an AI pipeline that takes outdated documents, textbooks, and dead curricula and outputs modern interactive modules automatically.',tr:'Nihai vizyon: <strong>MIRA Renovator</strong> — eski belgeleri, ders kitaplarını ve ölü müfredatları alıp otomatik olarak modern, etkileşimli modüllere dönüştüren bir yapay zekâ hattı.'},
+  "pillars.eyebrow":{en:"What we build",tr:"Ne inşa ediyoruz"},
+  "pillars.title":{en:'Three <span class="gold">pillars</span>',tr:'Üç <span class="gold">sütun</span>'},
+  "p1.title":{en:"Education Modules",tr:"Eğitim Modülleri"},
+  "p1.desc":{en:"Interactive HTML courses on finance, IT, history, AI, and more. Bilingual, dark-themed, always current.",tr:"Finans, BT, tarih, yapay zekâ ve daha fazlası üzerine etkileşimli HTML kursları. İki dilli, koyu temalı, daima güncel."},
+  "p1.count":{en:"6 modules · Invest · World Almanac · IT Literacy · History of IT/AI · Atatürk İlkeleri",tr:"6 modül · Invest · World Almanac · IT Literacy · History of IT/AI · Atatürk İlkeleri"},
+  "p2.title":{en:"Dashboards & Tools",tr:"Panolar ve Araçlar"},
+  "p2.desc":{en:"Personal command centers, project managers, wellness tools, and creative apps — all as local HTML files.",tr:"Kişisel komuta merkezleri, proje yöneticileri, sağlık araçları ve yaratıcı uygulamalar — hepsi yerel HTML dosyaları olarak."},
+  "p2.count":{en:"6 tools · DATA-MIR Board · PRJ MNG · MIR PIXEL · Astrology · Anger Protocol · Inspector",tr:"6 araç · DATA-MIR Board · PRJ MNG · MIR PIXEL · Astrology · Anger Protocol · Inspector"},
+  "p3.title":{en:"MIRACDX Suite",tr:"MIRACDX Paketi"},
+  "p3.desc":{en:"Windows productivity apps — system tray utilities, desktop overlays, smartwatch companions, media tools.",tr:"Windows üretkenlik uygulamaları — sistem tepsisi araçları, masaüstü katmanları, akıllı saat eşlikçileri, medya araçları."},
+  "p3.count":{en:"5 apps · QuickSolutions · Clock · Band · SkinCraft · Downloader",tr:"5 uygulama · QuickSolutions · Clock · Band · SkinCraft · Downloader"},
+  "proj.eyebrow":{en:"Active Projects",tr:"Aktif Projeler"},
+  "proj.title":{en:'What we\'re <span class="gold">building</span>',tr:'Neler <span class="gold">geliştiriyoruz</span>'},
+  "proj.viewall":{en:"View all on GitHub →",tr:"Hepsini GitHub'da gör →"},
+  "proj.d1":{en:"Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, Turkish + English.",tr:"Eksiksiz yatırım eğitimi — kripto, hisse, Forex, teknik analiz, risk. 13 bölüm, Türkçe + İngilizce."},
+  "proj.d2":{en:"Interactive world history 2000–2026. Politics, tech, culture — rich dark reference module with reading mode.",tr:"Etkileşimli dünya tarihi 2000–2026. Siyaset, teknoloji, kültür — okuma modlu, zengin koyu referans modülü."},
+  "proj.d3":{en:"10-module curriculum: Internet, GitHub, Terminal, Python, Web Ownership, WordPress, No-Code, Security, AI.",tr:"10 modüllük müfredat: İnternet, GitHub, Terminal, Python, Web Sahipliği, WordPress, Kodsuz, Güvenlik, YZ."},
+  "proj.d4":{en:"Personal command center dashboard. Multi-theme, dark, modular. Tracks all active projects with live status.",tr:"Kişisel komuta merkezi panosu. Çok temalı, koyu, modüler. Tüm aktif projeleri canlı durumla izler."},
+  "proj.d5":{en:"System tray utility — voice reader, screenshot, screen recorder. AHK v2. Runs at Windows startup.",tr:"Sistem tepsisi aracı — sesli okuyucu, ekran görüntüsü, ekran kaydedici. AHK v2. Windows açılışında çalışır."},
+  "proj.d6":{en:"Xiaomi smartwatch companion. Real-time sensors, theme sync. Bluetooth direct install coming in v2.0.",tr:"Xiaomi akıllı saat eşlikçisi. Gerçek zamanlı sensörler, tema senkronu. Bluetooth ile doğrudan kurulum v2.0'da geliyor."},
+  "badge.stable":{en:"Stable",tr:"Kararlı"},
+  "badge.progress":{en:"In Progress",tr:"Devam Ediyor"},
+  "founder.eyebrow":{en:"The team · The family",tr:"Ekip · Aile"},
+  "founder.title":{en:'Founder &amp; <span class="gold">co-founders</span>',tr:'Kurucu ve <span class="gold">eş kurucular</span>'},
+  "founder.role":{en:"Founder · AI/IT Trainer [C] · ICF Professional Coach · Operations Manager · R&D · 25+ years in IT",tr:"Kurucu · YZ/BT Eğitmeni [C] · ICF Profesyonel Koç · Operasyon Müdürü · Ar-Ge · BT'de 25+ yıl"},
+  "founder.cv":{en:"📄 Full profile & CV",tr:"📄 Tam profil ve CV"},
+  "cofounder.label":{en:"Co-Founders",tr:"Eş Kurucular"},
+  "cf.role.guzin":{en:"Co-Founder · English Teacher & Professional Coach",tr:"Eş Kurucu · İngilizce Öğretmeni ve Profesyonel Koç"},
+  "cf.role.emrah":{en:"Co-Founder · English Teacher & Tech Wizard",tr:"Eş Kurucu · İngilizce Öğretmeni ve Teknoloji Sihirbazı"},
+  "connect.eyebrow":{en:"Find us",tr:"Bize ulaşın"},
+  "connect.title":{en:'Connect with <span class="gold">MIR ACADEMY</span>',tr:'<span class="gold">MIR AKADEMİ</span> ile bağlanın'},
+  "conn.email":{en:"Email",tr:"E-posta"},
+  "conn.soon":{en:"Coming soon",tr:"Yakında"},
+  "conn.call":{en:"Call",tr:"Ara"},
+  "conn.numsoon":{en:"Number coming soon",tr:"Numara yakında"},
+  "conn.website":{en:"Website",tr:"Web Sitesi"},
+  "footer.copy":{en:"© 2020–2026 Emre Mir Ekinci · MIR ACADEMY · Istanbul",tr:"© 2020–2026 Emre Mir Ekinci · MIR AKADEMİ · İstanbul"}
+};
+function applyLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n'); if(!I18N[k]||!I18N[k][lang])return;
+    if(el.getAttribute('data-i18n-html')) el.innerHTML=I18N[k][lang];
+    else el.textContent=I18N[k][lang];
+  });
+  /* eyebrows: re-split words so the swivel animation still works after text change */
+  document.querySelectorAll('.section-eyebrow').forEach(function(eb){delete eb.dataset.ebsplit;});
+  setupEyebrows(); playEyebrows();
+  document.documentElement.setAttribute('lang',lang);
+  var b=document.getElementById('langBtn'); if(b) b.textContent=(lang==='tr'?'EN':'TR');
+  try{localStorage.setItem('mirLang',lang);}catch(e){}
+  window.MIR_LANG=lang;
+}
+function toggleLang(){ applyLang(window.MIR_LANG==='tr'?'en':'tr'); }
+(function(){ var saved; try{saved=localStorage.getItem('mirLang');}catch(e){} applyLang(saved||'tr'); })();
 
 /* TICKER */
 const STATS=[
