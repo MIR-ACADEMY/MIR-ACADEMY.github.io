@@ -56,6 +56,83 @@ h1{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var
     <div class="ex">⚙️ <b>Exercise:</b> open an app you love and notice how <i>little</i> you had to set up to start. That smoothness is defaults working — someone made the decisions for you, well.</div>
   </div>
 
+  <div class="lesson">
+    <div class="lnum">Lesson 3</div>
+    <div class="ltitle">CSS Variables — one knob for many things</div>
+    <div class="principle">Don't repeat a value — name it once, reference it everywhere.</div>
+    <p>Every colour on the site is stored once, with a name: <code>--gold: #c8a96e</code>. Everywhere a colour is needed, the code says <code>var(--gold)</code> instead of the raw number. The whole page reads from <b>one source of truth</b>.</p>
+    <p><b>Where we used it:</b> the entire white/stone theme. I didn't edit 200 places — I changed the <i>definitions</i> once (<code>html[data-theme="light"]{--bg:#e7e3d8…}</code>) and every <code>var(--bg)</code> on the page turned to stone at once.</p>
+    <span class="tag">Take it with you</span>
+    <p>When the same value appears more than once, <b>give it a name and point at the name.</b> Change the name once, and the whole system follows. (This is Lesson 1 — Abstraction — applied to design.)</p>
+    <div class="ex">🎛️ <b>Exercise:</b> imagine changing the brand gold across 40 files by hand vs. changing one <code>--gold</code> line. That gap is the whole lesson.</div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">Lesson 4</div>
+    <div class="ltitle">State &amp; the Switch — centralize, then react</div>
+    <div class="principle">Hold the truth in one place; let everything respond to it.</div>
+    <p>A theme is just one attribute on the page's root: <code>data-theme="light"</code>. The light rules only fire <i>when that attribute says "light."</i> Flip the one attribute and the whole page cascades to match — no room-by-room work.</p>
+    <p><b>The picture:</b> instead of switching every lamp in the house, you flip one breaker and the house responds. The single switch is the <b>state</b>; everything else just <i>listens</i>.</p>
+    <span class="tag">Take it with you</span>
+    <p>When many things must change together, <b>don't change them one by one — make them all read from a single switch, and flip the switch.</b></p>
+    <div class="ex">🔌 <b>Exercise:</b> find one setting in an app that changes many things at once (dark mode, "focus mode"). That's one piece of state, many reactions.</div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">Lesson 5</div>
+    <div class="ltitle">Persistence &amp; Shared Memory</div>
+    <div class="principle">Shared memory beats passing messages around.</div>
+    <p>Your theme choice is saved in the browser's little notebook (<code>localStorage</code>) under the key <code>mirTheme</code>. Next visit, the page reads it <i>before</i> drawing — so it opens the way you left it.</p>
+    <p><b>The clever part:</b> every page reads the <b>same key</b>. So choosing light on the homepage means the founder page already <i>knows</i> — no wiring between pages. And on a first-ever visit, with nothing saved, the page asks the <i>device</i> (<code>prefers-color-scheme</code>) and follows its dark/light setting — a sensible default (Lesson 2) that reads context instead of guessing.</p>
+    <span class="tag">Take it with you</span>
+    <p>When two parts need to agree, <b>let them read one shared note rather than shouting messages at each other.</b> And remember what the user chose — memory is a courtesy.</p>
+    <div class="ex">📝 <b>Exercise:</b> notice an app that reopens exactly where you left it. Something quietly wrote a note before you closed it.</div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">Lesson 6</div>
+    <div class="ltitle">Responsive Design — one page that bends</div>
+    <div class="principle">Design the content once; let the layout adapt to the screen.</div>
+    <p>There is <b>no</b> separate phone site and desktop site. There is <i>one</i> page with rules that say <code>@media(max-width:680px){…}</code> — "below 680px wide, rearrange." The content is identical; only its <b>arrangement</b> changes (three columns fold into one; the project belt becomes one swipe-row).</p>
+    <p><b>Why it matters:</b> one page to build, one to maintain, one truth — and it stays light enough that a modest phone runs it fine. You don't multiply the work; you teach the <i>same</i> work to fold.</p>
+    <span class="tag">Take it with you</span>
+    <p>Never build "a mobile version." <b>Build one thing, and give it rules for how to fold when space is tight.</b> Primary screen first (for us, Windows); the rest is graceful folding.</p>
+    <div class="ex">📐 <b>Exercise:</b> slowly narrow a browser window on a good site and watch columns collapse into rows. Same content — folding.</div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">Lesson 7</div>
+    <div class="ltitle">The Shorthand Trap — know what you overwrite</div>
+    <div class="principle">A shorthand resets its whole family — even the parts you didn't mention.</div>
+    <p>The gold title is letters cut out of a gradient (<code>background-clip:text</code> — "paint the gradient, but only inside the letter shapes"). The trap: writing the <i>shorthand</i> <code>background: …</code> silently resets <code>background-clip</code> to its default. So each new gradient quietly undid the "clip to text," and the gradient filled the whole box — <b>the faint rectangle you spotted.</b></p>
+    <p><b>The fix:</b> re-assert <code>background-clip:text</code> right after. <b>You caught this with your eyes before I caught it in the numbers</b> — that's exactly the partnership.</p>
+    <span class="tag">Take it with you</span>
+    <p>When you use a shorthand (in code, in settings, in life), <b>remember it overwrites the whole group — not just the part you were thinking about.</b></p>
+    <div class="ex">🧩 <b>Exercise:</b> a "reset to defaults" button is the ultimate shorthand — it changes everything, including what you forgot was set.</div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">Lesson 8</div>
+    <div class="ltitle">Measure, Don't Squint — contrast by the numbers</div>
+    <div class="principle">When the eye can't be trusted, compute; when two things are similar, give them an edge.</div>
+    <p>I have no eyes, so I read the page's <b>computed styles</b> — I ask the live page "what colour is this <i>actually</i> rendering?" and read the RGB back. For legibility I use the <b>WCAG contrast ratio</b> (aim ≥ 4.5:1 for text). For "are these two fills distinct?" I check the <b>gap</b> between them — and if it's small, I <i>require</i> a separating <b>border or shadow</b>.</p>
+    <p><b>Your rule, enforced by arithmetic:</b> the stone cards (<code>#f1eee6</code>) on the stone page (<code>#e7e3d8</code>) are numerically close — they only read as separate because each card has a drawn border. Similar values <i>must</i> have an edge.</p>
+    <span class="tag">Take it with you</span>
+    <p><b>Two colours touching: make them clearly different, or put a line between them.</b> Never leave similar values to blur into each other.</p>
+    <div class="ex">🎨 <b>Exercise:</b> find two greys side by side that are hard to tell apart, then notice whether a border "rescues" them. That border is the whole trick.</div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">Lesson 9</div>
+    <div class="ltitle">Text Carries a Language — the locale trap</div>
+    <div class="principle">Casing follows language: the same letter can change shape by tongue.</div>
+    <p>Turkish uppercases <code>i → İ</code> (dotted). So when the browser auto-uppercases the <i>English</i> word "QuickSolutions" while the page language is Turkish, it becomes "QU<b>İ</b>CKSOLUT<b>İ</b>ONS." The fix: tag those English words with <code>lang="en"</code> — "uppercase these by English rules."</p>
+    <p><b>The deeper point:</b> text is never neutral. It belongs to a language, and rules like casing, sorting, and dates follow <i>that</i> language. Your instinct to hunt for the stray İ was an engineer's instinct.</p>
+    <span class="tag">Take it with you</span>
+    <p>When you mix languages, <b>tell the machine which language each piece belongs to.</b> It can't guess, and the defaults will bite.</p>
+    <div class="ex">🌍 <b>Exercise:</b> type your name in all-caps on a Turkish keyboard vs. an English one and watch the dots on the I's. Same key, two shapes.</div>
+  </div>
+
   <div class="foot">
     More lessons land here as we build. Read them again and again — that's how they sink in.<br>
     <b>Educare · Renovare · Transcendere</b>
