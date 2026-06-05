@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIRACDX Control Center · CLD v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070707; --panel:#0e0e0f; --panel2:#141416;
+    --gold:#c8a96e; --gold-soft:rgba(200,169,110,.5); --teal:#6fd7c6;
+    --text:#e9e6df; --muted:#8c8a85; --line:rgba(200,169,110,.18);
+    --green:#7ec98a; --red:#e08a8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.55;padding-bottom:70px}
+  code,.mono{font-family:'JetBrains Mono',monospace}
+  a{color:inherit;text-decoration:none}
+
+  header{padding:48px 24px 26px;text-align:center;border-bottom:1px solid var(--line);
+    background:radial-gradient(120% 90% at 50% 0%, rgba(200,169,110,.07), transparent 70%)}
+  .eyebrow{font-size:11px;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+  h1{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(26px,5vw,42px);letter-spacing:.04em;
+    background:linear-gradient(100deg,var(--gold),#f4e3bf 40%,var(--teal) 60%,var(--gold));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--muted);margin-top:10px;font-size:14px;max-width:600px;margin-inline:auto}
+
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+
+  /* engine status */
+  .engine{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);
+    border-left:3px solid var(--gold);border-radius:10px;padding:14px 18px;margin-top:28px;font-size:13px;flex-wrap:wrap}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);flex:none}
+  .dot.on{background:var(--green);box-shadow:0 0 8px var(--green)}
+  .engine b{color:var(--gold)} .engine .mono{color:var(--teal)}
+
+  section{margin-top:42px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+  .sec-head h2{font-family:'Cinzel',serif;font-weight:500;font-size:19px;letter-spacing:.03em}
+  .sec-head .n{font-family:'Cinzel',serif;color:var(--gold);opacity:.7;font-size:14px}
+  .sec-head p{color:var(--muted);font-size:12px;margin-left:auto;text-align:right;max-width:48%}
+
+  /* build tool cards */
+  .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .tool{display:block;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:20px;transition:.18s;position:relative;overflow:hidden}
+  .tool:hover{border-color:var(--gold-soft);transform:translateY(-2px);background:var(--panel2)}
+  .tool .ic{font-size:26px;margin-bottom:10px}
+  .tool h3{font-size:16px;color:var(--gold);margin-bottom:5px}
+  .tool p{font-size:12.5px;color:var(--muted)}
+  .tool .go{margin-top:12px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+
+  /* toolkit groups */
+  .kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .grp{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .grp .gh{padding:10px 16px;background:var(--panel2);border-bottom:1px solid var(--line);
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .grp a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;
+    border-bottom:1px solid rgba(200,169,110,.07);font-size:13.5px;transition:.12s}
+  .grp a:last-child{border-bottom:none}
+  .grp a:hover{background:rgba(200,169,110,.05);padding-left:20px}
+  .grp a b{color:var(--text);font-weight:500} .grp a span{color:var(--muted);font-size:11.5px;text-align:right}
+  .grp a .arw{color:var(--gold);opacity:.5}
+
+  /* built-in color picker */
+  .micro{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+  .micro input[type=color]{width:64px;height:64px;border:none;background:none;cursor:pointer;border-radius:10px}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap}
+  .sw{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:6px;padding:7px 11px;cursor:pointer;transition:.12s}
+  .sw:hover{border-color:var(--gold);color:var(--gold)}
+  .sw small{color:var(--muted);display:block;font-size:9px;letter-spacing:.1em;margin-bottom:2px}
+
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:54px;padding-top:22px;border-top:1px solid var(--line)}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--gold);color:#070707;
+    font-size:13px;font-weight:600;padding:8px 18px;border-radius:30px;opacity:0;transition:.2s;pointer-events:none;z-index:99}
+  .toast.show{opacity:1}
+  @media(max-width:560px){.sec-head p{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">MIR ACADEMY · No-Token Workshop</div>
+  <h1>MIRACDX Control Center</h1>
+  <p class="sub">Every tool to edit your site without spending a single token — plus the toolkit a good programmer keeps on hand. One place. Yours.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- ENGINE -->
+  <div class="engine">
+    <span class="dot" id="engineDot"></span>
+    <span><b id="engineTxt">Checking engine…</b> &nbsp; The build tools below need the local engine running.
+      Launch it once with <code class="mono">MIRACDX Studio.bat</code> → it serves everything on <span class="mono">127.0.0.1:7799</span>.</span>
+  </div>
+
+  <!-- A · OUR BUILD TOOLS -->
+  <section>
+    <div class="sec-head"><span class="n">A</span><h2>Our Build Tools</h2>
+      <p>Made for this site. Edit text, color, font, animation — saved straight to disk.</p></div>
+    <div class="tools">
+      <a class="tool" href="http://127.0.0.1:7799/studio/studio.html" target="_blank">
+        <div class="ic">🎛️</div><h3>MIRACDX Studio</h3>
+        <p>The visual editor. Click any text to rewrite it; change colors, fonts, and the hero animation live — it writes the real file.</p>
+        <div class="go">Open Studio →</div>
+      </a>
+      <a class="tool" href="http://127.0.0.1:7799/belt-lab/animations.html" target="_blank">
+        <div class="ic">🎬</div><h3>Belt Animation Lab</h3>
+        <p>14 ways the project cards can enter (Swivel, Blur, Fade, Fly…). Tick one → “Apply to site”. Current: Swivel + Blur.</p>
+        <div class="go">Open Belt Lab →</div>
+      </a>
+      <a class="tool" href="http://127.0.0.1:7799/belt-lab/titles.html" target="_blank">
+        <div class="ic">✨</div><h3>Title Effects Lab</h3>
+        <p>5 hero-title looks (Foil, Glint, Shimmer…). Tick one → “Apply to site”. Current: Foil.</p>
+        <div class="go">Open Title Lab →</div>
+      </a>
+      <a class="tool" href="http://127.0.0.1:7799/index.html" target="_blank">
+        <div class="ic">🌐</div><h3>Live Preview</h3>
+        <p>Open the actual site through the engine to see your edits the instant they save.</p>
+        <div class="go">Open the site →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- MICRO TOOL -->
+  <section>
+    <div class="sec-head"><span class="n">B</span><h2>Quick Color Picker</h2>
+      <p>Built in — pick a color, click any value to copy.</p></div>
+    <div class="micro">
+      <input type="color" id="cp" value="#c8a96e">
+      <div class="swatches" id="sw"></div>
+    </div>
+  </section>
+
+  <!-- C · PROGRAMMER'S TOOLKIT -->
+  <section>
+    <div class="sec-head"><span class="n">C</span><h2>Programmer’s Toolkit</h2>
+      <p>Free, trusted tools every good web builder uses. Opens in a new tab.</p></div>
+    <div class="kit">
+
+      <div class="grp">
+        <div class="gh">🎨 Color &amp; Design</div>
+        <a href="https://coolors.co/" target="_blank"><b>Coolors</b><span>palette generator <span class="arw">↗</span></span></a>
+        <a href="https://webaim.org/resources/contrastchecker/" target="_blank"><b>WebAIM Contrast</b><span>readable text check <span class="arw">↗</span></span></a>
+        <a href="https://cssgradient.io/" target="_blank"><b>CSS Gradient</b><span>build gradients <span class="arw">↗</span></span></a>
+        <a href="https://www.realtimecolors.com/" target="_blank"><b>Realtime Colors</b><span>preview a palette live <span class="arw">↗</span></span></a>
+      </div>
+
+      <div class="grp">
+        <div class="gh">🖼️ Images &amp; Assets</div>
+        <a href="https://squoosh.app/" target="_blank"><b>Squoosh</b><span>compress images <span class="arw">↗</span></span></a>
+        <a href="https://tinypng.com/" target="_blank"><b>TinyPNG</b><span>shrink PNG/JPG <span class="arw">↗</span></span></a>
+        <a href="https://jakearchibald.github.io/svgomg/" target="_blank"><b>SVGOMG</b><span>optimize SVG <span class="arw">↗</span></span></a>
+        <a href="https://www.remove.bg/" target="_blank"><b>remove.bg</b><span>cut out backgrounds <span class="arw">↗</span></span></a>
+      </div>
+
+      <div class="grp">
+        <div class="gh">🔤 Fonts &amp; Icons</div>
+        <a href="https://fonts.google.com/" target="_blank"><b>Google Fonts</b><span>free web fonts <span class="arw">↗</span></span></a>
+        <a href="https://lucide.dev/icons/" target="_blank"><b>Lucide Icons</b><span>clean SVG icons <span class="arw">↗</span></span></a>
+        <a href="https://heroicons.com/" target="_blank"><b>Heroicons</b><span>more SVG icons <span class="arw">↗</span></span></a>
+        <a href="https://favicon.io/" target="_blank"><b>Favicon.io</b><span>make a site icon <span class="arw">↗</span></span></a>
+      </div>
+
+      <div class="grp">
+        <div class="gh">🧪 Code Quality</div>
+        <a href="https://validator.w3.org/" target="_blank"><b>W3C Validator</b><span>check your HTML <span class="arw">↗</span></span></a>
+        <a href="https://regex101.com/" target="_blank"><b>regex101</b><span>test patterns <span class="arw">↗</span></span></a>
+        <a href="https://jsonlint.com/" target="_blank"><b>JSONLint</b><span>format/validate JSON <span class="arw">↗</span></span></a>
+        <a href="https://caniuse.com/" target="_blank"><b>Can I Use</b><span>browser support <span class="arw">↗</span></span></a>
+      </div>
+
+      <div class="grp">
+        <div class="gh">⚡ Performance &amp; SEO</div>
+        <a href="https://pagespeed.web.dev/" target="_blank"><b>PageSpeed Insights</b><span>Google speed score <span class="arw">↗</span></span></a>
+        <a href="https://gtmetrix.com/" target="_blank"><b>GTmetrix</b><span>full performance report <span class="arw">↗</span></span></a>
+        <a href="https://metatags.io/" target="_blank"><b>Metatags.io</b><span>social share previews <span class="arw">↗</span></span></a>
+      </div>
+
+      <div class="grp">
+        <div class="gh">📚 Reference &amp; Repo</div>
+        <a href="https://developer.mozilla.org/" target="_blank"><b>MDN Web Docs</b><span>the web bible <span class="arw">↗</span></span></a>
+        <a href="https://github.com/" target="_blank"><b>GitHub</b><span>your code home <span class="arw">↗</span></span></a>
+        <a href="https://mir-academy.github.io/" target="_blank"><b>Live Site</b><span>what people see <span class="arw">↗</span></span></a>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  MIRACDX Control Center · CLD v1.0 · 2026-06-05 · built by MIRA for MIR ·
+  <span style="color:var(--gold-soft)">EDUCARE · RENOVARE · TRANSCENDERE</span>
+</footer>
+
+<div class="toast" id="toast">copied ✓</div>
+
+<script>
+  const toast=document.getElementById('toast');
+  function copy(t){navigator.clipboard.writeText(t).then(()=>{toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1000);});}
+
+  /* engine status: ping the local server */
+  (function(){
+    const dot=document.getElementById('engineDot'), txt=document.getElementById('engineTxt');
+    fetch('http://127.0.0.1:7799/index.html',{mode:'no-cors'})
+      .then(()=>{dot.classList.add('on');txt.textContent='Engine running';})
+      .catch(()=>{txt.textContent='Engine not running';});
+  })();
+
+  /* color picker */
+  const cp=document.getElementById('cp'), sw=document.getElementById('sw');
+  function hexToRgb(h){const n=parseInt(h.slice(1),16);return [(n>>16)&255,(n>>8)&255,n&255];}
+  function render(){
+    const h=cp.value.toUpperCase(), [r,g,b]=hexToRgb(h);
+    const vals=[['HEX',h],['RGB',`rgb(${r}, ${g}, ${b})`],['HSL-ish',`${r},${g},${b}`]];
+    sw.innerHTML='';
+    vals.forEach(([k,v])=>{const d=document.createElement('div');d.className='sw';
+      d.innerHTML='<small>'+k+'</small>'+v;d.onclick=()=>copy(v);sw.appendChild(d);});
+    const chip=document.createElement('div');chip.className='sw';chip.style.background=h;chip.style.width='40px';chip.innerHTML='&nbsp;';chip.onclick=()=>copy(h);
+    sw.appendChild(chip);
+  }
+  cp.addEventListener('input',render); render();
+</script>
+</body>
+</html>
