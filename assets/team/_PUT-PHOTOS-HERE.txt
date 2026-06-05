@@ -1,0 +1,9 @@
+﻿Drop the team photos here, named EXACTLY:
+  emre.jpg    (or .png)
+  guzin.jpg
+  emrah.jpg
+
+How to get a LinkedIn photo: open the person's LinkedIn profile, click the
+profile picture to enlarge, right-click -> Save image as -> save here with the
+name above. Square-ish images look best (they'll be cropped to a circle).
+Tell MIRA when done and she'll wire them into the avatars (main page + profile pages).

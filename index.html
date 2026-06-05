@@ -66,11 +66,20 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .hero-center{position:relative;z-index:10;text-align:center;display:flex;flex-direction:column;align-items:center;margin-top:0;}
 .hero-eyebrow{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;font-weight:500;}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,96px);font-weight:900;line-height:0.95;letter-spacing:-0.02em;word-spacing:0.55em;margin-bottom:18px;
-  background:radial-gradient(circle at 50% 50%, #fff3c0 0%, rgba(255,243,192,0) 38%), linear-gradient(0deg,#c8a96e,#c8a96e);
-  background-repeat:no-repeat;background-position:center,center;background-size:0% 0%,100% 100%;
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
-  animation:titleGlint 9s ease-out infinite;}
-@keyframes titleGlint{0%{background-size:0% 0%,100% 100%;}28%{background-size:300% 300%,100% 100%;}55%,100%{background-size:0% 0%,100% 100%;}}
+  background:linear-gradient(0deg,#c8a96e,#c8a96e);background-size:100% 100%;background-position:center;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+/* ── HERO TITLE EFFECTS (pick via TITLE_FX in script; test in /belt-lab/titles.html) ── */
+.fx-glint{background:radial-gradient(circle at 50% 50%,#fff6d0 0%,rgba(255,246,208,0) 42%),linear-gradient(0deg,#c8a96e,#c8a96e);background-repeat:no-repeat;background-position:center,center;background-size:0% 0%,100% 100%;animation:tGlint 6s ease-in-out infinite;}
+@keyframes tGlint{0%{background-size:0% 0%,100% 100%}30%{background-size:340% 340%,100% 100%}60%,100%{background-size:0% 0%,100% 100%}}
+.fx-shine{background:linear-gradient(110deg,#a8843a 0%,#c8a96e 38%,#fff6d0 50%,#c8a96e 62%,#a8843a 100%);background-size:280% 100%;animation:tShine 4.2s linear infinite;}
+@keyframes tShine{0%{background-position:200% 0}100%{background-position:-90% 0}}
+.fx-flow{background:linear-gradient(90deg,#a8843a,#e2c48a,#c8a96e,#e2c48a,#a8843a);background-size:300% 100%;animation:tFlow 8s ease-in-out infinite;}
+@keyframes tFlow{0%{background-position:0 0}50%{background-position:100% 0}100%{background-position:0 0}}
+.fx-glow{background:linear-gradient(0deg,#e2c48a,#c8a96e);animation:tGlow 3s ease-in-out infinite;}
+@keyframes tGlow{0%,100%{text-shadow:0 0 8px rgba(200,169,110,.25)}50%{text-shadow:0 0 30px rgba(226,196,138,.75),0 0 12px rgba(226,196,138,.55)}}
+.fx-foil{background:linear-gradient(110deg,#c8a96e,#e2c48a,#9beee0,#e2c48a,#c8a96e);background-size:300% 100%;animation:tShine 6.5s linear infinite;}
+/* re-assert text-clip AFTER each effect's background shorthand (which resets it) — keeps the gradient cut into the letters, background fully transparent */
+.fx-glint,.fx-shine,.fx-flow,.fx-glow,.fx-foil{-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;}
 .hero-title .gold{color:var(--gold);}
 .hero-sub{font-family:'Cinzel',serif;font-size:clamp(24px,4vw,41px);margin-bottom:24px;letter-spacing:0.14em;font-weight:600;text-decoration:none;display:block;color:#a8843a;}
 .mbrk{display:inline-block;color:#8a6a2a;opacity:0;animation:mbrkfade .7s ease .05s forwards;}
@@ -90,10 +99,23 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 /* PROJECT BELT (slow L→R marquee) */
 .belt{width:100%;overflow:hidden;padding:22px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(200,169,110,0.02);}
-.belt-track{display:flex;gap:14px;width:max-content;animation:beltmove 64s linear infinite;}
-.belt:hover .belt-track{animation-play-state:paused;}
-@keyframes beltmove{from{transform:translateX(-50%);}to{transform:translateX(0);}}
-.belt-card{flex:0 0 auto;width:356px;height:221px;background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);}
+.belt-track{display:flex;gap:14px;perspective:1200px;padding:0 22px;}
+/* belt entrance keyframes (PowerPoint-style) — pick via BELT_ANIM in script */
+@keyframes kf-fade{from{opacity:0}to{opacity:1}}
+@keyframes kf-float{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+@keyframes kf-fly{from{opacity:0;transform:translateX(-140px)}to{opacity:1;transform:translateX(0)}}
+@keyframes kf-zoom{from{opacity:0;transform:scale(.45)}to{opacity:1;transform:scale(1)}}
+@keyframes kf-bounce{0%{opacity:0;transform:translateY(-70px)}55%{opacity:1;transform:translateY(10px)}75%{transform:translateY(-5px)}100%{transform:translateY(0)}}
+@keyframes kf-wipe{from{opacity:1;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+@keyframes kf-split{from{opacity:1;clip-path:inset(0 50% 0 50%)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+@keyframes kf-swivel{from{opacity:0;transform:rotateY(-92deg)}to{opacity:1;transform:rotateY(0)}}
+@keyframes kf-blur{from{opacity:0;filter:blur(14px);transform:scale(1.05)}to{opacity:1;filter:blur(0);transform:scale(1)}}
+@keyframes kf-deal{from{opacity:0;transform:translate(-30px,-46px) rotate(-11deg)}to{opacity:1;transform:translate(0,0) rotate(0)}}
+@keyframes kf-circle{from{opacity:1;clip-path:circle(0% at 50% 50%)}to{opacity:1;clip-path:circle(75% at 50% 50%)}}
+@keyframes kf-pulse{0%{opacity:0;transform:scale(.8)}55%{opacity:1;transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+@keyframes kf-spin{from{opacity:0;transform:rotate(-180deg) scale(.5)}to{opacity:1;transform:rotate(0) scale(1)}}
+@keyframes kf-swivelblur{from{opacity:0;transform:rotateY(-92deg);filter:blur(14px)}to{opacity:1;transform:rotateY(0);filter:blur(0)}}
+.belt-card{flex:1 1 0;min-width:0;height:200px;background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);}
 .belt-card:hover{border-color:var(--gold);transform:translateY(-3px);background:#121110;}
 .belt-ic{color:#c8a96e;line-height:0;}
 .belt-ic svg{width:58px;height:58px;}
@@ -101,6 +123,7 @@ nav.scrolled{background:rgba(5,5,5,0.95);backdrop-filter:blur(16px);border-color
 .pmic svg{width:44px;height:44px;color:var(--gold);}
 .belt-nm{font-size:21px;color:var(--muted);letter-spacing:.06em;text-align:center;text-transform:uppercase;line-height:1.3;padding:0 8px;}
 .belt-card:hover .belt-nm{color:var(--gold);}
+@media(max-width:820px){.belt-track{flex-wrap:wrap;}.belt-card{flex:1 1 40%;min-width:130px;height:150px;}.belt-ic svg{width:44px;height:44px;}}
 /* PROJECT MODAL */
 .pmodal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.78);backdrop-filter:blur(6px);padding:24px;}
 .pmodal.open{display:flex;}
@@ -526,23 +549,14 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
-<div id="adminBar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#0a0a0a;border-top:1px solid rgba(200,169,110,0.3);padding:12px 24px;display:none;align-items:center;gap:12px;flex-wrap:wrap;">
-  <span style="font-size:11px;color:#c8a96e;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;">⚙ ADMIN MODE</span>
-  <span style="font-size:11px;color:#666;">Click any highlighted text to edit. Changes auto-save.</span>
-  <button onclick="adminSave()" style="background:#c8a96e;color:#050505;border:none;padding:6px 16px;border-radius:3px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;">Save Changes</button>
-  <button onclick="adminExport()" style="background:transparent;border:1px solid rgba(200,169,110,0.3);color:#c8a96e;padding:6px 16px;border-radius:3px;font-size:11px;cursor:pointer;">Export HTML</button>
-  <button onclick="adminExit()" style="background:transparent;border:1px solid #333;color:#666;padding:6px 16px;border-radius:3px;font-size:11px;cursor:pointer;margin-left:auto;">Exit Admin</button>
-</div>
-
-<style>
-.admin-edit{outline:1px dashed rgba(200,169,110,0.4);cursor:text;transition:outline 0.2s;}
-.admin-edit:hover,.admin-edit:focus{outline:1px solid rgba(200,169,110,0.8);background:rgba(200,169,110,0.04);}
-#adminBar{display:none;}
-#adminBar.active{display:flex!important;}
-</style>
+<!-- ADMIN PANEL removed 2026-06-05: editing now lives in MIRACDX Studio (local, no public password). -->
 
 <script>
+/* TITLE-CONFIG-START */
+var TITLE_FX='foil';
+/* TITLE-CONFIG-END */
+(function(){var t=document.querySelector('.hero-title');if(t&&TITLE_FX){t.classList.add('fx-'+TITLE_FX);}})();
+
 /* NAV */
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);
@@ -565,16 +579,27 @@ const PROJECTS=[
   {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>',nm:'MIRACDX QuickSolutions',cat:'MIRACDX · Windows App',desc:'System-tray utility: voice reader, screenshot, and screen recorder. Runs at Windows startup.',note:'Windows desktop app.'},
   {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2.5"/><path d="M9.5 7l.8-4h3.4l.8 4M9.5 17l.8 4h3.4l.8-4"/><path d="M12 10v2.6l1.6 1"/></svg>',nm:'MIRACDX Band',cat:'MIRACDX · Windows App',desc:'Xiaomi smartwatch companion — real-time sensors and theme sync.',note:'Windows desktop app.'}
 ];
+/* BELT-CONFIG-START */
+  var BELT_ANIM='swivelblur', BELT_STAG=0.12, BELT_DUR=0.8, BELT_EVERY=10000;
+  /* BELT-CONFIG-END */
 (function(){
   var bt=document.getElementById('beltTrack');if(!bt)return;
-  var all=PROJECTS.concat(PROJECTS); /* duplicate for seamless loop */
-  all.forEach(function(p,i){
-    var idx=i%PROJECTS.length;
+  PROJECTS.forEach(function(p,i){
     var c=document.createElement('div');c.className='belt-card';
-    c.addEventListener('click',function(){openProj(idx);});
+    c.addEventListener('click',function(){openProj(i);});           /* click = open project modal (unchanged) */
     c.innerHTML='<div class="belt-ic">'+p.svg+'</div><div class="belt-nm">'+p.nm+'</div>';
     bt.appendChild(c);
   });
+  var EASE={bounce:'cubic-bezier(.28,.84,.42,1)',deal:'cubic-bezier(.2,.7,.3,1)'};
+  function playBelt(){
+    bt.querySelectorAll('.belt-card').forEach(function(c,i){
+      c.style.animation='none';void c.offsetWidth;                   /* reset so it can replay */
+      c.style.animation='kf-'+BELT_ANIM+' '+BELT_DUR+'s '+(EASE[BELT_ANIM]||'cubic-bezier(.2,.7,.25,1)')+' '+(i*BELT_STAG).toFixed(2)+'s both';
+      c.addEventListener('animationend',function(){c.style.animation='';},{once:true});  /* clear so hover-lift works */
+    });
+  }
+  playBelt();
+  if(BELT_EVERY>0) setInterval(playBelt,BELT_EVERY);                 /* re-play every BELT_EVERY ms */
 })();
 function openProj(i){var p=PROJECTS[i];
   document.getElementById('pmIc').innerHTML=p.svg;
@@ -618,92 +643,7 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-/* ── ADMIN PANEL ── */
-const ADMIN_PASS = 'MIR2024';
-let adminActive = false;
-
-// Secret trigger: triple-click the footer brand
-document.querySelector('.footer-brand').addEventListener('click', function(){
-  if(!adminActive){
-    const pw = prompt('Admin password:');
-    if(pw === ADMIN_PASS) adminLogin();
-  }
-});
-
-// Also: Ctrl+Shift+M
-document.addEventListener('keydown', e=>{
-  if(e.ctrlKey && e.shiftKey && e.key==='M') {
-    if(!adminActive){
-      const pw = prompt('Admin password:');
-      if(pw === ADMIN_PASS) adminLogin();
-    }
-  }
-});
-
-const EDITABLE = [
-  // [selector, description]
-  ['.hero-eyebrow','Hero eyebrow text'],
-  ['.hero-sub','Hero tagline (AD ASTRA)'],
-  ['.section-eyebrow','Section labels'],
-  ['.section-title','Section titles'],
-  ['.about-text p','About paragraphs'],
-  ['.am-val','About metadata values'],
-  ['.pillar-title','Pillar titles'],
-  ['.pillar-desc','Pillar descriptions'],
-  ['.pillar-count','Pillar counts'],
-  ['.pc-name','Project names'],
-  ['.pc-desc','Project descriptions'],
-  ['.founder-name','Founder names'],
-  ['.founder-role','Founder roles'],
-  ['.mission-q','Mission quote'],
-  ['.conn-name','Connect section names'],
-  ['.footer-copy','Footer copyright text'],
-];
-
-function adminLogin(){
-  adminActive = true;
-  document.getElementById('adminBar').classList.add('active');
-  EDITABLE.forEach(([sel])=>{
-    document.querySelectorAll(sel).forEach(el=>{
-      el.contentEditable = 'true';
-      el.classList.add('admin-edit');
-    });
-  });
-  // Load any saved content
-  const saved = JSON.parse(localStorage.getItem('mir_admin_content')||'{}');
-  Object.keys(saved).forEach(key=>{
-    const el = document.querySelector(`[data-admin-key="${key}"]`);
-    if(el) el.innerHTML = saved[key];
-  });
-}
-
-function adminExit(){
-  adminActive = false;
-  document.getElementById('adminBar').classList.remove('active');
-  document.querySelectorAll('.admin-edit').forEach(el=>{
-    el.contentEditable = 'false';
-    el.classList.remove('admin-edit');
-  });
-}
-
-function adminSave(){
-  const data = {};
-  document.querySelectorAll('[data-admin-key]').forEach(el=>{
-    data[el.dataset.adminKey] = el.innerHTML;
-  });
-  localStorage.setItem('mir_admin_content', JSON.stringify(data));
-  alert('✅ Saved to browser. Click Export HTML to get the updated file.');
-}
-
-function adminExport(){
-  const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-  const blob = new Blob([html], {type:'text/html'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'index-updated.html';
-  a.click();
-  alert('Downloaded! Replace index.html in GitHub folder and push.');
-}
+/* ── ADMIN PANEL removed 2026-06-05 — editing moved to MIRACDX Studio (local-only, no public password) ── */
 </script>
 <script>
 /* ── GENTLE GOLD DATA RAIN (kind, slow, not-Matrix: Latin + Roman numerals, no katakana) ── */

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIR ACADEMY — Belt Animation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050505;--card:#0a0a0a;--border:rgba(200,169,110,0.12);
+  --gold:#c8a96e;--gold2:#e2c48a;--teal:#7ad9c8;--muted:#666;--text:#e0dcd0;--faint:#2a2a2a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;overflow-x:hidden;}
+::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-thumb{background:var(--faint);border-radius:8px;}
+
+/* faint static carbon backdrop (stand-in for your data rain, which stays in the real site) */
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-color:#0a0a0a;
+  background-image:radial-gradient(rgba(200,169,110,0.05) 1px,transparent 1px);background-size:34px 34px;}
+
+.head{text-align:center;padding:60px 24px 28px;border-bottom:1px solid var(--border);}
+.head .eb{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;}
+.head h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5.5vw,56px);font-weight:900;color:var(--gold);}
+.head p{max-width:640px;margin:14px auto 0;color:var(--muted);font-weight:300;}
+.head .motto{font-family:'Cinzel',serif;color:var(--gold);letter-spacing:.14em;font-size:13px;margin-top:18px;opacity:.8;}
+.replay-all{margin-top:22px;background:var(--gold);color:#050505;border:none;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:10px 22px;border-radius:4px;cursor:pointer;transition:background .15s;}
+.replay-all:hover{background:var(--gold2);}
+
+.toc{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;max-width:900px;margin:22px auto 0;}
+.toc a{font-size:11px;color:var(--muted);border:1px solid var(--border);padding:5px 11px;border-radius:20px;transition:all .15s;}
+.toc a:hover{border-color:var(--gold);color:var(--gold);}
+
+.demo{max-width:1240px;margin:0 auto;padding:54px 24px;border-bottom:1px solid var(--faint);}
+.demo-hd{display:flex;align-items:center;gap:14px;margin-bottom:4px;flex-wrap:wrap;}
+.demo-no{font-family:'Playfair Display',serif;font-size:30px;font-weight:900;color:var(--faint);line-height:1;}
+.demo-nm{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;color:var(--text);}
+.pp-tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(122,217,200,.3);background:rgba(122,217,200,.06);padding:3px 9px;border-radius:3px;font-weight:600;}
+.replay{margin-left:auto;background:transparent;border:1px solid var(--border);color:var(--gold);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 16px;border-radius:4px;cursor:pointer;transition:all .15s;}
+.replay:hover{border-color:var(--gold);background:rgba(200,169,110,.06);}
+.demo-desc{color:var(--muted);font-weight:300;font-size:13px;margin:8px 0 24px;max-width:780px;}
+
+/* THE BELT (matches the real site card) */
+.belt-row{display:flex;gap:14px;overflow:hidden;padding:8px 2px;perspective:1100px;}
+.bcard{flex:1 1 0;min-width:0;height:188px;background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;cursor:pointer;
+  transition:border-color .2s,transform .2s,background .2s;backdrop-filter:blur(4px);transform-origin:center;}
+.bcard:hover{border-color:var(--gold);background:#121110;}
+.bic{color:var(--gold);line-height:0;}.bic svg{width:50px;height:50px;}
+.bcard:hover .bic{color:var(--gold2);}
+.bnm{font-size:15px;color:var(--muted);letter-spacing:.06em;text-align:center;text-transform:uppercase;line-height:1.3;padding:0 6px;}
+.bcard:hover .bnm{color:var(--gold);}
+@media(max-width:860px){.belt-row{flex-wrap:wrap;}.bcard{flex:1 1 28%;min-width:120px;height:150px;}.bic svg{width:38px;height:38px;}.bnm{font-size:12px;}}
+
+/* ── KEYFRAMES (PowerPoint-style) ── */
+@keyframes kf-fade{from{opacity:0;}to{opacity:1;}}
+@keyframes kf-float{from{opacity:0;transform:translateY(34px);}to{opacity:1;transform:translateY(0);}}
+@keyframes kf-fly{from{opacity:0;transform:translateX(-140px);}to{opacity:1;transform:translateX(0);}}
+@keyframes kf-zoom{from{opacity:0;transform:scale(.45);}to{opacity:1;transform:scale(1);}}
+@keyframes kf-bounce{0%{opacity:0;transform:translateY(-70px);}55%{opacity:1;transform:translateY(10px);}75%{transform:translateY(-5px);}100%{transform:translateY(0);}}
+@keyframes kf-wipe{from{opacity:1;clip-path:inset(0 100% 0 0);}to{opacity:1;clip-path:inset(0 0 0 0);}}
+@keyframes kf-split{from{opacity:1;clip-path:inset(0 50% 0 50%);}to{opacity:1;clip-path:inset(0 0 0 0);}}
+@keyframes kf-swivel{from{opacity:0;transform:rotateY(-92deg);}to{opacity:1;transform:rotateY(0);}}
+@keyframes kf-blur{from{opacity:0;filter:blur(14px);transform:scale(1.05);}to{opacity:1;filter:blur(0);transform:scale(1);}}
+@keyframes kf-deal{from{opacity:0;transform:translate(-30px,-46px) rotate(-11deg);}to{opacity:1;transform:translate(0,0) rotate(0);}}
+@keyframes kf-circle{from{opacity:1;clip-path:circle(0% at 50% 50%);}to{opacity:1;clip-path:circle(75% at 50% 50%);}}
+@keyframes kf-pulse{0%{opacity:0;transform:scale(.8);}55%{opacity:1;transform:scale(1.06);}100%{opacity:1;transform:scale(1);}}
+@keyframes kf-spin{from{opacity:0;transform:rotate(-180deg) scale(.5);}to{opacity:1;transform:rotate(0) scale(1);}}
+@keyframes kf-swivelblur{from{opacity:0;transform:rotateY(-92deg);filter:blur(14px);}to{opacity:1;transform:rotateY(0);filter:blur(0);}}
+
+.pick-lab{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;border:1px solid var(--border);padding:4px 9px;border-radius:20px;transition:all .15s;}
+.pick-lab:hover{border-color:var(--gold);color:var(--gold);}
+.pick-lab input{accent-color:var(--gold);width:15px;height:15px;cursor:pointer;margin:0;}
+.pick-lab:has(input:checked){border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,.08);}
+.apply-bar{position:sticky;bottom:0;z-index:60;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;background:rgba(8,8,8,.97);backdrop-filter:blur(12px);border-top:1px solid var(--gold);padding:14px 22px;}
+.ab-label{font-size:11px;color:var(--muted);letter-spacing:.05em;}
+.ab-btn{background:var(--gold);color:#050505;border:none;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 24px;border-radius:4px;cursor:pointer;transition:background .15s;}
+.ab-btn:hover{background:var(--gold2);}
+.ab-status{font-size:12px;color:var(--teal);max-width:420px;}
+footer{text-align:center;padding:44px 24px;color:var(--faint);font-size:11px;letter-spacing:.1em;}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="eb">Internal · belt animation tests · index.html untouched</div>
+  <h1>Belt Animation Lab</h1>
+  <p>The same project belt from your site, entering a dozen different ways — inspired by the most-used PowerPoint animations. The <b style="color:var(--text)">data-rain background stays</b>; only the belt's motion changes. Hit <b style="color:var(--gold)">Replay</b> on any to feel it.</p>
+  <div class="motto">[ EDUCARE · RENOVARE · TRANSCENDERE ]</div>
+  <button class="replay-all" onclick="playAll()">▶ Replay all</button>
+  <div class="toc">
+    <a href="#a1">1 Fade</a><a href="#a2">2 Float In</a><a href="#a3">3 Fly In</a><a href="#a4">4 Zoom</a>
+    <a href="#a5">5 Bounce</a><a href="#a6">6 Wipe</a><a href="#a7">7 Split</a><a href="#a8">8 Swivel</a>
+    <a href="#a9">9 Blur Focus</a><a href="#a10">10 Deal</a><a href="#a11">11 Circle</a><a href="#a12">12 Grow+Pulse</a><a href="#a13">13 Spin In</a><a href="#a14" style="border-color:var(--gold);color:var(--gold);">★ 14 Swivel+Blur (8+9)</a>
+  </div>
+</div>
+
+<section class="demo" id="a1"  data-anim="fade"   data-stag="0"    data-dur=".8"><div class="demo-hd"><span class="demo-no">01</span><span class="demo-nm">Fade</span><span class="pp-tag">PowerPoint · Fade</span><button class="replay">↻ Replay</button></div><p class="demo-desc">The classic. All cards <b>fade in together</b>, no movement at all. The most universally elegant and the safest — nothing travels across the eye.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a2"  data-anim="float"  data-stag=".12" data-dur=".7"><div class="demo-hd"><span class="demo-no">02</span><span class="demo-nm">Float In</span><span class="pp-tag">PowerPoint · Float In</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>rise and fade up one after another</b> (a gentle cascade). PowerPoint's most-loved entrance — refined and premium, never dizzying.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a3"  data-anim="fly"    data-stag=".1"  data-dur=".6"><div class="demo-hd"><span class="demo-no">03</span><span class="demo-nm">Fly In</span><span class="pp-tag">PowerPoint · Fly In</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>fly in from the left</b> in sequence and lock into place. More energetic — one decisive entrance, then perfectly still.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a4"  data-anim="zoom"   data-stag=".1"  data-dur=".6"><div class="demo-hd"><span class="demo-no">04</span><span class="demo-nm">Zoom</span><span class="pp-tag">PowerPoint · Zoom / Grow</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>grow from small to full size</b> while fading in. Feels confident and modern — like each project arrives into focus.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a5"  data-anim="bounce" data-stag=".12" data-dur=".9"><div class="demo-hd"><span class="demo-no">05</span><span class="demo-nm">Bounce</span><span class="pp-tag">PowerPoint · Bounce</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>drop in and bounce</b> to a stop. Playful and lively — best if you want a friendlier, less formal feel.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a6"  data-anim="wipe"   data-stag=".1"  data-dur=".6"><div class="demo-hd"><span class="demo-no">06</span><span class="demo-nm">Wipe</span><span class="pp-tag">PowerPoint · Wipe</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Each card is <b>revealed left-to-right like a brush stroke</b>. Crisp and editorial; pairs beautifully with the gold theme.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a7"  data-anim="split"  data-stag=".1"  data-dur=".6"><div class="demo-hd"><span class="demo-no">07</span><span class="demo-nm">Split</span><span class="pp-tag">PowerPoint · Split</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>open from the center outward</b>, like curtains parting. Subtle, classy, a little theatrical.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a8"  data-anim="swivel" data-stag=".12" data-dur=".7"><div class="demo-hd"><span class="demo-no">08</span><span class="demo-nm">Swivel</span><span class="pp-tag">PowerPoint · Swivel</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>swing in on a 3-D hinge</b> — the same gem move as your motto swivel. Cohesive with the brand, and quietly impressive.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a9"  data-anim="blur"   data-stag=".12" data-dur=".7"><div class="demo-hd"><span class="demo-no">09</span><span class="demo-nm">Blur Focus</span><span class="pp-tag">Modern · Focus In</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>sharpen from a soft blur</b> into clarity. Very contemporary and luxurious — like a camera finding focus.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a10" data-anim="deal"   data-stag=".16" data-dur=".6"><div class="demo-hd"><span class="demo-no">10</span><span class="demo-nm">Deal the Cards</span><span class="pp-tag">Playful · Stagger</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards are <b>dealt one by one</b> with a slight tilt, like a hand of cards laid down. Charismatic and memorable.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a11" data-anim="circle" data-stag=".1"  data-dur=".6"><div class="demo-hd"><span class="demo-no">11</span><span class="demo-nm">Circle Reveal</span><span class="pp-tag">PowerPoint · Shape/Wheel</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Each card is <b>revealed through an expanding circle</b>. Distinctive and elegant — a softer cousin of the classic Wheel.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a12" data-anim="pulse"  data-stag=".12" data-dur=".8"><div class="demo-hd"><span class="demo-no">12</span><span class="demo-nm">Grow + Pulse</span><span class="pp-tag">PowerPoint · Grow w/ Emphasis</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>grow in and give one gentle pulse</b> as they settle. Adds a touch of "heartbeat" life without continuous motion.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a13" data-anim="spin"   data-stag=".1"  data-dur=".7"><div class="demo-hd"><span class="demo-no">13</span><span class="demo-nm">Spin In</span><span class="pp-tag">PowerPoint · Spin / Grow&amp;Turn</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Cards <b>rotate and scale into place</b>. The most dramatic of the set — use sparingly, but it has real flair.</p><div class="belt-row"></div></section>
+
+<section class="demo" id="a14" data-anim="swivelblur" data-stag=".12" data-dur=".8" style="border-bottom:1px solid var(--border);background:rgba(200,169,110,.025);"><div class="demo-hd"><span class="demo-no" style="color:var(--gold);">★</span><span class="demo-nm">Swivel + Blur Focus</span><span class="pp-tag" style="color:var(--gold);border-color:rgba(200,169,110,.4);background:rgba(200,169,110,.08);">Your combo · 8 + 9</span><button class="replay">↻ Replay</button></div><p class="demo-desc">Exactly what you asked: cards <b>swing in on the 3-D hinge (8) and sharpen from blur (9) at the same time</b>, on one shared clock so both finish together. Merged into a single motion so the two never fight. This is my favorite of the whole lab — cohesive with your motto gem and quietly luxurious.</p><div class="belt-row"></div></section>
+
+<div class="apply-bar">
+  <span class="ab-label">① tick a mode (the ○ in front of its title) · ② →</span>
+  <button class="ab-btn" onclick="applyToFile()">Apply chosen to index.html</button>
+  <span id="applyStatus" class="ab-status"></span>
+</div>
+
+<footer>MIR ACADEMY · Belt Animation Lab · pick + apply through MIRACDX Studio · data rain stays as background</footer>
+
+<script>
+const P=[
+ {nm:'MIRACDX Band', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2.5"/><path d="M9.5 7l.8-4h3.4l.8 4M9.5 17l.8 4h3.4l.8-4"/><path d="M12 10v2.6l1.6 1"/></svg>'},
+ {nm:'MIR Invest', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M12 20v-9M18 20v-13"/><path d="M5 9l5-4 3 2 6-5"/></svg>'},
+ {nm:'World Almanac', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>'},
+ {nm:'IT Literacy', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M9 21h6M12 17v4"/><path d="M7 9l2.4 2L7 13"/><path d="M12.6 13H16"/></svg>'},
+ {nm:'DATA-MIR Board', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></svg>'},
+ {nm:'MIRACDX QuickSolutions', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>'},
+];
+const EASE={bounce:'cubic-bezier(.28,.84,.42,1)',deal:'cubic-bezier(.2,.7,.3,1)',_def:'cubic-bezier(.2,.7,.25,1)'};
+
+// build belts
+document.querySelectorAll('.demo').forEach(sec=>{
+  const row=sec.querySelector('.belt-row');
+  P.forEach(p=>{const c=document.createElement('div');c.className='bcard';c.innerHTML='<div class="bic">'+p.svg+'</div><div class="bnm">'+p.nm+'</div>';row.appendChild(c);});
+  sec.querySelector('.replay').addEventListener('click',()=>play(sec));
+});
+
+function play(sec){
+  const anim=sec.dataset.anim, stag=parseFloat(sec.dataset.stag||'.1'), dur=parseFloat(sec.dataset.dur||'.7');
+  const ease=EASE[anim]||EASE._def;
+  sec.querySelectorAll('.bcard').forEach((c,i)=>{
+    c.style.animation='none'; void c.offsetWidth;            // reset
+    c.style.animation='kf-'+anim+' '+dur+'s '+ease+' '+(i*stag).toFixed(2)+'s both';
+  });
+}
+function playAll(){document.querySelectorAll('.demo').forEach(play);}
+
+// auto-play each as it scrolls into view (once)
+const seen=new WeakSet();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!seen.has(e.target)){seen.add(e.target);play(e.target);}}),{threshold:.35});
+document.querySelectorAll('.demo').forEach(s=>io.observe(s));
+
+/* ── SELECT A MODE + APPLY TO FILE (works when opened through MIRACDX Studio) ── */
+document.querySelectorAll('.demo').forEach(sec=>{
+  const hd=sec.querySelector('.demo-hd');
+  const lab=document.createElement('label');lab.className='pick-lab';
+  const r=document.createElement('input');r.type='radio';r.name='pick';
+  r.value=[sec.dataset.anim,(sec.dataset.stag||'.12'),(sec.dataset.dur||'.8')].join('|');
+  if(sec.id==='a14')r.checked=true;                 // default = your Swivel+Blur combo
+  lab.appendChild(r);lab.append('use');
+  hd.insertBefore(lab,hd.firstChild);
+});
+
+async function applyToFile(){
+  const sel=document.querySelector('input[name=pick]:checked');
+  const st=document.getElementById('applyStatus');
+  if(!sel){st.style.color='#d9a855';st.textContent='Pick a mode first — the ○ in front of a title.';return;}
+  const [anim,stag,dur]=sel.value.split('|');
+  if(location.protocol==='file:'){
+    st.style.color='#d9a855';
+    st.innerHTML='⚠ To apply directly, open this page through Studio: run <b>MIRACDX Studio.bat</b>, then visit <b>127.0.0.1:7799/belt-lab/animations.html</b>. (Right now it’s a plain file, which can’t write to disk.)';
+    return;
+  }
+  try{
+    st.style.color='var(--teal)';st.textContent='Applying "'+anim+'"…';
+    const html=await (await fetch('/index.html',{cache:'no-store'})).text();
+    if(!/BELT-CONFIG-START/.test(html)){st.style.color='#d9a855';st.textContent='Could not find the belt config block in index.html.';return;}
+    const cfg="/* BELT-CONFIG-START */\n  var BELT_ANIM='"+anim+"', BELT_STAG="+(+stag)+", BELT_DUR="+(+dur)+", BELT_EVERY=10000;\n  /* BELT-CONFIG-END */";
+    const out=html.replace(/\/\* BELT-CONFIG-START \*\/[\s\S]*?\/\* BELT-CONFIG-END \*\//,cfg);
+    const j=await (await fetch('/__save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:'index.html',html:out})})).json();
+    if(j.ok){st.style.color='#5bd98a';st.innerHTML='✅ Applied <b>'+anim+'</b> to index.html ('+j.bytes+' bytes). Refresh your site to see it.';}
+    else{st.style.color='#d9a855';st.textContent='❌ Save failed: '+(j.error||'unknown');}
+  }catch(e){st.style.color='#d9a855';st.textContent='❌ '+e.message;}
+}
+</script>
+</body>
+</html>

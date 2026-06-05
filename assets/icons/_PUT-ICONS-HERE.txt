@@ -1,0 +1,14 @@
+﻿Drop project ICONS here (PNG with transparent background looks best; SVG also fine).
+Suggested names (match the belt cards) — but ANY names are OK, just tell MIRA the mapping:
+
+  mir-invest.png        (MIR Invest)
+  world-almanac.png     (World Almanac)
+  it-literacy.png       (IT Literacy)
+  datamir-board.png     (DATA-MIR Board)
+  quicksolutions.png    (MIRACDX QuickSolutions)
+  band.png              (MIRACDX Band)
+  clock.png  downloader.png  skincraft.png  net.png  desktop.png  inspector.png  astrology.png  anger.png  pixel.png  github101.png  ...
+
+Square icons look best (they sit on the belt cards). Tell MIRA "icons are in"
+and which file = which project, and she'll swap the emoji icons for real ones
+on the belt + the project pages, then push.

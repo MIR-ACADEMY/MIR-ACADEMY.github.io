@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIR ACADEMY — Title Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050505;--border:rgba(200,169,110,0.12);--gold:#c8a96e;--gold2:#e2c48a;--teal:#7ad9c8;--muted:#666;--text:#e0dcd0;--faint:#2a2a2a;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;}
+body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:.5;background-color:#0a0a0a;background-image:radial-gradient(rgba(200,169,110,0.05) 1px,transparent 1px);background-size:34px 34px;}
+.head{text-align:center;padding:54px 24px 24px;border-bottom:1px solid var(--border);}
+.head .eb{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;}
+.head h1{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,50px);font-weight:900;color:var(--gold);}
+.head p{max-width:600px;margin:12px auto 0;color:var(--muted);font-weight:300;}
+
+.demo{max-width:1100px;margin:0 auto;padding:46px 24px;border-bottom:1px solid var(--faint);}
+.demo-hd{display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap;}
+.demo-no{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--faint);}
+.demo-nm{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);}
+.pp-tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(122,217,200,.3);background:rgba(122,217,200,.06);padding:3px 9px;border-radius:3px;font-weight:600;}
+.demo-desc{color:var(--muted);font-weight:300;font-size:13px;margin:6px 0 22px;max-width:740px;}
+.stage{display:flex;align-items:center;justify-content:center;padding:36px 16px;border:1px solid var(--border);border-radius:14px;background:rgba(8,8,8,.6);}
+.htitle{font-family:'Playfair Display',serif;font-size:clamp(40px,7vw,84px);font-weight:900;letter-spacing:-0.02em;word-spacing:.5em;
+  background:linear-gradient(0deg,#c8a96e,#c8a96e);background-size:100% 100%;background-position:center;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+
+/* effects (identical to the ones baked into index.html) */
+.fx-glint{background:radial-gradient(circle at 50% 50%,#fff6d0 0%,rgba(255,246,208,0) 42%),linear-gradient(0deg,#c8a96e,#c8a96e);background-repeat:no-repeat;background-position:center,center;background-size:0% 0%,100% 100%;animation:tGlint 6s ease-in-out infinite;}
+@keyframes tGlint{0%{background-size:0% 0%,100% 100%}30%{background-size:340% 340%,100% 100%}60%,100%{background-size:0% 0%,100% 100%}}
+.fx-shine{background:linear-gradient(110deg,#a8843a 0%,#c8a96e 38%,#fff6d0 50%,#c8a96e 62%,#a8843a 100%);background-size:280% 100%;animation:tShine 4.2s linear infinite;}
+@keyframes tShine{0%{background-position:200% 0}100%{background-position:-90% 0}}
+.fx-flow{background:linear-gradient(90deg,#a8843a,#e2c48a,#c8a96e,#e2c48a,#a8843a);background-size:300% 100%;animation:tFlow 8s ease-in-out infinite;}
+@keyframes tFlow{0%{background-position:0 0}50%{background-position:100% 0}100%{background-position:0 0}}
+.fx-glow{background:linear-gradient(0deg,#e2c48a,#c8a96e);animation:tGlow 3s ease-in-out infinite;}
+@keyframes tGlow{0%,100%{text-shadow:0 0 8px rgba(200,169,110,.25)}50%{text-shadow:0 0 30px rgba(226,196,138,.75),0 0 12px rgba(226,196,138,.55)}}
+.fx-foil{background:linear-gradient(110deg,#c8a96e,#e2c48a,#9beee0,#e2c48a,#c8a96e);background-size:300% 100%;animation:tShine 6.5s linear infinite;}
+.fx-glint,.fx-shine,.fx-flow,.fx-glow,.fx-foil{-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;}
+
+.pick-lab{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;border:1px solid var(--border);padding:4px 9px;border-radius:20px;transition:all .15s;}
+.pick-lab:hover{border-color:var(--gold);color:var(--gold);}
+.pick-lab input{accent-color:var(--gold);width:15px;height:15px;margin:0;cursor:pointer;}
+.pick-lab:has(input:checked){border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,.08);}
+.apply-bar{position:sticky;bottom:0;z-index:60;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;background:rgba(8,8,8,.97);backdrop-filter:blur(12px);border-top:1px solid var(--gold);padding:14px 22px;}
+.ab-label{font-size:11px;color:var(--muted);}
+.ab-btn{background:var(--gold);color:#050505;border:none;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 24px;border-radius:4px;cursor:pointer;}
+.ab-btn:hover{background:var(--gold2);}
+.ab-status{font-size:12px;color:var(--teal);max-width:420px;}
+footer{text-align:center;padding:40px 24px;color:var(--faint);font-size:11px;}
+</style>
+</head>
+<body>
+<div class="head">
+  <div class="eb">Internal · hero title effects · index.html safe</div>
+  <h1>Title Lab</h1>
+  <p>Five ways for the big <b style="color:var(--text)">MIR ACADEMY</b> title to come alive. Tick one, then apply it to the real site (through MIRACDX Studio). Default = <b style="color:var(--gold)">Shine</b>.</p>
+</div>
+
+<section class="demo" data-fx="glint"><div class="demo-hd"><span class="demo-no">01</span><span class="demo-nm">Glint</span><span class="pp-tag">subtle sparkle</span></div><p class="demo-desc">A soft highlight that swells from the center — your original effect, <b>brightened and faster</b> so it actually reads. The most understated option.</p><div class="stage"><div class="htitle fx-glint">MIR&nbsp;ACADEMY</div></div></section>
+
+<section class="demo" data-fx="shine"><div class="demo-hd"><span class="demo-no">02</span><span class="demo-nm">Shine</span><span class="pp-tag">★ recommended</span></div><p class="demo-desc">A bright <b>light streak sweeps diagonally across the gold letters</b>, like polished metal catching the light. Clearly visible, premium, and not distracting. My pick.</p><div class="stage"><div class="htitle fx-shine">MIR&nbsp;ACADEMY</div></div></section>
+
+<section class="demo" data-fx="flow"><div class="demo-hd"><span class="demo-no">03</span><span class="demo-nm">Flow</span><span class="pp-tag">living gold</span></div><p class="demo-desc">The gold <b>slowly shifts from deep to bright and back</b>, as if molten. Calm, rich, continuous — feels alive without any sweep.</p><div class="stage"><div class="htitle fx-flow">MIR&nbsp;ACADEMY</div></div></section>
+
+<section class="demo" data-fx="glow"><div class="demo-hd"><span class="demo-no">04</span><span class="demo-nm">Glow</span><span class="pp-tag">breathing halo</span></div><p class="demo-desc">The letters <b>pulse with a warm golden halo</b>, brightening and softening. Dramatic and luminous — strongest presence of the set.</p><div class="stage"><div class="htitle fx-glow">MIR&nbsp;ACADEMY</div></div></section>
+
+<section class="demo" data-fx="foil"><div class="demo-hd"><span class="demo-no">05</span><span class="demo-nm">Foil</span><span class="pp-tag">holographic</span></div><p class="demo-desc">A shine sweep with a <b>faint teal shimmer</b> woven in — a hint of holographic foil that ties the gold to your teal accent. Modern and distinctive.</p><div class="stage"><div class="htitle fx-foil">MIR&nbsp;ACADEMY</div></div></section>
+
+<div class="apply-bar">
+  <span class="ab-label">① tick an effect · ② →</span>
+  <button class="ab-btn" onclick="applyTitle()">Apply chosen to index.html</button>
+  <span id="applyStatus" class="ab-status"></span>
+</div>
+<footer>MIR ACADEMY · Title Lab · pick + apply through MIRACDX Studio</footer>
+
+<script>
+document.querySelectorAll('.demo').forEach(sec=>{
+  const hd=sec.querySelector('.demo-hd');
+  const lab=document.createElement('label');lab.className='pick-lab';
+  const r=document.createElement('input');r.type='radio';r.name='pick';r.value=sec.dataset.fx;
+  if(sec.dataset.fx==='shine')r.checked=true;
+  lab.appendChild(r);lab.append('use');hd.insertBefore(lab,hd.firstChild);
+});
+async function applyTitle(){
+  const sel=document.querySelector('input[name=pick]:checked');const st=document.getElementById('applyStatus');
+  if(!sel){st.style.color='#d9a855';st.textContent='Pick an effect first.';return;}
+  const fx=sel.value;
+  if(location.protocol==='file:'){st.style.color='#d9a855';st.innerHTML='⚠ Open through MIRACDX Studio (run the .bat, then 127.0.0.1:7799/belt-lab/titles.html) to apply.';return;}
+  try{
+    st.style.color='var(--teal)';st.textContent='Applying "'+fx+'"…';
+    const html=await (await fetch('/index.html',{cache:'no-store'})).text();
+    if(!/TITLE-CONFIG-START/.test(html)){st.style.color='#d9a855';st.textContent='No title config block found in index.html.';return;}
+    const cfg="/* TITLE-CONFIG-START */\nvar TITLE_FX='"+fx+"';\n/* TITLE-CONFIG-END */";
+    const out=html.replace(/\/\* TITLE-CONFIG-START \*\/[\s\S]*?\/\* TITLE-CONFIG-END \*\//,cfg);
+    const j=await (await fetch('/__save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:'index.html',html:out})})).json();
+    if(j.ok){st.style.color='#5bd98a';st.innerHTML='✅ Applied <b>'+fx+'</b> to index.html. Refresh the site.';}
+    else{st.style.color='#d9a855';st.textContent='❌ Save failed: '+(j.error||'unknown');}
+  }catch(e){st.style.color='#d9a855';st.textContent='❌ '+e.message;}
+}
+</script>
+</body>
+</html>

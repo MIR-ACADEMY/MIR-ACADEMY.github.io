@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIR ACADEMY — Belt Lab · 10 showcase effects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050505;--bg2:#0a0a0a;--card:#111;
+  --border:rgba(200,169,110,0.12);
+  --gold:#c8a96e;--gold2:#e2c48a;
+  --teal:#7ad9c8;--purple:#b87ad9;--muted:#666;--text:#e0dcd0;--faint:#2a2a2a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;overflow-x:hidden;}
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-thumb{background:var(--faint);border-radius:8px;}
+a{text-decoration:none;color:inherit;}
+
+/* ── PAGE HEADER ── */
+.lab-head{text-align:center;padding:64px 24px 26px;border-bottom:1px solid var(--border);}
+.lab-eyebrow{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;}
+.lab-title{font-family:'Playfair Display',serif;font-size:clamp(34px,6vw,60px);font-weight:900;color:var(--gold);letter-spacing:.02em;}
+.lab-note{max-width:620px;margin:16px auto 0;color:var(--muted);font-weight:300;font-size:14px;}
+.lab-toc{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:880px;margin:24px auto 0;}
+.lab-toc a{font-size:11px;letter-spacing:.06em;color:var(--muted);border:1px solid var(--border);padding:6px 12px;border-radius:20px;transition:all .15s;}
+.lab-toc a:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── DEMO WRAPPER ── */
+.demo{padding:70px 24px;border-bottom:1px solid var(--faint);max-width:1180px;margin:0 auto;}
+.demo-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;flex-wrap:wrap;}
+.demo-no{font-family:'Playfair Display',serif;font-size:34px;font-weight:900;color:var(--faint);line-height:1;}
+.demo-nm{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;color:var(--text);}
+.demo-tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:3px;font-weight:600;border:1px solid;}
+.tag-calm{color:#5bd98a;border-color:rgba(91,217,138,.3);background:rgba(91,217,138,.07);}
+.tag-mid{color:#d9a855;border-color:rgba(217,168,85,.3);background:rgba(217,168,85,.07);}
+.demo-desc{color:var(--muted);font-weight:300;font-size:13.5px;margin-bottom:26px;max-width:760px;}
+.demo-desc b{color:var(--text);font-weight:500;}
+.demo-stage{position:relative;}
+
+/* ── SHARED CARD LOOK ── */
+.card{background:rgba(10,10,10,0.9);border:1px solid var(--border);border-radius:14px;padding:26px 22px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--acc,var(--faint));}
+.card .ic{font-size:30px;line-height:1;margin-bottom:14px;display:block;}
+.card .nm{font-size:16px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.card .cat{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+.card .ds{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;}
+.acc-edu{--acc:var(--teal);} .acc-dash{--acc:var(--gold);} .acc-app{--acc:var(--purple);}
+
+/* 1 · REVEAL GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+
+/* 2 · HOVER-LIFT GRID */
+.lift .card{transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease;cursor:pointer;}
+.lift .card:hover{transform:translateY(-6px);border-color:var(--gold);background:#121110;box-shadow:0 14px 40px rgba(0,0,0,.55);}
+.lift .card:hover .nm{color:var(--gold);}
+
+/* 3 · CROSS-FADE ROTATOR */
+.rot{position:relative;min-height:200px;}
+.rot-set{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;opacity:0;transition:opacity .9s ease;pointer-events:none;}
+.rot-set.on{opacity:1;pointer-events:auto;}
+@media(max-width:760px){.rot-set{grid-template-columns:1fr;}.rot{min-height:0;}.rot-set{position:relative;opacity:1;display:none;}.rot-set.on{display:grid;}}
+
+/* 4 · FADE CAROUSEL + DOTS */
+.feat{position:relative;min-height:190px;}
+.feat .card{position:absolute;inset:0;opacity:0;transition:opacity .8s ease;}
+.feat .card.on{opacity:1;position:relative;}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:20px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--faint);border:none;cursor:pointer;transition:all .2s;}
+.dot.on{background:var(--gold);transform:scale(1.3);}
+
+/* 5 · ARROW CAROUSEL (scroll-snap, user-driven) */
+.arw{display:flex;align-items:center;gap:12px;}
+.arw-btn{flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:rgba(10,10,10,.8);color:var(--gold);font-size:18px;cursor:pointer;transition:all .15s;}
+.arw-btn:hover{border-color:var(--gold);background:#121110;}
+.arw-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:6px;flex:1;scrollbar-width:none;}
+.arw-track::-webkit-scrollbar{display:none;}
+.arw-track .card{flex:0 0 270px;scroll-snap-align:start;}
+
+/* 6 · SWIPE STRIP (drag, native) */
+.swipe{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 6px 16px;scrollbar-width:thin;}
+.swipe .card{flex:0 0 78%;max-width:300px;scroll-snap-align:center;}
+.swipe-hint{font-size:11px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;margin-top:6px;}
+
+/* 7 · ACCORDION LIST */
+.acc-list{border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.acc-it{border-bottom:1px solid var(--faint);}
+.acc-it:last-child{border-bottom:none;}
+.acc-row{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;transition:background .2s;}
+.acc-row:hover{background:var(--bg2);}
+.acc-row .ic{font-size:22px;}
+.acc-row .nm{font-size:15px;font-weight:600;color:var(--text);flex:1;}
+.acc-row .cat{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);}
+.acc-row .chev{color:var(--gold);transition:transform .25s;font-size:14px;}
+.acc-it.open .chev{transform:rotate(90deg);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.acc-body p{padding:0 22px 18px 58px;color:var(--muted);font-weight:300;font-size:13px;}
+.acc-it.open .acc-body{max-height:140px;}
+
+/* 8 · FLIP CARDS */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;}
+.flip{perspective:1100px;height:190px;cursor:pointer;}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;}
+.flip.on .flip-in{transform:rotateY(180deg);}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;border:1px solid var(--border);background:rgba(10,10,10,.92);padding:24px;display:flex;flex-direction:column;justify-content:center;}
+.flip-face.back{transform:rotateY(180deg);border-color:var(--gold);}
+.flip-face .ic{font-size:30px;margin-bottom:12px;}
+.flip-face .nm{font-size:16px;font-weight:600;color:var(--text);}
+.flip-face .cat{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-top:5px;}
+.flip-face.back .ds{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;}
+.flip-tip{font-size:9px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;margin-top:10px;}
+
+/* 9 · SPOTLIGHT + THUMBS */
+.spot{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;align-items:stretch;}
+@media(max-width:760px){.spot{grid-template-columns:1fr;}}
+.spot-main{border:1px solid var(--gold);border-radius:16px;padding:38px 32px;background:linear-gradient(135deg,rgba(200,169,110,.06),rgba(10,10,10,.9));min-height:210px;display:flex;flex-direction:column;justify-content:center;transition:opacity .4s;}
+.spot-main .ic{font-size:44px;margin-bottom:16px;}
+.spot-main .nm{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--text);}
+.spot-main .cat{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin:8px 0 14px;}
+.spot-main .ds{color:var(--muted);font-weight:300;font-size:13.5px;}
+.spot-thumbs{display:flex;flex-direction:column;gap:8px;}
+.spot-th{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid var(--border);border-radius:9px;cursor:pointer;transition:all .18s;}
+.spot-th:hover{background:var(--bg2);}
+.spot-th.on{border-color:var(--gold);background:rgba(200,169,110,.06);}
+.spot-th .ic{font-size:18px;}
+.spot-th .nm{font-size:13px;color:var(--text);font-weight:500;}
+
+/* 10 · CONSTELLATION (static cluster, no rotation) */
+.const{position:relative;height:340px;}
+.const svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.const-node{position:absolute;transform:translate(-50%,-50%);width:118px;background:rgba(10,10,10,.92);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .22s;backdrop-filter:blur(3px);}
+.const-node:hover{border-color:var(--gold);background:#121110;box-shadow:0 0 26px rgba(200,169,110,.25);transform:translate(-50%,-50%) scale(1.07);}
+.const-node .ic{font-size:22px;}
+.const-node .nm{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:6px;line-height:1.3;}
+.const-node:hover .nm{color:var(--gold);}
+@media(max-width:760px){.const{height:auto;}.const svg{display:none;}.const-inner{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;position:static!important;}.const-node{position:static!important;transform:none!important;width:auto;}}
+
+/* BONUS · tamed marquee */
+.mq{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;background:rgba(200,169,110,.02);}
+.mq-track{display:flex;gap:14px;width:max-content;animation:mqmove 70s linear infinite;}
+.mq:hover .mq-track{animation-play-state:paused;}
+@keyframes mqmove{from{transform:translateX(-50%);}to{transform:translateX(0);}}
+.mq .card{flex:0 0 240px;}
+@media(prefers-reduced-motion:reduce){.mq-track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;}}
+
+footer{text-align:center;padding:40px 24px;color:var(--faint);font-size:11px;letter-spacing:.1em;}
+</style>
+</head>
+<body>
+
+<div class="lab-head">
+  <div class="lab-eyebrow">Internal · not linked from the site</div>
+  <div class="lab-title">Belt Lab</div>
+  <p class="lab-note">Ten ways to show the projects without the disturbing left-to-right drift. <b style="color:var(--text)">Green = calm</b> (safe for motion-sensitive eyes &amp; old devices) · <b style="color:#d9a855">amber = a little motion</b>. Scroll, hover, click, swipe — test each, then tell me your favorites.</p>
+  <div class="lab-toc">
+    <a href="#d1">1 Reveal Grid</a><a href="#d2">2 Hover-Lift</a><a href="#d3">3 Cross-Fade</a>
+    <a href="#d4">4 Fade + Dots</a><a href="#d5">5 Arrow Carousel</a><a href="#d6">6 Swipe Strip</a>
+    <a href="#d7">7 Accordion</a><a href="#d8">8 Flip Cards</a><a href="#d9">9 Spotlight</a>
+    <a href="#d10">10 Constellation</a><a href="#dB">★ Tamed Marquee</a>
+  </div>
+</div>
+
+<!-- 1 -->
+<section class="demo" id="d1">
+  <div class="demo-hd"><span class="demo-no">01</span><span class="demo-nm">Reveal Grid</span><span class="demo-tag tag-calm">Calmest</span></div>
+  <p class="demo-desc">Cards rest in a tidy grid and <b>fade up as you scroll to them</b> — then stay perfectly still. Zero drift, very premium, flawless on every device. My top pick for "classy + safe."</p>
+  <div class="demo-stage"><div class="grid" id="g1"></div></div>
+</section>
+
+<!-- 2 -->
+<section class="demo" id="d2">
+  <div class="demo-hd"><span class="demo-no">02</span><span class="demo-nm">Hover-Lift Grid</span><span class="demo-tag tag-calm">Calm</span></div>
+  <p class="demo-desc">Same still grid, but each card <b>lifts and glows only when you point at it</b>. Motion exists — but it answers to <i>you</i>, never runs on its own. Feels alive and expensive.</p>
+  <div class="demo-stage lift"><div class="grid" id="g2"></div></div>
+</section>
+
+<!-- 3 -->
+<section class="demo" id="d3">
+  <div class="demo-hd"><span class="demo-no">03</span><span class="demo-nm">Cross-Fade Rotator</span><span class="demo-tag tag-mid">Soft motion</span></div>
+  <p class="demo-desc">Shows three projects, then <b>dissolves to the next three</b> every few seconds. Things appear and fade <i>in place</i> — nothing ever slides across your eye, so it doesn't trigger that seasick feeling.</p>
+  <div class="demo-stage"><div class="rot" id="rot3"></div></div>
+</section>
+
+<!-- 4 -->
+<section class="demo" id="d4">
+  <div class="demo-hd"><span class="demo-no">04</span><span class="demo-nm">Fade Carousel + Dots</span><span class="demo-tag tag-mid">Soft motion</span></div>
+  <p class="demo-desc">One featured project at a time, <b>fading</b> from one to the next, with dots you can tap to jump. Elegant and minimal — and the dots hand control back to the viewer.</p>
+  <div class="demo-stage"><div class="feat" id="feat4"></div><div class="dots" id="dots4"></div></div>
+</section>
+
+<!-- 5 -->
+<section class="demo" id="d5">
+  <div class="demo-hd"><span class="demo-no">05</span><span class="demo-nm">Arrow Carousel</span><span class="demo-tag tag-calm">Calm</span></div>
+  <p class="demo-desc">Cards sit still; <b>you</b> press ‹ › to glide through them (smooth scroll-snap). No automatic motion at all — it only moves when asked. Great control, zero nausea.</p>
+  <div class="demo-stage arw"><button class="arw-btn" onclick="arwMove(-1)">‹</button><div class="arw-track" id="arw5"></div><button class="arw-btn" onclick="arwMove(1)">›</button></div>
+</section>
+
+<!-- 6 -->
+<section class="demo" id="d6">
+  <div class="demo-hd"><span class="demo-no">06</span><span class="demo-nm">Swipe Strip</span><span class="demo-tag tag-calm">Calm · mobile-first</span></div>
+  <p class="demo-desc">Drag / swipe to browse, with magnetic snap. Feels <b>native on a phone</b> and totally still on desktop until you grab it. Best when most visitors are on mobile.</p>
+  <div class="demo-stage"><div class="swipe" id="sw6"></div><div class="swipe-hint">← drag / swipe →</div></div>
+</section>
+
+<!-- 7 -->
+<section class="demo" id="d7">
+  <div class="demo-hd"><span class="demo-no">07</span><span class="demo-nm">Accordion List</span><span class="demo-tag tag-calm">Calmest</span></div>
+  <p class="demo-desc">A clean vertical list; <b>click a row to expand its detail</b>. Compact, content-rich, library-quiet. Excellent on small screens and old hardware — almost no rendering cost.</p>
+  <div class="demo-stage"><div class="acc-list" id="acc7"></div></div>
+</section>
+
+<!-- 8 -->
+<section class="demo" id="d8">
+  <div class="demo-hd"><span class="demo-no">08</span><span class="demo-nm">Flip Cards</span><span class="demo-tag tag-mid">Click motion</span></div>
+  <p class="demo-desc">Tidy grid; <b>click a card and it flips</b> to reveal the description on its back. Playful, tactile, and the motion only happens on your click — never ambient.</p>
+  <div class="demo-stage"><div class="flip-grid" id="flip8"></div></div>
+</section>
+
+<!-- 9 -->
+<section class="demo" id="d9">
+  <div class="demo-hd"><span class="demo-no">09</span><span class="demo-nm">Spotlight + Thumbnails</span><span class="demo-tag tag-calm">Calm</span></div>
+  <p class="demo-desc">One big featured panel beside a list of thumbnails — <b>click a thumb to load it into the spotlight</b> (gentle fade). Editorial, confident, magazine-like. Puts a flagship project front and center.</p>
+  <div class="demo-stage spot"><div class="spot-main" id="spotMain"></div><div class="spot-thumbs" id="spotThumbs"></div></div>
+</section>
+
+<!-- 10 -->
+<section class="demo" id="d10">
+  <div class="demo-hd"><span class="demo-no">10</span><span class="demo-nm">Constellation</span><span class="demo-tag tag-calm">Calm</span></div>
+  <p class="demo-desc">The old orbit's calm cousin: projects placed as a <b>static star-cluster with faint connecting lines</b>; nodes brighten on hover. The "ecosystem" feeling — without anything spinning. (Stacks to a grid on phones.)</p>
+  <div class="demo-stage"><div class="const" id="const10"><div class="const-inner" style="position:absolute;inset:0;"></div></div></div>
+</section>
+
+<!-- BONUS -->
+<section class="demo" id="dB">
+  <div class="demo-hd"><span class="demo-no">★</span><span class="demo-nm">Tamed Marquee</span><span class="demo-tag tag-mid">For comparison</span></div>
+  <p class="demo-desc">Your current idea, fixed: <b>much slower, pauses on hover, and auto-stops</b> for anyone whose device asks for reduced motion. Here so you can A/B it against the calmer options above.</p>
+  <div class="demo-stage" style="margin:0 -24px;"><div class="mq"><div class="mq-track" id="mqT"></div></div></div>
+</section>
+
+<footer>MIR ACADEMY · Belt Lab · for testing only — index.html is untouched</footer>
+
+<script>
+const P=[
+ {ic:'📈',nm:'MIR Invest',cat:'Education · Finance',ds:'Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, TR + EN.',cls:'acc-edu'},
+ {ic:'🌍',nm:'World Almanac',cat:'Education · History',ds:'Interactive world history 2000–2026 — politics, technology, culture in a rich dark reference.',cls:'acc-edu'},
+ {ic:'💻',nm:'IT Literacy',cat:'Education · IT',ds:'A 10-module curriculum: Internet, GitHub, Terminal, Python, web ownership, security, AI & more.',cls:'acc-edu'},
+ {ic:'📊',nm:'DATA-MIR Board',cat:'Dashboard',ds:'Personal command-center — multi-theme, modular, with live project tracking.',cls:'acc-dash'},
+ {ic:'⚡',nm:'QuickSolutions',cat:'MIRACDX · Windows',ds:'System-tray utility: voice reader, screenshot, screen recorder. Runs at startup.',cls:'acc-app'},
+ {ic:'⌚',nm:'MIRACDX Band',cat:'MIRACDX · Windows',ds:'Xiaomi smartwatch companion — real-time sensors and theme sync.',cls:'acc-app'},
+ {ic:'🎨',nm:'MIR PIXEL',cat:'Creative Tool',ds:'A calm pixel/art playground — dark themed, made to create in, not just look at.',cls:'acc-dash'},
+ {ic:'✨',nm:'MIR Astrology',cat:'Dashboard',ds:'Celestial archive — natal chart explorer and a sign-calculating oracle.',cls:'acc-dash'},
+];
+const cardHTML=p=>`<span class="ic">${p.ic}</span><div class="nm">${p.nm}</div><div class="cat">${p.cat}</div><div class="ds">${p.ds}</div>`;
+function makeCard(p,extra=''){const d=document.createElement('div');d.className='card '+p.cls+' '+extra;d.innerHTML=cardHTML(p);return d;}
+
+/* 1 + 2 grids */
+['g1','g2'].forEach(id=>{const g=document.getElementById(id);P.forEach(p=>{const c=makeCard(p, id==='g1'?'rv':'');g.appendChild(c);});});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.12});
+document.querySelectorAll('#g1 .rv').forEach(el=>obs.observe(el));
+
+/* 3 cross-fade rotator (groups of 3) */
+(function(){const host=document.getElementById('rot3');const groups=[];for(let i=0;i<P.length;i+=3)groups.push(P.slice(i,i+3));
+ groups.forEach((grp,gi)=>{const set=document.createElement('div');set.className='rot-set'+(gi===0?' on':'');grp.forEach(p=>set.appendChild(makeCard(p)));host.appendChild(set);});
+ const sets=host.querySelectorAll('.rot-set');let i=0;setInterval(()=>{sets[i].classList.remove('on');i=(i+1)%sets.length;sets[i].classList.add('on');},3800);
+})();
+
+/* 4 fade carousel + dots */
+(function(){const host=document.getElementById('feat4'),dh=document.getElementById('dots4');
+ P.forEach((p,i)=>{host.appendChild(makeCard(p, i===0?'on':''));const b=document.createElement('button');b.className='dot'+(i===0?' on':'');b.onclick=()=>go(i);dh.appendChild(b);});
+ const cards=host.querySelectorAll('.card'),dots=dh.querySelectorAll('.dot');let i=0,t;
+ function go(n){cards[i].classList.remove('on');dots[i].classList.remove('on');i=n;cards[i].classList.add('on');dots[i].classList.add('on');reset();}
+ function reset(){clearInterval(t);t=setInterval(()=>go((i+1)%P.length),3500);}reset();
+})();
+
+/* 5 arrow carousel */
+(function(){const t=document.getElementById('arw5');P.forEach(p=>t.appendChild(makeCard(p)));})();
+function arwMove(dir){const t=document.getElementById('arw5');t.scrollBy({left:dir*286,behavior:'smooth'});}
+
+/* 6 swipe strip */
+(function(){const t=document.getElementById('sw6');P.forEach(p=>t.appendChild(makeCard(p)));})();
+
+/* 7 accordion */
+(function(){const host=document.getElementById('acc7');P.forEach((p,i)=>{const it=document.createElement('div');it.className='acc-it'+(i===0?' open':'');
+ it.innerHTML=`<div class="acc-row"><span class="ic">${p.ic}</span><span class="nm">${p.nm}</span><span class="cat">${p.cat}</span><span class="chev">▶</span></div><div class="acc-body"><p>${p.ds}</p></div>`;
+ it.querySelector('.acc-row').onclick=()=>it.classList.toggle('open');host.appendChild(it);});
+})();
+
+/* 8 flip cards */
+(function(){const host=document.getElementById('flip8');P.forEach(p=>{const f=document.createElement('div');f.className='flip';
+ f.innerHTML=`<div class="flip-in"><div class="flip-face ${p.cls}"><span class="ic">${p.ic}</span><div class="nm">${p.nm}</div><div class="cat">${p.cat}</div><div class="flip-tip">click to flip</div></div><div class="flip-face back ${p.cls}"><div class="ds">${p.ds}</div></div></div>`;
+ f.onclick=()=>f.classList.toggle('on');host.appendChild(f);});
+})();
+
+/* 9 spotlight */
+(function(){const main=document.getElementById('spotMain'),th=document.getElementById('spotThumbs');
+ function show(i){const p=P[i];main.style.opacity=0;setTimeout(()=>{main.innerHTML=`<span class="ic">${p.ic}</span><div class="nm">${p.nm}</div><div class="cat">${p.cat}</div><div class="ds">${p.ds}</div>`;main.style.opacity=1;},220);
+  th.querySelectorAll('.spot-th').forEach((e,k)=>e.classList.toggle('on',k===i));}
+ P.forEach((p,i)=>{const r=document.createElement('div');r.className='spot-th'+(i===0?' on':'');r.innerHTML=`<span class="ic">${p.ic}</span><span class="nm">${p.nm}</span>`;r.onclick=()=>show(i);th.appendChild(r);});
+ show(0);
+})();
+
+/* 10 constellation */
+(function(){const wrap=document.querySelector('#const10 .const-inner');
+ const pos=[[18,28],[40,18],[64,26],[82,40],[72,64],[50,76],[28,68],[12,50]];
+ const svgNS='http://www.w3.org/2000/svg';const svg=document.createElementNS(svgNS,'svg');
+ const order=[0,1,2,3,4,5,6,7,0];for(let k=0;k<order.length-1;k++){const a=pos[order[k]],b=pos[order[k+1]];const ln=document.createElementNS(svgNS,'line');
+  ln.setAttribute('x1',a[0]+'%');ln.setAttribute('y1',a[1]+'%');ln.setAttribute('x2',b[0]+'%');ln.setAttribute('y2',b[1]+'%');ln.setAttribute('stroke','rgba(200,169,110,0.18)');ln.setAttribute('stroke-width','1');svg.appendChild(ln);}
+ document.getElementById('const10').prepend(svg);
+ P.forEach((p,i)=>{const n=document.createElement('div');n.className='const-node';n.style.left=pos[i][0]+'%';n.style.top=pos[i][1]+'%';n.innerHTML=`<span class="ic">${p.ic}</span><div class="nm">${p.nm}</div>`;wrap.appendChild(n);});
+})();
+
+/* bonus marquee */
+(function(){const t=document.getElementById('mqT');[...P,...P].forEach(p=>t.appendChild(makeCard(p)));})();
+</script>
+</body>
+</html>
