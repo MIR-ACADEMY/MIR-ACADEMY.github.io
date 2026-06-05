@@ -5,12 +5,16 @@
 <meta name="description" content="Emre Mir Ekinci — Founder of MIR ACADEMY. Operations Manager, AI Systems Builder, Technical Trainer, Certified Life Coach. Istanbul, Turkey.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#050505;--bg2:#0a0a0a;--border:rgba(200,169,110,.16);--gold:#c8a96e;--gold2:#e2c48a;--teal:#7ad9c8;--muted:#777;--text:#e0dcd0;--faint:#2a2a2a}
+:root{--bg:#050505;--bg2:#0a0a0a;--border:rgba(200,169,110,.16);--gold:#c8a96e;--gold2:#e2c48a;--teal:#7ad9c8;--muted:#777;--text:#e0dcd0;--faint:#2a2a2a;--navbg:rgba(5,5,5,.85)}
+/* ☀ LIGHT THEME — follows the main site (shared localStorage 'mirTheme') */
+html[data-theme="light"]{--bg:#f6f1e7;--bg2:#efe7d6;--border:rgba(120,90,40,.20);--gold:#977734;--gold2:#7c6029;--teal:#2c8a78;--muted:#6c6354;--text:#2b2620;--faint:#ddd3bf;--navbg:rgba(248,244,236,.92)}
+html[data-theme="light"] footer{color:var(--muted)}
+.themeBtn{background:transparent;border:1px solid rgba(200,169,110,.4);color:var(--gold);font-size:13px;line-height:1;padding:5px 9px;border-radius:4px;cursor:pointer;transition:.15s}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--faint)}
-nav{position:fixed;top:0;left:0;right:0;z-index:50;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(5,5,5,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:var(--navbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold);letter-spacing:.06em}
 .nav-back{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;transition:color .15s}
 .nav-back:hover{color:var(--gold)}
@@ -61,7 +65,7 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(40px,6.5vw,64px);font-we
 footer{border-top:1px solid var(--border);padding:28px 36px;text-align:center;font-size:11px;color:var(--faint)}
 footer a{color:var(--gold)}
 </style></head><body>
-<nav><div class="nav-logo">MIR ACADEMY</div><a class="nav-back" href="index.html#founder">← Back to team</a></nav>
+<nav><div class="nav-logo">MIR ACADEMY</div><div style="display:flex;align-items:center;gap:14px"><a class="nav-back" href="index.html#founder">← Back to team</a><button id="themeBtn" class="themeBtn" onclick="toggleTheme()" title="Light / Dark" aria-label="Toggle theme">☀</button></div></nav>
 
 <section class="hero">
   <div class="av">EM</div>
@@ -207,4 +211,9 @@ footer a{color:var(--gold)}
 </div>
 
 <footer>© 2020–2026 MIR ACADEMY · A family company · <a href="index.html">mir-academy.github.io</a></footer>
+<script>
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);var b=document.getElementById('themeBtn');if(b)b.textContent=(t==='light'?'☾':'☀');try{localStorage.setItem('mirTheme',t);}catch(e){}window.MIR_THEME=t;}
+function toggleTheme(){applyTheme(window.MIR_THEME==='light'?'dark':'light');}
+(function(){var s;try{s=localStorage.getItem('mirTheme');}catch(e){}if(!s){s=(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';}applyTheme(s);})();
+</script>
 </body></html>
