@@ -354,21 +354,21 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
         <div class="pillar-icon">🎓</div>
         <div class="pillar-title" data-i18n="p1.title">Education Modules</div>
         <div class="pillar-desc" data-i18n="p1.desc">Interactive HTML courses on finance, IT, history, AI, and more. Bilingual, dark-themed, always current.</div>
-        <div class="pillar-count" data-i18n="p1.count">6 modules · Invest · World Almanac · IT Literacy · History of IT/AI · Atatürk İlkeleri</div>
+        <div class="pillar-count" lang="en" data-i18n="p1.count">6 modules · Invest · World Almanac · IT Literacy · History of IT/AI · Atatürk İlkeleri</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">02</div>
         <div class="pillar-icon">📊</div>
         <div class="pillar-title" data-i18n="p2.title">Dashboards & Tools</div>
         <div class="pillar-desc" data-i18n="p2.desc">Personal command centers, project managers, wellness tools, and creative apps — all as local HTML files.</div>
-        <div class="pillar-count" data-i18n="p2.count">6 tools · DATA-MIR Board · PRJ MNG · MIR PIXEL · Astrology · Anger Protocol · Inspector</div>
+        <div class="pillar-count" lang="en" data-i18n="p2.count">6 tools · DATA-MIR Board · PRJ MNG · MIR PIXEL · Astrology · Anger Protocol · Inspector</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">03</div>
         <div class="pillar-icon">⚙</div>
         <div class="pillar-title" data-i18n="p3.title">MIRACDX Suite</div>
         <div class="pillar-desc" data-i18n="p3.desc">Windows productivity apps — system tray utilities, desktop overlays, smartwatch companions, media tools.</div>
-        <div class="pillar-count" data-i18n="p3.count">5 apps · QuickSolutions · Clock · Band · SkinCraft · Downloader</div>
+        <div class="pillar-count" lang="en" data-i18n="p3.count">5 apps · QuickSolutions · Clock · Band · SkinCraft · Downloader</div>
       </div>
     </div>
   </div>
@@ -430,7 +430,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
         <div class="founder-av">EM</div>
         <div class="founder-name"><a href="founder-emre.html">Emre Mir Ekinci</a></div>
         <div class="founder-role" data-i18n="founder.role">Founder · AI/IT Trainer [C] · ICF Professional Coach · Operations Manager · R&D · 25+ years in IT</div>
-        <div class="founder-tags">
+        <div class="founder-tags" lang="en">
           <span class="ftag">AI Trainer</span><span class="ftag">ICF Coach</span>
           <span class="ftag">Ops Manager</span><span class="ftag">WFM</span>
           <span class="ftag">R&D</span><span class="ftag">25+ yrs IT</span>
@@ -512,7 +512,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   </div>
   <div class="footer-copy" data-i18n="footer.copy">© 2020–2026 Emre Mir Ekinci · MIR ACADEMY · Istanbul</div>
 </footer>
-<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v1.3 · 2026-06-05</div>
+<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v1.4 · 2026-06-05</div>
 
 <!-- PROJECT MODAL -->
 <div class="pmodal" id="pmodal" onclick="if(event.target===this)closeProj()">
@@ -520,8 +520,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
     <div class="pmclose" onclick="closeProj()">×</div>
     <div class="pmic" id="pmIc"></div>
     <h3 id="pmNm"></h3>
-    <div class="pmcat" id="pmCat"></div>
-    <div class="pmdesc" id="pmDesc"></div>
+    <div class="pmcat" id="pmCat" lang="en"></div>
+<div class="pmdesc" id="pmDesc"></div>
     <div class="pmnote" id="pmNote"></div>
   </div>
 </div>
@@ -589,7 +589,7 @@ const PROJECTS=[
   PROJECTS.forEach(function(p,i){
     var c=document.createElement('div');c.className='belt-card';
     c.addEventListener('click',function(){openProj(i);});           /* click = open project modal (unchanged) */
-    c.innerHTML='<div class="belt-ic">'+p.svg+'</div><div class="belt-nm">'+p.nm+'</div>';
+    c.innerHTML='<div class="belt-ic">'+p.svg+'</div><div class="belt-nm" lang="en">'+p.nm+'</div>';
     bt.appendChild(c);
   });
   var EASE={bounce:'cubic-bezier(.28,.84,.42,1)',deal:'cubic-bezier(.2,.7,.3,1)'};
