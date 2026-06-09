@@ -61,7 +61,6 @@ MIR-ACADEMY.github.io/
 │   ├── orchestrator.py         Complete framework with 3 workflows (231 lines)
 │   ├── config.yaml             Agent definitions & configuration (204 lines)
 │   └── README.md               Installation, usage, setup guide
-├── linkedin_strategy.md        Company positioning & content strategy
 └── index.html                  Portfolio showcase
 ```
 
@@ -110,7 +109,7 @@ python orchestrator.py
 3. **Synthesize** — Editor QA ensures output quality
 4. **Repeat** — Learn from results, optimize next time
 
-**Result:** 30% faster delivery, 40% lower token spend, transparent workflows.
+**Result:** Faster delivery, lower token spend, and transparent, auditable workflows.
 
 ---
 
@@ -174,7 +173,6 @@ Perfect for EdTech companies, universities, and corporate training programs.
 ## 📖 Documentation
 
 - **[CrewAI Framework Guide](crewai/README.md)** — Installation, workflows, configuration
-- **[LinkedIn Strategy](linkedin_strategy.md)** — Company positioning, content calendar, hashtags
 - **[Portfolio Showcase](index.html)** — All 17 projects at a glance
 
 ---
@@ -183,7 +181,6 @@ Perfect for EdTech companies, universities, and corporate training programs.
 
 - **GitHub:** [MIR-ACADEMY.github.io](https://github.com/MIR-ACADEMY/MIR-ACADEMY.github.io)
 - **CrewAI Framework:** [crewai/](crewai/)
-- **LinkedIn Strategy:** [Read the guide](linkedin_strategy.md)
 
 ---
 
@@ -195,8 +192,7 @@ This framework demonstrates how intelligent delegation across multiple AI tools 
 
 **Next steps:**
 1. Explore the [CrewAI framework](crewai/)
-2. Read the [LinkedIn strategy](linkedin_strategy.md) for corporate positioning
-3. Connect with us to discuss custom implementations
+2. Connect with us to discuss custom implementations
 
 ---
 
