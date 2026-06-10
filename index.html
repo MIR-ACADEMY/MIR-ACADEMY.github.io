@@ -36,6 +36,31 @@ html[data-theme="light"] .hero-sub,html[data-theme="light"] .mw{color:#7a5f28;}
 /* the gold/teal radial glow + dot grid are tuned for black → muted/off on light (they read as a faint box behind the title) */
 html[data-theme="light"] .hero::before{opacity:0.4;}
 html[data-theme="light"] .hero::after{display:none;}
+/* ☀ LIGHT READABILITY (MIR 2026-06-10): bright cream over-shines → near-black body text a touch larger; pale gold secondary text → dark green so it has contrast and the white stops suffocating */
+html[data-theme="light"] .about-text p{color:#17140d;font-size:17px;}
+html[data-theme="light"] .about-text p strong{color:#000;}
+html[data-theme="light"] .pillar-desc{color:#1d1a13;font-size:14px;}
+html[data-theme="light"] .pc-desc{color:#1d1a13;}
+html[data-theme="light"] .belt-nm{color:#2a2620;}
+html[data-theme="light"] .am-label,html[data-theme="light"] .am-val,html[data-theme="light"] .founder-role,html[data-theme="light"] .pc-name{color:#2a2620;}
+html[data-theme="light"] .pillar-count{color:#2e6b3e;}            /* dark green — the "second" gold text, now high-contrast */
+html[data-theme="light"] .pillar-num{color:#2e6b3e;opacity:.5;}
+html[data-theme="light"] .section-eyebrow{font-size:21px;}
+html[data-theme="light"] .section-eyebrow .ew{font-size:21px;color:#3d6c64!important;text-shadow:none!important;}   /* eyebrow: +25% size, ~50% darker teal — !important beats the swivel-keyframe color */
+/* ☀ status badges: faint light-on-light on cream → solid filled pills with cream text (high contrast, readable) */
+html[data-theme="light"] .badge{font-size:10px;padding:3px 9px;}
+html[data-theme="light"] .b-green{background:#267039;color:#f5f2ea;border-color:#1d4f2c;}   /* Kararlı / Stable */
+html[data-theme="light"] .b-amber{background:#7a5c16;color:#f8f2e4;border-color:#5e4711;}   /* Devam Ediyor / In Progress */
+html[data-theme="light"] .nav-links a:not(.nav-cta):hover{color:#3d6c64;}   /* selected nav link = same teal as the "Ne yapıyoruz" eyebrow */
+/* ☀ SIDE ORNAMENTS — fill the bare light-theme margins with calm gold (left) + cyan (right) marks. Static, low-key, wide screens only so phones/tablets stay calm. */
+.side-orn{display:none;}
+@media(min-width:1240px){
+  html[data-theme="light"] .side-orn{display:flex;position:fixed;top:0;bottom:0;width:54px;z-index:0;pointer-events:none;flex-direction:column;align-items:center;justify-content:center;gap:40px;opacity:.6;}
+  html[data-theme="light"] .side-orn.left{left:8px;color:#8c6f30;}     /* gold */
+  html[data-theme="light"] .side-orn.right{right:8px;color:#1c7d6b;}   /* cyan / teal */
+  html[data-theme="light"] .side-orn b{font-family:'Cinzel',serif;font-weight:700;font-size:13px;writing-mode:vertical-rl;letter-spacing:.55em;text-transform:uppercase;}
+  html[data-theme="light"] .side-orn i{font-style:normal;font-size:17px;line-height:1;}
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.7;overflow-x:hidden;}
@@ -75,9 +100,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:58px;d
 nav.scrolled{background:var(--navbg);backdrop-filter:blur(16px);border-color:var(--border);}
 .nav-logo{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--gold);letter-spacing:0.06em;}
 .nav-links{display:flex;gap:32px;align-items:center;}
-.nav-links a{font-size:11px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.15s;}
+.nav-links a{font-size:14px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;transition:color 0.15s;}
 .nav-links a:hover{color:var(--gold);}
-.nav-cta{background:var(--gold);color:#050505;font-size:11px;font-weight:700;padding:7px 18px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.15s;}
+.nav-cta{background:var(--gold);color:#050505;font-size:14px;font-weight:700;padding:7px 18px;border-radius:3px;letter-spacing:0.1em;text-transform:uppercase;transition:background 0.15s;}
 .nav-cta:hover{background:var(--gold2);color:#050505;}
 
 /* HERO */
@@ -270,7 +295,7 @@ nav.scrolled{background:var(--navbg);backdrop-filter:blur(16px);border-color:var
 .cofounder{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border);border-radius:6px;background:rgba(122,217,200,0.02);transition:background 0.2s,border-color 0.2s;}
 .cofounder:hover{background:rgba(122,217,200,0.05);border-color:rgba(122,217,200,0.2);}
 .cf-av{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,rgba(122,217,200,0.2),rgba(122,217,200,0.05));border:1px solid rgba(122,217,200,0.2);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--teal);}
-.cf-name{font-size:17.5px;font-weight:600;color:var(--text);}
+.cf-name{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:var(--text);letter-spacing:0.04em;}   /* motto font (Cinzel), +25% size; effects unchanged */
 .cf-role{font-size:11px;color:var(--muted);letter-spacing:0.04em;}
 .cf-main{display:flex;align-items:center;gap:14px;flex:1;transition:opacity 0.15s;}
 .cf-main:hover .cf-name{color:var(--teal);}
@@ -356,6 +381,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <div class="bg-fade"></div>
 <div class="bg-edge bg-left"></div>
 <div class="bg-edge bg-right"></div>
+<div class="side-orn left" aria-hidden="true"><i>✦</i><b>Educare</b><i>✦</i></div>
+<div class="side-orn right" aria-hidden="true"><i>✦</i><b>Renovare</b><i>✦</i></div>
 
 <nav id="nav">
   <div class="nav-logo" data-i18n="nav.logo">MIR ACADEMY</div>
@@ -585,19 +612,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   </div>
   <div class="footer-copy" data-i18n="footer.copy">© 2020–2026 Emre Mir Ekinci · MIR ACADEMY · Istanbul</div>
 </footer>
-<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v1.6 · 2026-06-05</div>
-
-<!-- PROJECT MODAL -->
-<div class="pmodal" id="pmodal" onclick="if(event.target===this)closeProj()">
-  <div class="pmbox">
-    <div class="pmclose" onclick="closeProj()">×</div>
-    <div class="pmic" id="pmIc"></div>
-    <h3 id="pmNm"></h3>
-    <div class="pmcat" id="pmCat" lang="en"></div>
-<div class="pmdesc" id="pmDesc"></div>
-    <div class="pmnote" id="pmNote"></div>
-  </div>
-</div>
+<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v1.7 · 2026-06-10</div>
 
 <!-- MOTTO EXPLANATION MODAL -->
 <div class="mmodal" id="mmodal" onclick="closeMotto()">
@@ -647,12 +662,12 @@ const CARDS=[
 ];
 /* orbit removed — hero motion = light gold rain + PROJECT BELT below */
 const PROJECTS=[
-  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M12 20v-9M18 20v-13"/><path d="M5 9l5-4 3 2 6-5"/></svg>',nm:'MIR Invest',cat:'Education · Finance',desc:'Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, Turkish + English.',note:'Interactive module — full version coming online soon.'},
-  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>',nm:'World Almanac',cat:'Education · History',desc:'Interactive world history 2000–2026 — politics, technology, and culture in a rich dark reference.',note:'Interactive module — coming online soon.'},
-  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M9 21h6M12 17v4"/><path d="M7 9l2.4 2L7 13"/><path d="M12.6 13H16"/></svg>',nm:'IT Literacy',cat:'Education · IT',desc:'A 10-module curriculum: the Internet, GitHub, terminal, Python, web ownership, security, AI & more.',note:'In development — first modules coming soon.'},
-  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></svg>',nm:'DATA-MIR Board',cat:'Dashboard',desc:'Personal command-center dashboard — multi-theme, modular, with live project tracking.',note:'Personal tool.'},
-  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg>',nm:'MIRACDX QuickSolutions',cat:'MIRACDX · Windows App',desc:'System-tray utility: voice reader, screenshot, and screen recorder. Runs at Windows startup.',note:'Windows desktop app.'},
-  {svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2.5"/><path d="M9.5 7l.8-4h3.4l.8 4M9.5 17l.8 4h3.4l.8-4"/><path d="M12 10v2.6l1.6 1"/></svg>',nm:'MIRACDX Band',cat:'MIRACDX · Windows App',desc:'Xiaomi smartwatch companion — real-time sensors and theme sync.',note:'Windows desktop app.'}
+  {nm:'DATA-MIR BOARD', shot:'board', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></svg>'},
+  {nm:'PARA KAZANMA 101', shot:'invest', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M12 20v-9M18 20v-13"/><path d="M5 9l5-4 3 2 6-5"/></svg>'},
+  {nm:'MIR ASTROLOGY', shot:'astrology', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.2L18 8.8l-3.4 2.8.9 4.7L12 14l-3.5 2.3.9-4.7L6 8.8l4.4-1.6z"/><circle cx="19" cy="18" r="1"/><circle cx="5" cy="6" r="1"/></svg>'},
+  {nm:'WORLD ALMANAC', shot:'almanac', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>'},
+  {nm:'HISTORY OF IT', shot:'it', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M9 21h6M12 17v4"/><path d="M7 9l2.4 2L7 13"/><path d="M12.6 13H16"/></svg>'},
+  {nm:'ATATÜRK İLKELERİ', shot:'ataturk', svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.2a8 8 0 1 0 0 15.6 6.4 6.4 0 1 1 0-15.6z"/><path d="M18.6 9l1 2 2.2.2-1.7 1.5.6 2.1-2.1-1.2-2.1 1.2.6-2.1-1.7-1.5 2.2-.2z"/></svg>'}
 ];
 /* BELT-CONFIG-START */
   var BELT_ANIM='swivelblur', BELT_STAG=0.12, BELT_DUR=0.8, BELT_EVERY=10000;
@@ -661,8 +676,8 @@ const PROJECTS=[
   var bt=document.getElementById('beltTrack');if(!bt)return;
   PROJECTS.forEach(function(p,i){
     var c=document.createElement('div');c.className='belt-card';
-    c.addEventListener('click',function(){openProj(i);});           /* click = open project modal (unchanged) */
-    c.innerHTML='<div class="belt-ic">'+p.svg+'</div><div class="belt-nm" lang="en">'+p.nm+'</div>';
+    c.addEventListener('click',function(){openShot(p.shot,p.nm);});  /* click = full-screen screenshot popup */
+    c.innerHTML='<div class="belt-ic">'+p.svg+'</div><div class="belt-nm">'+p.nm+'</div>';
     bt.appendChild(c);
   });
   var EASE={bounce:'cubic-bezier(.28,.84,.42,1)',deal:'cubic-bezier(.2,.7,.3,1)'};
@@ -676,15 +691,24 @@ const PROJECTS=[
   playBelt();
   if(BELT_EVERY>0) setInterval(playBelt,BELT_EVERY);                 /* re-play every BELT_EVERY ms */
 })();
-function openProj(i){var p=PROJECTS[i];
-  document.getElementById('pmIc').innerHTML=p.svg;
-  document.getElementById('pmNm').textContent=p.nm;
-  document.getElementById('pmCat').textContent=p.cat;
-  document.getElementById('pmDesc').textContent=p.desc;
-  document.getElementById('pmNote').textContent=p.note||'';
-  document.getElementById('pmodal').classList.add('open');}
-function closeProj(){document.getElementById('pmodal').classList.remove('open');}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProj();});
+/* ===== full-screen screenshot popup (opens when a belt card is clicked) ===== */
+(function(){
+  var css='.shot-lb{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;padding:14px;cursor:zoom-out;backdrop-filter:blur(6px);}'
+    +'.shot-lb.on{display:flex;}'
+    +'.shot-lb-inner{max-width:98vw;max-height:97vh;width:100%;display:flex;flex-direction:column;gap:8px;cursor:default;}'
+    +'.shot-lb-bar{display:flex;align-items:center;gap:12px;}'
+    +'.shot-lb-bar .t{font-family:"Cinzel",serif;letter-spacing:.06em;color:var(--gold);text-transform:uppercase;font-size:14px;}'
+    +'.shot-lb-bar .x{margin-left:auto;cursor:pointer;border:1px solid var(--border);border-radius:8px;padding:5px 12px;color:var(--muted);font-weight:700;}'
+    +'.shot-lb img{max-width:100%;max-height:90vh;width:100%;object-fit:contain;border:1px solid var(--border);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);cursor:zoom-out;}';
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  var lb=document.createElement('div');lb.className='shot-lb';lb.id='shotLb';
+  lb.innerHTML='<div class="shot-lb-inner"><div class="shot-lb-bar"><span class="t" id="shotT"></span><span class="x" onclick="closeShot()">✕ Kapat</span></div><img id="shotImg" src="" alt=""></div>';
+  lb.addEventListener('click',closeShot);  /* click anywhere — incl. the screenshot itself — closes & returns to main */
+  document.body.appendChild(lb);
+})();
+function openShot(k,nm){document.getElementById('shotT').textContent=nm;document.getElementById('shotImg').src='showcase/img/'+k+'.png';document.getElementById('shotLb').classList.add('on');}
+function closeShot(){document.getElementById('shotLb').classList.remove('on');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeShot();});
 
 /* MOTTO swivel — play on load, then replay every 30s (the gem) */
 function playMotto(){var ws=document.querySelectorAll('.hero-sub .mw');ws.forEach(function(w,i){w.style.animation='none';void w.offsetWidth;w.style.animation='mwspin 1.15s cubic-bezier(.2,.7,.25,1) '+(0.15+i*0.7).toFixed(2)+'s both';});}
