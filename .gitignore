@@ -10,9 +10,11 @@ assets/bg/ancient/
 assets/bg/inbox/
 MIRACDX Wallpaper Lab.bat
 
-# Offline admin master + strip tool — never publish
+# Offline admin master + publish toolkit — never publish
 index-admin.html
 make-public.py
+MIRACDX Publish.bat
+HOW-TO-PUBLISH.md
 
 # Local wallpaper library for the admin Background tool — not used by the live site
 assets/bg/images/
