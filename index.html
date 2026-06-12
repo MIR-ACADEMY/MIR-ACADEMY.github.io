@@ -26,8 +26,6 @@ html[data-theme="light"]{
   --panel:#f1eee6;--beltcard:rgba(241,238,230,0.90);--navbg:rgba(231,227,216,0.95);   /* beltcard alpha matched to dark's 0.90 (MIR 2026-06-11) — drop lower (~0.6) to let the wallpaper show through */
   --t1:#8c6f30;--t2:#705825;--t3:#2a8170;
 }
-/* in light mode the dark cosmos edge + carbon would muddy the page → hide them */
-html[data-theme="light"] .bg-edge{display:none;}
 /* .bg-fade = single wallpaper carrier for both themes; WP module drives it via inline styles, persisted in localStorage */
 .bg-fade{z-index:-1;}
 /* hero title: swap the light-gold foil for a deep bronze→teal gradient that reads on parchment */
@@ -104,11 +102,7 @@ a{text-decoration:none;color:inherit;}
 
 #mir-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;}
 /* ANCIENT-KNOWLEDGE WALLPAPER (left/right margins + faint backdrop), under the rain */
-.bg-fade{position:fixed;inset:0;z-index:-3;background:url('assets/bg/backdrop.jpg') center/cover no-repeat;opacity:.55;pointer-events:none;}
-.bg-edge{position:fixed;top:0;bottom:0;width:32vw;z-index:-2;background:url('assets/bg/cosmos.jpg') left center/cover no-repeat;opacity:.16;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,#000 22%,transparent);mask-image:linear-gradient(90deg,#000 22%,transparent);}
-.bg-left{left:0;}
-.bg-right{right:0;transform:scaleX(-1);}
-@media(max-width:768px){.bg-edge{width:55vw;opacity:.12;}}
+.bg-fade{position:fixed;inset:0;z-index:-3;pointer-events:none;}   /* vector pattern painted by WP at load — no photo wallpapers */
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;transition:background 0.3s,border-color 0.3s;border-bottom:1px solid transparent;}
@@ -377,8 +371,6 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 
 <canvas id="mir-bg"></canvas>
 <div class="bg-fade"></div>
-<div class="bg-edge bg-left"></div>
-<div class="bg-edge bg-right"></div>
 <div class="side-orn left" aria-hidden="true"><i>✦</i><b>Educare</b><i>✦</i></div>
 <div class="side-orn right" aria-hidden="true"><i>✦</i><b>Renovare</b><i>✦</i></div>
 
@@ -598,7 +590,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   </div>
   <div class="footer-copy" data-i18n="footer.copy">© 2020–2026 Emre Mir Ekinci · MIR ACADEMY · Istanbul</div>
 </footer>
-<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v2.2 · 2026-06-12</div>
+<div style="position:fixed;left:14px;bottom:11px;z-index:250;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.14em;color:rgba(200,169,110,.55);pointer-events:none;">v2.3 · 2026-06-12</div>
 
 <!-- MOTTO EXPLANATION MODAL -->
 <div class="mmodal" id="mmodal" onclick="closeMotto()">
@@ -648,23 +640,16 @@ const PROJECTS=[
 window.BELT=(function(){
   var bt=document.getElementById('beltTrack');
   var THEMED=['cardBg','cardOp','cardPat','cardPatColor','cardPatOp','textColor'];
+  /* dark defaults = MIR's picks baked 2026-06-12 (transparent teal cards, gold text) */
   var DEF={anim:'swivelblur',dir:'right',dur:0.8,every:8,size:200,textSize:21,font:"Inter, system-ui, sans-serif",
     light:{cardBg:'#f1eee6',cardOp:0.60,cardPat:'none',cardPatColor:'#caa24a',cardPatOp:0.5,textColor:'#655c4c'},
-    dark :{cardBg:'#0a0a0a',cardOp:0.90,cardPat:'none',cardPatColor:'#caa24a',cardPatOp:0.5,textColor:'#9b917e'}};
-  var cfg; try{cfg=JSON.parse(localStorage.getItem('beltCfgV2'));}catch(e){}
-  if(!cfg||!cfg.light||!cfg.dark){
-    /* migrate V1 (single-theme; its colors were tuned on light) */
-    var old; try{old=JSON.parse(localStorage.getItem('beltCfgV1'));}catch(e){}
-    cfg=JSON.parse(JSON.stringify(DEF));
-    if(old){
-      ['anim','dir','dur','every','size','textSize','font'].forEach(function(k){if(old[k]!==undefined)cfg[k]=old[k];});
-      THEMED.forEach(function(k){if(old[k]!==undefined)cfg.light[k]=old[k];});
-    }
-  }
+    dark :{cardBg:'#79d2c2',cardOp:0.10,cardPat:'none',cardPatColor:'#caa24a',cardPatOp:0.5,textColor:'#c8a96e'}};
+  var cfg; try{cfg=JSON.parse(localStorage.getItem('beltCfgV3'));}catch(e){}
+  if(!cfg||!cfg.light||!cfg.dark)cfg=JSON.parse(JSON.stringify(DEF));
   function tc(){return cfg[document.documentElement.getAttribute('data-theme')==='light'?'light':'dark'];}
   var items=PROJECTS.map(function(p){return {nm:p.nm,svg:p.svg,shot:p.shot};});
   var timer=null;
-  function save(){try{localStorage.setItem('beltCfgV2',JSON.stringify(cfg));}catch(e){}}
+  function save(){try{localStorage.setItem('beltCfgV3',JSON.stringify(cfg));}catch(e){}}
   function rgba(hex,op){var c=hex.replace('#','');if(c.length===3)c=c[0]+c[0]+c[1]+c[1]+c[2]+c[2];return 'rgba('+parseInt(c.substr(0,2),16)+','+parseInt(c.substr(2,2),16)+','+parseInt(c.substr(4,2),16)+','+op+')';}
   function kf(){
     var off={right:'translateX(-120px)',left:'translateX(120px)',up:'translateY(120px)',down:'translateY(-120px)'},a=cfg.anim,from,to='opacity:1;transform:none;filter:none;';
@@ -1086,8 +1071,9 @@ var WP=(function(){
       return out;
     }).catch(function(){return [];});
   }
-  var DEF={light:{kind:'pat',pat:'star8',color:'#b58f3a',img:null,op:0.55,size:'tile'},
-           dark :{kind:'pat',pat:'star8',color:'#caa24a',img:null,op:0.45,size:'tile'}};
+  /* defaults = MIR's picks, baked 2026-06-12: hexagon vector — teal on light / gold on dark */
+  var DEF={light:{kind:'pat',pat:'hexagon',color:'#15625a',img:null,op:0.13,size:'tile'},
+           dark :{kind:'pat',pat:'hexagon',color:'#8a6c24',img:null,op:0.10,size:'tile'}};
   var state;
   try{state=JSON.parse(localStorage.getItem('wpSettingsV6'));}catch(e){}
   if(!state||!state.light||!state.dark) state=JSON.parse(JSON.stringify(DEF));
