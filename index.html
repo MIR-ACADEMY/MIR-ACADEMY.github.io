@@ -366,6 +366,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   .connect-grid{grid-template-columns:1fr;}
 }
 </style>
+
+<script data-goatcounter="https://mir-academy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
@@ -1309,14 +1311,18 @@ button:focus,a:focus{outline:none;}
   var MAIN_W=1100, MIN_SIDE=80;
 
   /* ── CONFIG (persisted) ── */
-  var cfg={
-    ver:       +(localStorage.getItem('fxVer')||4),
-    gate:      +(localStorage.getItem('fxGate')||8),
-    gateStyle: +(localStorage.getItem('fxGateStyle')||1),
-    gateColor: +(localStorage.getItem('fxGateColor')||2),
-    speed:     +(localStorage.getItem('fxSpeed')||13),
-    size:      +(localStorage.getItem('fxSize')||4),
-    anime:     +(localStorage.getItem('fxAnime')||7),
+  var /* ══ MIR DEFAULTS — only edit this line to change site-wide settings ══
+     ver: particle style 1-4 | gate: opacity 0-20 | gateStyle: 1-5 | gateColor: 0-3
+     speed: 2-30 | size: 4-20 | anime: 0-10 | rain: true/false                   ══ */
+  const MIR_D={ver:4,gate:8,gateStyle:1,gateColor:2,speed:13,size:4,anime:7,rain:false};
+  cfg={
+    ver:       +(localStorage.getItem('fxVer')||MIR_D.ver),
+    gate:      +(localStorage.getItem('fxGate')||MIR_D.gate),
+    gateStyle: +(localStorage.getItem('fxGateStyle')||MIR_D.gateStyle),
+    gateColor: +(localStorage.getItem('fxGateColor')||MIR_D.gateColor),
+    speed:     +(localStorage.getItem('fxSpeed')||MIR_D.speed),
+    size:      +(localStorage.getItem('fxSize')||MIR_D.size),
+    anime:     +(localStorage.getItem('fxAnime')||MIR_D.anime),
     on:        localStorage.getItem('fxOff')!=='1'
   };
 
