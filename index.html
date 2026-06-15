@@ -574,8 +574,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
       <a href="tel:+90">
         <div class="conn-card"><div class="conn-icon">📞</div><div class="conn-name" data-i18n="conn.call">Call</div><div class="conn-sub" data-i18n="conn.numsoon">Number coming soon</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
       </a>
-      <a href="https://mir-academy.github.io" target="_blank">
-        <div class="conn-card"><div class="conn-icon">🌐</div><div class="conn-name" data-i18n="conn.website">Website</div><div class="conn-sub">mir-academy.github.io</div><div class="conn-arrow">↗</div></div>
+      <a href="#" onclick="return false;" title="Available on request">
+        <div class="conn-card"><div class="conn-icon">📋</div><div class="conn-name">References</div><div class="conn-sub">Available on request</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
       </a>
     </div>
   </div>
@@ -1254,5 +1254,646 @@ window.TEXT=(function(){
   window.addEventListener('resize',onScroll);onScroll();
 })();
 </script>
+
+<!-- ══ MOBILE OPTIMISATIONS ══ -->
+<meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#e7e3d8" media="(prefers-color-scheme: light)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+/* iOS safe area (notch/home bar) */
+body{padding-bottom:env(safe-area-inset-bottom);}
+/* Faster tap — no 300ms delay */
+*{-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+/* Scrolling: smooth & native momentum on iOS */
+html{-webkit-overflow-scrolling:touch;}
+/* Mobile nav: make the topRight buttons finger-friendly */
+@media(max-width:640px){
+  #topRight button{min-width:40px;min-height:40px;font-size:13px;padding:10px 14px;}
+  nav{padding:0 16px;}
+  .hero{padding:120px 18px 20px;}
+  .hero-title{font-size:clamp(38px,11vw,64px)!important;word-spacing:normal;}
+  .hero-sub{font-size:clamp(12px,3.5vw,16px);}
+  .about-text p{font-size:15px;}
+  .pillars-grid{grid-template-columns:1fr!important;}
+  .proj-grid{grid-template-columns:1fr!important;}
+  .connect-grid{grid-template-columns:1fr!important;}
+  .founder-wrap{flex-direction:column!important;}
+  .belt{padding:0 8px;}
+}
+@media(max-width:820px){
+  .pillars-grid{grid-template-columns:1fr 1fr;}
+  .proj-grid{grid-template-columns:1fr 1fr;}
+}
+/* Android: remove ugly outline on tap */
+button:focus,a:focus{outline:none;}
+</style>
+
+<!-- ══ TORII SIDE CANVASES ══ -->
+<canvas id="torii-L" aria-hidden="true" style="position:fixed;top:0;left:0;height:100%;pointer-events:none;z-index:2;display:none;"></canvas>
+<canvas id="torii-R" aria-hidden="true" style="position:fixed;top:0;right:0;height:100%;pointer-events:none;z-index:2;display:none;"></canvas>
+<!-- ══ CENTER TORII (hero frame) ══ -->
+<canvas id="torii-C" aria-hidden="true" style="position:fixed;top:0;left:50%;transform:translateX(-50%);pointer-events:none;z-index:1;display:none;"></canvas>
+
+
+
+<script>
+/* ════════════════════════════════════════════
+   MIR ACADEMY — SIDE ORNAMENT ANIMATION v2
+   4 styles · speed · size · anime sliders · gate modes
+   ════════════════════════════════════════════ */
+(function(){
+  var cvL=document.getElementById('torii-L'), cvR=document.getElementById('torii-R');
+  var cvC=document.getElementById('torii-C');
+  var MAIN_W=1100, MIN_SIDE=80;
+
+  /* ── CONFIG (persisted) ── */
+  var cfg={
+    ver:       +(localStorage.getItem('fxVer')||1),
+    gate:      +(localStorage.getItem('fxGate')||10),
+    gateStyle: +(localStorage.getItem('fxGateStyle')||1),
+    gateColor: +(localStorage.getItem('fxGateColor')||0),
+    speed:     +(localStorage.getItem('fxSpeed')||10),
+    size:      +(localStorage.getItem('fxSize')||10),
+    anime:     +(localStorage.getItem('fxAnime')||5),
+    on:        localStorage.getItem('fxOff')!=='1'
+  };
+
+  /* gate color palettes [r,g,b] for dark/light themes */
+  var GATE_COLORS_DARK  = [[210,168,70],[180,185,210],[40,205,215],[80,110,220]];
+  var GATE_COLORS_LIGHT = [[160,120,30],[120,125,145],[20,155,165],[50,70,180]];
+
+  var SW=0, VH=0, tick=0;
+  var PL=[], PR=[];
+
+  /* speedMul: slider 2-30 → 0.2x-3.0x */
+  function spd(){ return cfg.speed/10; }
+  /* sizeMul: slider 4-20 → 0.4x-2.0x */
+  function sz(){ return cfg.size/10; }
+  /* animeMul: 0-10 → 0.0-1.0 */
+  function an(){ return cfg.anime/10; }
+  /* particle count scales with anime (more anime = more particles) */
+  function nParts(){ return Math.round(10 + an()*14); }
+
+  function spawnP(sw, vh, isLeft, v){
+    var base=3+Math.random()*5;
+    /* V1 cherry: diagonal right-to-left drift */
+    /* V2 autumn: spiraling — give orbital angle */
+    /* V3 snow: straight down, gentle */
+    /* V4 fire: rises straight up, drift */
+    var p={
+      x: Math.random()*sw,
+      y: -30-Math.random()*vh*.6,
+      r: base,
+      rot: Math.random()*6.28,
+      vr: (Math.random()-.5)*.06,
+      op: .35+Math.random()*.6,
+      /* orbit vars for V2 */
+      ang: Math.random()*6.28,
+      rad: 12+Math.random()*22,
+      aspd: (Math.random()>.5?1:-1)*(.008+Math.random()*.012),
+      /* drift */
+      vx: isLeft?(0.1+Math.random()*.3):-(0.1+Math.random()*.3),
+      vy: (v===4)? -(0.5+Math.random()*.7) : (0.25+Math.random()*.5),
+      /* fire flicker phase */
+      fp: Math.random()*6.28
+    };
+    if(v===4){ p.y=vh+20; p.x=Math.random()*sw; }
+    return p;
+  }
+
+  function initParticles(v){
+    var n=nParts();
+    PL=[]; PR=[];
+    for(var i=0;i<n;i++){
+      var pl=spawnP(SW,VH,true,v);  pl.y=Math.random()*VH; PL.push(pl);
+      var pr=spawnP(SW,VH,false,v); pr.y=Math.random()*VH; PR.push(pr);
+    }
+    if(v===4){
+      PL.forEach(function(p){p.y=Math.random()*VH;});
+      PR.forEach(function(p){p.y=Math.random()*VH;});
+    }
+  }
+
+  function resize(){
+    VH=window.innerHeight;
+    SW=Math.max(0,(window.innerWidth-MAIN_W)/2);
+    var show=cfg.on&&SW>=MIN_SIDE;
+    [cvL,cvR].forEach(function(cv){
+      cv.style.display=show?'block':'none';
+      cv.width=Math.round(SW*0.9); cv.height=VH;
+    });
+    /* center gate canvas — always full viewport width × height */
+    if(cvC){
+      cvC.width=window.innerWidth;
+      cvC.height=VH;
+      cvC.style.display=cfg.gate>0?'block':'none';
+    }
+    initParticles(cfg.ver);
+    drawCenterGate();
+  }
+
+  /* ── GATE BREATHING PULSE ── */
+  var _gpTid=null, _gpActive=false;
+  /* 2× belt-card swivel (~0.6s) = 1.2s per fade; 2.8s hold visible */
+  var GP_HOLD=2800, GP_OUT=1200, GP_DARK=400, GP_IN=1200;
+
+  function stopGatePulse(){
+    if(_gpTid){clearTimeout(_gpTid);_gpTid=null;}
+    _gpActive=false;
+    if(cvC){cvC.style.transition='none';cvC.style.opacity='1';}
+  }
+  function startGatePulse(){
+    if(_gpActive||!cvC||cfg.gate===0) return;
+    _gpActive=true;
+    function fadeOut(){
+      if(!_gpActive) return;
+      cvC.style.transition='opacity '+GP_OUT+'ms ease-in';
+      cvC.style.opacity='0';
+      _gpTid=setTimeout(holdDark, GP_OUT);
+    }
+    function holdDark(){
+      if(!_gpActive) return;
+      _gpTid=setTimeout(fadeIn, GP_DARK);
+    }
+    function fadeIn(){
+      if(!_gpActive) return;
+      cvC.style.transition='opacity '+GP_IN+'ms ease-out';
+      cvC.style.opacity='1';
+      _gpTid=setTimeout(holdVis, GP_IN);
+    }
+    function holdVis(){
+      if(!_gpActive) return;
+      _gpTid=setTimeout(fadeOut, GP_HOLD);
+    }
+    holdVis();
+  }
+
+  /* ════════════════════════════════════════
+     CENTER TORII — 5 styles
+     Drawn once on cvC (full-viewport canvas)
+     gate=0:off  1:subtle  2:bold
+     gateStyle=1-5
+  ════════════════════════════════════════ */
+  function drawCenterGate(){
+    if(!cvC) return;
+    var m=cfg.gate;
+    cvC.style.display=m>0?'block':'none';
+    if(m===0){ stopGatePulse(); cvC.getContext('2d').clearRect(0,0,cvC.width,cvC.height); return; }
+
+    var ctx=cvC.getContext('2d');
+    var vw=cvC.width, vh=cvC.height;
+    ctx.clearRect(0,0,vw,vh);
+
+    var th=document.documentElement.getAttribute('data-theme')||'dark';
+    var pal=(th==='dark'?GATE_COLORS_DARK:GATE_COLORS_LIGHT)[cfg.gateColor];
+    var op = (m/20)*0.18;
+
+    /* Shared gate geometry */
+    var cx=vw/2, cy=vh*0.37;
+    var gw=Math.min(vw*0.56, 660);
+    var gh=Math.min(vh*0.65, 540);
+    var ty=cy-gh*0.52;
+    var lx=cx-gw*0.29, rx=cx+gw*0.29;
+    var barH=gh*0.072, colH=gh*0.77, colW=gw*0.05;
+
+    function rgba(a){ return 'rgba('+pal[0]+','+pal[1]+','+pal[2]+','+a+')'; }
+
+    var s=cfg.gateStyle||1;
+    if(s===1) _gClassic(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op);
+    else if(s===2) _gGrand(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op);
+    else if(s===3) _gAncient(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op);
+    else if(s===4) _gAnime(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op);
+    else if(s===5) _gCelestial(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op);
+    startGatePulse();
+  }
+
+  /* ── S1 CLASSIC — clean Fushimi silhouette ── */
+  function _gClassic(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op){
+    ctx.save();
+    /* ambient glow */
+    var gl=ctx.createRadialGradient(cx,cy,0,cx,cy,gw*0.5);
+    gl.addColorStop(0,rgba(op*0.35)); gl.addColorStop(1,rgba(0));
+    ctx.fillStyle=gl; ctx.beginPath(); ctx.arc(cx,cy,gw*0.5,0,6.28); ctx.fill();
+
+    ctx.fillStyle=rgba(op);
+    /* left column */
+    ctx.fillRect(lx-colW/2, ty+barH*2.2, colW, colH);
+    /* right column */
+    ctx.fillRect(rx-colW/2, ty+barH*2.2, colW, colH);
+    /* kasagi — gentle upward curve */
+    ctx.beginPath();
+    ctx.moveTo(lx-gw*0.1, ty+barH);
+    ctx.quadraticCurveTo(cx, ty-barH*0.45, rx+gw*0.1, ty+barH);
+    ctx.lineTo(rx+gw*0.09, ty+barH*1.85);
+    ctx.quadraticCurveTo(cx, ty+barH*0.22, lx-gw*0.09, ty+barH*1.85);
+    ctx.closePath(); ctx.fill();
+    /* nuki */
+    ctx.fillRect(lx-gw*0.02, ty+barH*2.2+colH*0.3, rx-lx+gw*0.04, barH*0.48);
+    ctx.restore();
+  }
+
+  /* ── S2 GRAND — Myojin double-kasagi with pillar details ── */
+  function _gGrand(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op){
+    ctx.save();
+    /* glow */
+    var gl=ctx.createRadialGradient(cx,ty+gh*0.4,0,cx,ty+gh*0.4,gw*0.54);
+    gl.addColorStop(0,rgba(op*0.4)); gl.addColorStop(1,rgba(0));
+    ctx.fillStyle=gl; ctx.beginPath(); ctx.arc(cx,ty+gh*0.4,gw*0.54,0,6.28); ctx.fill();
+
+    ctx.fillStyle=rgba(op);
+    /* tapered columns — wider at base (trapezoid) */
+    function trapCol(x){
+      ctx.beginPath();
+      ctx.moveTo(x-colW*0.45, ty+barH*2.6);
+      ctx.lineTo(x+colW*0.45, ty+barH*2.6);
+      ctx.lineTo(x+colW*0.62, ty+barH*2.6+colH);
+      ctx.lineTo(x-colW*0.62, ty+barH*2.6+colH);
+      ctx.closePath(); ctx.fill();
+    }
+    trapCol(lx); trapCol(rx);
+    /* pillar finials (round cap at top) */
+    ctx.beginPath(); ctx.arc(lx, ty+barH*2.55, colW*0.65, 0, 6.28); ctx.fill();
+    ctx.beginPath(); ctx.arc(rx, ty+barH*2.55, colW*0.65, 0, 6.28); ctx.fill();
+    /* secondary shimagi bar (lower, narrower) */
+    ctx.beginPath();
+    ctx.roundRect(lx-colW*0.6, ty+barH*1.7, rx-lx+colW*1.2, barH*0.55, 3);
+    ctx.fill();
+    /* main kasagi — deeper curve with end overhang */
+    ctx.beginPath();
+    ctx.moveTo(lx-gw*0.13, ty+barH*0.85);
+    ctx.quadraticCurveTo(cx, ty-barH*0.9, rx+gw*0.13, ty+barH*0.85);
+    ctx.lineTo(rx+gw*0.12, ty+barH*1.65);
+    ctx.quadraticCurveTo(cx, ty+barH*0.05, lx-gw*0.12, ty+barH*1.65);
+    ctx.closePath(); ctx.fill();
+    /* kasagi wing tip ornaments */
+    ctx.fillStyle=rgba(op*0.7);
+    ctx.beginPath(); ctx.ellipse(lx-gw*0.115,ty+barH*0.78,gw*0.025,barH*0.42,-0.3,0,6.28); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(rx+gw*0.115,ty+barH*0.78,gw*0.025,barH*0.42,0.3,0,6.28); ctx.fill();
+    /* nuki */
+    ctx.fillStyle=rgba(op);
+    ctx.fillRect(lx-gw*0.01, ty+barH*2.6+colH*0.3, rx-lx+gw*0.02, barH*0.44);
+    ctx.restore();
+  }
+
+  /* ── S3 ANCIENT — weathered, asymmetric, cracked ── */
+  function _gAncient(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op){
+    ctx.save();
+    /* moss/shadow at column bases */
+    [lx,rx].forEach(function(x){
+      var mg=ctx.createRadialGradient(x,ty+barH*2.2+colH*0.95,0,x,ty+barH*2.2+colH*0.95,colW*7);
+      mg.addColorStop(0,rgba(op*0.55)); mg.addColorStop(1,rgba(0));
+      ctx.fillStyle=mg;
+      ctx.beginPath(); ctx.ellipse(x,ty+barH*2.2+colH*0.95,colW*6,colW*2.2,0,0,6.28); ctx.fill();
+    });
+
+    /* left column — leans slightly, worn bottom */
+    ctx.save(); ctx.translate(lx,ty+barH*2.2+colH*0.5); ctx.rotate(-0.014);
+    ctx.fillStyle=rgba(op*0.88);
+    ctx.fillRect(-colW*0.48,-colH*0.5,colW*0.96,colH*0.98);
+    ctx.restore();
+    /* right column — taller, slight opposite lean */
+    ctx.save(); ctx.translate(rx,ty+barH*2.2+colH*0.5); ctx.rotate(0.009);
+    ctx.fillStyle=rgba(op*0.92);
+    ctx.fillRect(-colW*0.52,-colH*0.5,colW*1.04,colH);
+    ctx.restore();
+
+    /* worn kasagi — slightly asymmetric bezier */
+    ctx.fillStyle=rgba(op);
+    ctx.beginPath();
+    ctx.moveTo(lx-gw*0.11, ty+barH*0.95);
+    ctx.bezierCurveTo(cx-gw*0.12,ty-barH*0.3, cx+gw*0.06,ty-barH*0.55, rx+gw*0.115, ty+barH*1.05);
+    ctx.lineTo(rx+gw*0.1, ty+barH*1.8);
+    ctx.bezierCurveTo(cx+gw*0.05,ty+barH*0.25, cx-gw*0.1,ty+barH*0.15, lx-gw*0.095, ty+barH*1.78);
+    ctx.closePath(); ctx.fill();
+
+    /* surface cracks */
+    ctx.strokeStyle=rgba(op*1.6); ctx.lineWidth=0.8; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(cx-gw*0.06,ty+barH*0.5); ctx.lineTo(cx-gw*0.04,ty+barH*1.65); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx+gw*0.09,ty+barH*0.65); ctx.lineTo(cx+gw*0.08,ty+barH*1.5); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(lx+colW*0.2,ty+barH*2.5); ctx.lineTo(lx+colW*0.1,ty+barH*2.5+colH*0.4); ctx.stroke();
+
+    /* nuki — slightly off-level */
+    ctx.fillStyle=rgba(op*0.82);
+    ctx.save(); ctx.rotate(-0.007);
+    ctx.fillRect(lx-gw*0.01, ty+barH*2.2+colH*0.31, rx-lx+gw*0.02, barH*0.42);
+    ctx.restore();
+
+    ctx.restore();
+  }
+
+  /* ── S4 ANIME BOLD — thick glow strokes, dramatic curves ── */
+  function _gAnime(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op){
+    ctx.save();
+    ctx.lineCap='round'; ctx.lineJoin='round';
+
+    /* dramatic outer glow */
+    var gl=ctx.createRadialGradient(cx,ty+gh*0.38,0,cx,ty+gh*0.38,gw*0.62);
+    gl.addColorStop(0,rgba(op*0.55)); gl.addColorStop(0.5,rgba(op*0.18)); gl.addColorStop(1,rgba(0));
+    ctx.fillStyle=gl; ctx.beginPath(); ctx.arc(cx,ty+gh*0.38,gw*0.62,0,6.28); ctx.fill();
+
+    /* columns — layered glow + crisp core */
+    var colY1=ty+barH*3, colY2=ty+barH*3+colH;
+    [[lx,1.0],[rx,1.0]].forEach(function(pair){
+      var x=pair[0];
+      /* outer soft glow */
+      ctx.strokeStyle=rgba(op*0.22); ctx.lineWidth=colW*3.5;
+      ctx.beginPath(); ctx.moveTo(x,colY1); ctx.lineTo(x,colY2); ctx.stroke();
+      /* mid glow */
+      ctx.strokeStyle=rgba(op*0.55); ctx.lineWidth=colW*1.4;
+      ctx.beginPath(); ctx.moveTo(x,colY1); ctx.lineTo(x,colY2); ctx.stroke();
+      /* crisp core */
+      ctx.strokeStyle=rgba(op*1.1); ctx.lineWidth=colW*0.6;
+      ctx.beginPath(); ctx.moveTo(x,colY1); ctx.lineTo(x,colY2); ctx.stroke();
+    });
+
+    /* column top caps — glowing circles */
+    [lx,rx].forEach(function(x){
+      ctx.fillStyle=rgba(op*0.35); ctx.beginPath(); ctx.arc(x,colY1,colW*1.4,0,6.28); ctx.fill();
+      ctx.fillStyle=rgba(op*1.0); ctx.beginPath(); ctx.arc(x,colY1,colW*0.55,0,6.28); ctx.fill();
+    });
+
+    /* kasagi — deeply curved, 3-layer glow */
+    var kPath=function(ctx,wide){
+      ctx.beginPath();
+      ctx.moveTo(lx-(wide?gw*0.17:gw*0.14), ty+barH*(wide?1.3:1.4));
+      ctx.quadraticCurveTo(cx, ty-(wide?barH*2.0:barH*1.7), rx+(wide?gw*0.17:gw*0.14), ty+barH*(wide?1.3:1.4));
+    };
+    ctx.strokeStyle=rgba(op*0.18); ctx.lineWidth=barH*2.8; kPath(ctx,true); ctx.stroke();
+    ctx.strokeStyle=rgba(op*0.55); ctx.lineWidth=barH*1.1; kPath(ctx,false); ctx.stroke();
+    ctx.strokeStyle=rgba(op*1.1); ctx.lineWidth=barH*0.38; kPath(ctx,false); ctx.stroke();
+
+    /* nuki */
+    ctx.strokeStyle=rgba(op*0.5); ctx.lineWidth=barH*0.9;
+    ctx.beginPath(); ctx.moveTo(lx-gw*0.04,colY1+colH*0.32); ctx.lineTo(rx+gw*0.04,colY1+colH*0.32); ctx.stroke();
+    ctx.strokeStyle=rgba(op); ctx.lineWidth=barH*0.32;
+    ctx.beginPath(); ctx.moveTo(lx-gw*0.04,colY1+colH*0.32); ctx.lineTo(rx+gw*0.04,colY1+colH*0.32); ctx.stroke();
+
+    ctx.restore();
+  }
+
+  /* ── S5 CELESTIAL — gate of light, glow lines + star nodes ── */
+  function _gCelestial(ctx,cx,cy,gw,gh,ty,lx,rx,barH,colH,colW,rgba,op){
+    ctx.save(); ctx.lineCap='round';
+
+    /* vertical light column behind gate */
+    var vg=ctx.createLinearGradient(cx,ty-gh*0.12,cx,ty+colH+barH*2.5);
+    vg.addColorStop(0,rgba(0)); vg.addColorStop(0.25,rgba(op*0.22));
+    vg.addColorStop(0.75,rgba(op*0.18)); vg.addColorStop(1,rgba(0));
+    ctx.fillStyle=vg; ctx.fillRect(cx-gw*0.38,ty-gh*0.12,gw*0.76,colH+gh*0.22);
+
+    /* column glow lines — outer, mid, core */
+    var colY1=ty+barH*2.2, colY2=ty+barH*2.2+colH;
+    [lx,rx].forEach(function(x){
+      [[colW*3.2,op*0.15],[colW*1.0,op*0.5],[colW*0.28,op*1.2]].forEach(function(p){
+        var lg=ctx.createLinearGradient(x,colY1,x,colY2);
+        lg.addColorStop(0,rgba(0)); lg.addColorStop(0.1,rgba(p[1])); lg.addColorStop(0.9,rgba(p[1])); lg.addColorStop(1,rgba(0));
+        ctx.strokeStyle=lg; ctx.lineWidth=p[0];
+        ctx.beginPath(); ctx.moveTo(x,colY1); ctx.lineTo(x,colY2); ctx.stroke();
+      });
+    });
+
+    /* kasagi arc — outer glow, mid, bright core */
+    [[barH*2.2,op*0.15],[barH*0.75,op*0.5],[barH*0.22,op*1.2]].forEach(function(p){
+      ctx.strokeStyle=rgba(p[1]); ctx.lineWidth=p[0];
+      ctx.beginPath();
+      ctx.moveTo(lx-gw*0.11, ty+barH*0.9);
+      ctx.quadraticCurveTo(cx, ty-barH*0.6, rx+gw*0.11, ty+barH*0.9);
+      ctx.stroke();
+    });
+
+    /* nuki arc — same treatment */
+    [[barH*0.9,op*0.2],[barH*0.32,op*0.7],[barH*0.1,op*1.1]].forEach(function(p){
+      var ng=ctx.createLinearGradient(lx-gw*0.03,0,rx+gw*0.03,0);
+      ng.addColorStop(0,rgba(0)); ng.addColorStop(0.1,rgba(p[1])); ng.addColorStop(0.9,rgba(p[1])); ng.addColorStop(1,rgba(0));
+      ctx.strokeStyle=ng; ctx.lineWidth=p[0];
+      ctx.beginPath(); ctx.moveTo(lx-gw*0.03,colY1+colH*0.3); ctx.lineTo(rx+gw*0.03,colY1+colH*0.3); ctx.stroke();
+    });
+
+    /* star nodes at structural joints */
+    var nodes=[
+      [cx, ty-barH*0.6, 3.5],          /* kasagi apex */
+      [lx-gw*0.1, ty+barH*0.9, 2.5],  /* left kasagi end */
+      [rx+gw*0.1, ty+barH*0.9, 2.5],  /* right kasagi end */
+      [lx, colY1, 2.8],                /* left column top */
+      [rx, colY1, 2.8],                /* right column top */
+      [lx-gw*0.03, colY1+colH*0.3, 1.8], /* left nuki */
+      [rx+gw*0.03, colY1+colH*0.3, 1.8], /* right nuki */
+    ];
+    nodes.forEach(function(n){
+      ctx.fillStyle=rgba(op*0.3); ctx.beginPath(); ctx.arc(n[0],n[1],n[2]*3.5,0,6.28); ctx.fill();
+      ctx.fillStyle=rgba(op*0.8); ctx.beginPath(); ctx.arc(n[0],n[1],n[2]*1.4,0,6.28); ctx.fill();
+      ctx.fillStyle=rgba(op*1.5); ctx.beginPath(); ctx.arc(n[0],n[1],n[2]*0.5,0,6.28); ctx.fill();
+    });
+
+    ctx.restore();
+  }
+
+  /* ────────────────────────────────
+     V1  CHERRY STORM
+     Big bright pink petals, fast swirling diagonal, anime-round
+  ──────────────────────────────── */
+  function drawCherry(ctx, x, y, r, rot, th, anm){
+    ctx.save(); ctx.translate(x,y); ctx.rotate(rot);
+    var sat=Math.round(100+anm*55);
+    var bright=th==='light'?'hsl(342,'+sat+'%,52%)':'hsl(342,'+sat+'%,78%)';
+    var inner=th==='light'?'hsl(0,'+sat+'%,72%)':'hsl(0,'+sat+'%,90%)';
+    var rnd=0.5+anm*0.5; /* anime=1: very round petals */
+    /* 5-petal flower */
+    for(var k=0;k<5;k++){
+      ctx.save(); ctx.rotate(k*1.257);
+      ctx.fillStyle=bright;
+      ctx.beginPath();
+      ctx.ellipse(0,-r*(1.1+rnd*.4), r*(0.6+rnd*.3), r*(1.0+rnd*.2), 0, 0, Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    }
+    /* center */
+    ctx.fillStyle=inner;
+    ctx.beginPath(); ctx.arc(0,0,r*(0.35+anm*.2),0,6.28); ctx.fill();
+    ctx.restore();
+  }
+
+  /* ────────────────────────────────
+     V2  DRAGON AUTUMN
+     Deep red-amber leaves, angular, spiraling vortex motion
+  ──────────────────────────────── */
+  function drawDragonLeaf(ctx, x, y, r, rot, th, anm){
+    ctx.save(); ctx.translate(x,y); ctx.rotate(rot);
+    var h= th==='light' ? [175,88,15] : [215,118,35];
+    /* anime: more saturated red shift */
+    var r2=Math.round(h[0]+anm*40), g2=Math.round(h[1]-anm*20), b2=Math.round(h[2]);
+    ctx.fillStyle='rgb('+r2+','+g2+','+b2+')';
+    var sharpness=1-anm*.3; /* anime: rounder */
+    ctx.beginPath();
+    ctx.moveTo(0,-r*1.8);
+    ctx.bezierCurveTo(r*(1.0+anm*.3),-r*.4, r*(1.1+anm*.2),r*.8, 0,r*1.8);
+    ctx.bezierCurveTo(-r*(1.1+anm*.2),r*.8,-r*(1.0+anm*.3),-r*.4, 0,-r*1.8);
+    ctx.fill();
+    /* veins */
+    ctx.strokeStyle='rgba('+r2+','+Math.round(g2*.6)+','+b2+',.4)';
+    ctx.lineWidth=.7;
+    ctx.beginPath(); ctx.moveTo(0,-r*1.4); ctx.lineTo(0,r*1.4); ctx.stroke();
+    for(var k=-1;k<=1;k+=2){
+      ctx.beginPath(); ctx.moveTo(0,-r*.2); ctx.lineTo(k*r*(1+anm*.2),-r*.5); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0,r*.4); ctx.lineTo(k*r*(1+anm*.2),r*.1); ctx.stroke();
+    }
+    /* stem */
+    ctx.strokeStyle='rgba('+r2+','+g2+','+b2+',.6)';
+    ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(0,r*1.5); ctx.lineTo(0,r*2.5); ctx.stroke();
+    ctx.restore();
+  }
+
+  /* ────────────────────────────────
+     V3  ICE CRYSTALS
+     Pale blue/white hexagonal snowflakes, slow meditative descent
+  ──────────────────────────────── */
+  function drawSnowflake(ctx, x, y, r, rot, th, anm){
+    ctx.save(); ctx.translate(x,y); ctx.rotate(rot);
+    var op=.6+anm*.3;
+    var c= th==='light' ? 'rgba(60,130,200,'+op+')' : 'rgba(160,210,255,'+op+')';
+    ctx.strokeStyle=c; ctx.lineWidth=Math.max(.8, r*.18);
+    ctx.lineCap='round';
+    var arms=anm>.6?8:6; /* anime: 8-arm snowflake */
+    for(var k=0;k<arms;k++){
+      ctx.save(); ctx.rotate(k*Math.PI/arms*2);
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(0,-r*1.6); ctx.stroke();
+      /* side branches */
+      for(var b=1;b<=2;b++){
+        var by2=-r*b*.55;
+        ctx.beginPath(); ctx.moveTo(0,by2); ctx.lineTo(r*.35,-by2*.3); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0,by2); ctx.lineTo(-r*.35,-by2*.3); ctx.stroke();
+      }
+      ctx.restore();
+    }
+    /* center dot */
+    ctx.fillStyle=c;
+    ctx.beginPath(); ctx.arc(0,0,r*.22,0,6.28); ctx.fill();
+    ctx.restore();
+  }
+
+  /* ────────────────────────────────
+     V4  FIRE SPIRITS
+     Orange-red rising flames with glow core — rises upward
+  ──────────────────────────────── */
+  function drawFireSpirit(ctx, x, y, r, rot, th, anm, fp, tick){
+    ctx.save();
+    var flicker=1+Math.sin(tick*.12+fp)*.18;
+    r=r*flicker;
+    /* outer glow */
+    var outerR=r*(2.5+anm*1.5);
+    var g=ctx.createRadialGradient(x,y+r*.3,0,x,y,outerR);
+    var h1= th==='light'?[220,100,20]:[255,140,30];
+    var h2= th==='light'?[200,60,0]:[255,80,0];
+    g.addColorStop(0,'rgba('+h1[0]+','+h1[1]+','+h1[2]+',.85)');
+    g.addColorStop(.35,'rgba('+h2[0]+','+h2[1]+','+h2[2]+',.4)');
+    g.addColorStop(1,'rgba('+h2[0]+','+h2[1]+',0,0)');
+    ctx.fillStyle=g;
+    ctx.beginPath(); ctx.arc(x,y,outerR,0,6.28); ctx.fill();
+    /* flame body — teardrop shape */
+    ctx.save(); ctx.translate(x,y); ctx.rotate(rot*.3);
+    ctx.fillStyle=th==='light'?'rgba(255,180,50,.7)':'rgba(255,220,80,.75)';
+    ctx.beginPath();
+    ctx.moveTo(0,-r*1.6);
+    ctx.bezierCurveTo(r*.6,-r*.5, r*.7,r*.5, 0,r);
+    ctx.bezierCurveTo(-r*.7,r*.5,-r*.6,-r*.5, 0,-r*1.6);
+    ctx.fill();
+    /* hot white core */
+    ctx.fillStyle=th==='light'?'rgba(255,240,180,.9)':'rgba(255,255,200,1)';
+    ctx.beginPath(); ctx.arc(0,r*.1,r*.3,0,6.28); ctx.fill();
+    ctx.restore();
+    ctx.restore();
+  }
+
+  /* ────────────────────────────────
+     MAIN DRAW LOOP
+  ──────────────────────────────── */
+  function draw(){
+    if(!cfg.on||SW<MIN_SIDE){ return; }
+    var th=document.documentElement.getAttribute('data-theme')||'dark';
+    var spMul=spd(), szMul=sz(), anmVal=an();
+    tick++;
+
+    [[cvL,PL,true],[cvR,PR,false]].forEach(function(arr){
+      var cv=arr[0], parts=arr[1], isL=arr[2];
+      var ctx=cv.getContext('2d');
+      var sw=cv.width, vh=cv.height;
+      ctx.clearRect(0,0,sw,vh);
+
+      /* determine version — no per-side override */
+      var v=cfg.ver;
+
+      parts.forEach(function(p,i){
+        ctx.globalAlpha=p.op;
+        var r=p.r*szMul;
+
+        if(v===1) drawCherry(ctx,p.x,p.y,r,p.rot,th,anmVal);
+        else if(v===2) drawDragonLeaf(ctx,p.x,p.y,r,p.rot,th,anmVal);
+        else if(v===3) drawSnowflake(ctx,p.x,p.y,r,p.rot,th,anmVal);
+        else if(v===4) drawFireSpirit(ctx,p.x,p.y,r,p.rot,th,anmVal,p.fp,tick);
+
+        ctx.globalAlpha=1;
+
+        /* movement */
+        if(v===2){
+          /* Dragon Autumn: orbital spiral */
+          p.ang+=p.aspd*spMul;
+          p.x += p.vx*spMul + Math.cos(p.ang)*1.2*spMul;
+          p.y += (p.vy*.6)*spMul + Math.sin(p.ang)*.5*spMul;
+        } else if(v===3){
+          /* Ice: very slow straight down with tiny sway */
+          p.x += p.vx*.4*spMul + Math.sin(tick*.004+i*2.1)*.3;
+          p.y += p.vy*.45*spMul;
+        } else if(v===4){
+          /* Fire: rises up with horizontal flicker */
+          p.y += p.vy*spMul;
+          p.x += Math.sin(tick*.06+p.fp)*0.7*spMul;
+        } else {
+          /* Cherry: diagonal swirl */
+          p.x += p.vx*spMul + Math.sin(tick*.009+i*1.8)*.4*spMul;
+          p.y += p.vy*spMul;
+        }
+        p.rot += p.vr*spMul;
+
+        /* respawn */
+        var dead;
+        if(v===4) dead=(p.y<-40);
+        else dead=(p.y>vh+40||p.x<-50||p.x>sw+50);
+        if(dead){
+          var np=spawnP(sw,vh,isL,v);
+          parts[i]=np;
+        }
+      });
+    });
+  }
+
+  /* ── PUBLIC API ── */
+  window.TORII={
+    enable:function(b){ cfg.on=b; localStorage.setItem('fxOff',b?'0':'1'); resize(); },
+    setVersion:function(v){ cfg.ver=v; localStorage.setItem('fxVer',''+v); initParticles(v); },
+    setGate:function(m){ cfg.gate=m; localStorage.setItem('fxGate',''+m); drawCenterGate(); },
+    setGateStyle:function(s){ cfg.gateStyle=s; localStorage.setItem('fxGateStyle',''+s); drawCenterGate(); },
+    setGateColor:function(c){ cfg.gateColor=c; localStorage.setItem('fxGateColor',''+c); drawCenterGate(); },
+    setSpeed:function(v){ cfg.speed=+v; localStorage.setItem('fxSpeed',''+v); },
+    setSize:function(v){ cfg.size=+v; localStorage.setItem('fxSize',''+v); },
+    setAnime:function(v){ cfg.anime=+v; localStorage.setItem('fxAnime',''+v); },
+    isOn:function(){ return cfg.on; },
+    getVer:function(){ return cfg.ver; }
+  };
+
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+  setInterval(draw, 20);
+})();
+
+/* ── DATA RAIN TOGGLE ── */
+window.RAIN=(function(){
+  var cv=document.getElementById('mir-bg');
+  function setVis(on){ if(!cv)return; cv.style.transition='opacity .5s'; cv.style.opacity=on?'1':'0'; localStorage.setItem('rainOff',on?'0':'1'); }
+  if(localStorage.getItem('rainOff')==='1'&&cv) cv.style.opacity='0';
+  return{ enable:setVis, isOn:function(){ return localStorage.getItem('rainOff')!=='1'; } };
+})();</script>
 </body>
 </html>
