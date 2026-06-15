@@ -1311,12 +1311,12 @@ button:focus,a:focus{outline:none;}
   /* ── CONFIG (persisted) ── */
   var cfg={
     ver:       +(localStorage.getItem('fxVer')||4),
-    gate:      +(localStorage.getItem('fxGate')||10),
+    gate:      +(localStorage.getItem('fxGate')||8),
     gateStyle: +(localStorage.getItem('fxGateStyle')||1),
-    gateColor: +(localStorage.getItem('fxGateColor')||0),
-    speed:     +(localStorage.getItem('fxSpeed')||10),
-    size:      +(localStorage.getItem('fxSize')||10),
-    anime:     +(localStorage.getItem('fxAnime')||5),
+    gateColor: +(localStorage.getItem('fxGateColor')||2),
+    speed:     +(localStorage.getItem('fxSpeed')||13),
+    size:      +(localStorage.getItem('fxSize')||4),
+    anime:     +(localStorage.getItem('fxAnime')||7),
     on:        localStorage.getItem('fxOff')!=='1'
   };
 
@@ -1892,8 +1892,8 @@ button:focus,a:focus{outline:none;}
 window.RAIN=(function(){
   var cv=document.getElementById('mir-bg');
   function setVis(on){ if(!cv)return; cv.style.transition='opacity .5s'; cv.style.opacity=on?'1':'0'; localStorage.setItem('rainOff',on?'0':'1'); }
-  if(localStorage.getItem('rainOff')==='1'&&cv) cv.style.opacity='0';
-  return{ enable:setVis, isOn:function(){ return localStorage.getItem('rainOff')!=='1'; } };
+  if(localStorage.getItem('rainOff')!=='0'&&cv) cv.style.opacity='0';
+  return{ enable:setVis, isOn:function(){ return localStorage.getItem('rainOff')==='0'; } };
 })();</script>
 </body>
 </html>
