@@ -211,6 +211,10 @@ nav.scrolled{background:var(--navbg);backdrop-filter:blur(16px);border-color:var
 .section-inner{max-width:1080px;margin:0 auto;}
 .section-eyebrow{font-size:17px;letter-spacing:0.3em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;font-weight:500;}
 .section-eyebrow .ew{display:inline-block;opacity:0;}
+.section-eyebrow.solo{font-family:'Cinzel',serif;font-size:51px;letter-spacing:0.14em;font-weight:600;margin-bottom:26px;line-height:1.05;color:#a8843a;}
+.section-eyebrow.solo .ew{color:#a8843a;}
+html[data-theme="light"] .section-eyebrow.solo .ew{font-size:51px!important;}
+@media(max-width:760px){.section-eyebrow.solo{font-size:32px;letter-spacing:0.18em;}}
 @keyframes ebspin{0%{opacity:0;transform:perspective(500px) rotateY(-90deg) scale(.5);color:#060606;text-shadow:none;}55%{opacity:1;color:#9beee0;text-shadow:0 0 16px rgba(122,217,200,0.95);}100%{opacity:1;transform:perspective(500px) rotateY(0deg) scale(1);color:#7ad9c8;text-shadow:none;}}
 .section-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;margin-bottom:20px;letter-spacing:-0.01em;}
 .section-title .gold{color:var(--gold);}
@@ -409,8 +413,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
     <div class="divider"></div>
     <div class="about-grid reveal">
       <div class="about-text">
-        <div class="section-eyebrow" data-i18n="about.eyebrow">What we do</div>
-        <h2 class="section-title" data-i18n="about.title" data-i18n-html="1">We are <span class="gold">renovating</span> the future<br>by <span class="gold">educating</span> it.</h2>
+        <div class="section-eyebrow solo" data-i18n="about.eyebrow">Goals</div>
         <p data-i18n="about.p1">MIR ACADEMY designs and builds interactive, self-updating learning modules that never go stale. Every course is engineered from scratch — dark-themed, bilingual, built to be used, not just read.</p>
         <p data-i18n="about.p2" data-i18n-html="1">From <strong>financial literacy</strong> to <strong>IT fundamentals</strong> to <strong>AI & prompting</strong>, we build the courses that should already exist. Alongside education, we develop the <strong>MIRACDX suite</strong> — productivity tools for real daily use on Windows.</p>
         <p data-i18n="about.p3" data-i18n-html="1">The ultimate vision: <strong>MIRA Renovator</strong> — an AI pipeline that takes outdated documents, textbooks, and dead curricula and outputs modern interactive modules automatically.</p>
@@ -422,8 +425,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <!-- PILLARS -->
 <section class="section" style="padding-top:0;" id="pillars">
   <div class="section-inner">
-    <div class="section-eyebrow reveal" data-i18n="pillars.eyebrow">What we build</div>
-    <h2 class="section-title reveal" data-i18n="pillars.title" data-i18n-html="1">Three <span class="gold">pillars</span></h2>
+    <div class="section-eyebrow solo reveal" data-i18n="pillars.eyebrow">Methods</div>
     <div style="height:40px;"></div>
     <div class="pillars reveal">
       <div class="pillar pillar-btn" onclick="openPillar(0)" role="button" tabindex="0" aria-label="Education Modules — click for details">
@@ -459,8 +461,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
   <div class="section-inner">
     <div class="proj-hdr reveal">
       <div>
-        <div class="section-eyebrow" data-i18n="proj.eyebrow">Active Projects</div>
-        <h2 class="section-title" data-i18n="proj.title" data-i18n-html="1">What we're <span class="gold">building</span></h2>
+        <div class="section-eyebrow solo" data-i18n="proj.eyebrow">Projects</div>
       </div>
       <a href="https://github.com/MIR-ACADEMY" target="_blank" class="proj-hdr-right" data-i18n="proj.viewall">View all on GitHub →</a>
     </div>
@@ -502,13 +503,12 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <!-- FOUNDER -->
 <section class="section" id="founder" style="padding-top:0;">
   <div class="section-inner">
-    <div class="section-eyebrow reveal" data-i18n="founder.eyebrow">The team · The family</div>
-    <h2 class="section-title reveal" data-i18n="founder.title" data-i18n-html="1">Founder &amp; <span class="gold">co-founders</span></h2>
+    <div class="section-eyebrow solo reveal" data-i18n="founder.eyebrow">Team</div>
     <div style="height:40px;"></div>
     <div class="founder-wrap reveal">
       <div>
         <div class="founder-av">EM</div>
-        <div class="founder-name"><a href="founder-emre.html">Emre Mir Ekinci</a></div>
+        <div class="founder-name"><a href="portfolio.html">Emre Mir Ekinci</a></div>
         <div class="founder-role" data-i18n="founder.role">Founder · AI/IT Trainer [C] · ICF Professional Coach · Operations Manager · R&D · 25+ years in IT</div>
         <div class="founder-tags" lang="en">
           <span class="ftag">AI Trainer</span><span class="ftag">ICF Coach</span>
@@ -516,7 +516,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
           <span class="ftag">R&D</span><span class="ftag">25+ yrs IT</span>
         </div>
         <div class="founder-links">
-          <a href="founder-emre.html"><div class="flink" data-i18n="founder.cv">📄 Full profile &amp; CV</div></a>
+          <a href="portfolio.html"><div class="flink" data-i18n="founder.cv">📄 Full profile &amp; CV</div></a>
           <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank"><div class="flink">💼 LinkedIn</div></a>
           <a href="https://www.youtube.com/channel/UCM3788B4sBmtVFrP1DQNcDg" target="_blank"><div class="flink">▶ YouTube</div></a>
         </div>
@@ -557,8 +557,7 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
 <!-- CONNECT -->
 <section class="section" id="connect" style="padding-top:0;">
   <div class="section-inner">
-    <div class="section-eyebrow reveal" data-i18n="connect.eyebrow">Find us</div>
-    <h2 class="section-title reveal" data-i18n="connect.title" data-i18n-html="1">Connect with <span class="gold">MIR ACADEMY</span></h2>
+    <div class="section-eyebrow solo reveal" data-i18n="connect.eyebrow">Contact</div>
     <div style="height:40px;"></div>
     <div class="connect-grid reveal" style="grid-template-columns:repeat(3,1fr);">
       <a href="https://www.linkedin.com/in/emre-mir-e-51739082/" target="_blank">
@@ -576,8 +575,8 @@ footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-i
       <a href="tel:+90">
         <div class="conn-card"><div class="conn-icon">📞</div><div class="conn-name" data-i18n="conn.call">Call</div><div class="conn-sub" data-i18n="conn.numsoon">Number coming soon</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
       </a>
-      <a href="#" onclick="return false;" title="Available on request">
-        <div class="conn-card"><div class="conn-icon">📋</div><div class="conn-name">References</div><div class="conn-sub">Available on request</div><div class="conn-arrow" style="color:var(--faint)">—</div></div>
+      <a href="https://mir-academy.github.io" target="_blank">
+        <div class="conn-card"><div class="conn-icon">🌐</div><div class="conn-name" data-i18n="conn.website">Website</div><div class="conn-sub">mir-academy.github.io</div><div class="conn-arrow">↗</div></div>
       </a>
     </div>
   </div>
@@ -717,7 +716,7 @@ window.SECT=(function(){
     {id:'nav',sel:'#nav',label:'Top bar'},
     {id:'hero',sel:'.hero',label:'Hero text',edit:'HERO'},
     {id:'belt',sel:'.belt',label:'Project belt',edit:'BELT'},
-    {id:'pillars',sel:'#pillars',label:'Ne yapıyoruz'},
+    {id:'pillars',sel:'#pillars',label:'Metodlar'},
     {id:'about',sel:'#about',label:'Hakkımızda'},
     {id:'projects',sel:'#projects',label:'Projeler'},
     {id:'founder',sel:'#founder',label:'Ekip'},
@@ -859,24 +858,24 @@ function closeMotto(){document.getElementById('mmodal').classList.remove('open')
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMotto();});
 /* EYEBROWS — same per-word swivel as the motto; replays every 30s */
 function setupEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){if(eb.dataset.ebsplit)return;eb.dataset.ebsplit='1';var ws=eb.textContent.trim().split(/\s+/);eb.innerHTML=ws.map(function(w){return '<span class="ew">'+w+'</span>';}).join(' ');});}
-function playEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){eb.querySelectorAll('.ew').forEach(function(w,i){w.style.animation='none';void w.offsetWidth;w.style.animation='ebspin 1s cubic-bezier(.2,.7,.25,1) '+(i*0.18).toFixed(2)+'s both';});});}
+function playEyebrows(){document.querySelectorAll('.section-eyebrow').forEach(function(eb){var solo=eb.classList.contains('solo');eb.querySelectorAll('.ew').forEach(function(w,i){w.style.animation='none';void w.offsetWidth;w.style.animation=(solo?'mwspin 1.15s':'ebspin 1s')+' cubic-bezier(.2,.7,.25,1) '+((solo?0.15:0)+i*0.18).toFixed(2)+'s both';});});}
 setupEyebrows();playEyebrows();setInterval(playEyebrows,15000);
 
 /* ── LANGUAGE (TR default · EN/TR toggle · motto stays Latin) ── */
 var I18N={
   "nav.logo":{en:"MIR ACADEMY",tr:"MIR AKADEMİ"},
-  "nav.pillars":{en:"What we build",tr:"Ne yapıyoruz"},
+  "nav.pillars":{en:"Methods",tr:"METODLAR"},
   "nav.about":{en:"About",tr:"Hakkımızda"},
   "nav.projects":{en:"Projects",tr:"Projeler"},
   "nav.team":{en:"Team",tr:"Ekip"},
   "nav.connect":{en:"Connect",tr:"İletişim"},
   "hero.title":{en:"MIR ACADEMY",tr:"MIR AKADEMİ"},
-  "about.eyebrow":{en:"What we do",tr:"Ne yapıyoruz"},
+  "about.eyebrow":{en:"Goals",tr:"HEDEFLER"},
   "about.title":{en:'We are <span class="gold">renovating</span> the future<br>by <span class="gold">educating</span> it.',tr:'Geleceği <span class="gold">eğiterek</span><br><span class="gold">yeniliyoruz</span>.'},
   "about.p1":{en:"MIR ACADEMY designs and builds interactive, self-updating learning modules that never go stale. Every course is engineered from scratch — dark-themed, bilingual, built to be used, not just read.",tr:"MIR AKADEMİ, asla eskimeyen, kendini güncelleyen etkileşimli öğrenme modülleri tasarlar ve geliştirir. Her kurs sıfırdan inşa edilir — koyu temalı, iki dilli, sadece okunmak için değil kullanılmak için yapılmış."},
   "about.p2":{en:'From <strong>financial literacy</strong> to <strong>IT fundamentals</strong> to <strong>AI & prompting</strong>, we build the courses that should already exist. Alongside education, we develop the <strong>MIRACDX suite</strong> — productivity tools for real daily use on Windows.',tr:'Finansal okuryazarlıktan <strong>BT temellerine</strong>, <strong>yapay zekâ ve prompt yazımına</strong> kadar — var olması gereken kursları biz inşa ediyoruz. Eğitimin yanı sıra, gerçek günlük kullanım için <strong>MIRACDX paketini</strong> (Windows üretkenlik araçları) geliştiriyoruz.'},
   "about.p3":{en:'The ultimate vision: <strong>MIRA Renovator</strong> — an AI pipeline that takes outdated documents, textbooks, and dead curricula and outputs modern interactive modules automatically.',tr:'Nihai vizyon: <strong>MIRA Renovator</strong> — eski belgeleri, ders kitaplarını ve ölü müfredatları alıp otomatik olarak modern, etkileşimli modüllere dönüştüren bir yapay zekâ hattı.'},
-  "pillars.eyebrow":{en:"What we build",tr:"Ne inşa ediyoruz"},
+  "pillars.eyebrow":{en:"Methods",tr:"METODLAR"},
   "pillars.title":{en:'Three <span class="gold">pillars</span>',tr:'Üç <span class="gold">sütun</span>'},
   "p1.title":{en:"Education Modules",tr:"Eğitim Modülleri"},
   "p1.desc":{en:"Interactive HTML courses on finance, IT, history, AI, and more. Bilingual, dark-themed, always current.",tr:"Finans, BT, tarih, yapay zekâ ve daha fazlası üzerine etkileşimli HTML kursları. İki dilli, koyu temalı, daima güncel."},
@@ -887,7 +886,7 @@ var I18N={
   "p3.title":{en:"MIRACDX Suite",tr:"MIRACDX Paketi"},
   "p3.desc":{en:"Windows productivity apps — system tray utilities, desktop overlays, smartwatch companions, media tools.",tr:"Windows üretkenlik uygulamaları — sistem tepsisi araçları, masaüstü katmanları, akıllı saat eşlikçileri, medya araçları."},
   "p3.count":{en:"5 apps · QuickSolutions · Clock · Band · SkinCraft · Downloader",tr:"5 uygulama · QuickSolutions · Clock · Band · SkinCraft · Downloader"},
-  "proj.eyebrow":{en:"Active Projects",tr:"Aktif Projeler"},
+  "proj.eyebrow":{en:"Projects",tr:"PROJELER"},
   "proj.title":{en:'What we\'re <span class="gold">building</span>',tr:'Neler <span class="gold">geliştiriyoruz</span>'},
   "proj.viewall":{en:"View all on GitHub →",tr:"Hepsini GitHub'da gör →"},
   "proj.d1":{en:"Complete investment education — crypto, stocks, Forex, technical analysis, risk. 13 sections, Turkish + English.",tr:"Eksiksiz yatırım eğitimi — kripto, hisse, Forex, teknik analiz, risk. 13 bölüm, Türkçe + İngilizce."},
@@ -898,14 +897,14 @@ var I18N={
   "proj.d6":{en:"Xiaomi smartwatch companion. Real-time sensors, theme sync. Bluetooth direct install coming in v2.0.",tr:"Xiaomi akıllı saat eşlikçisi. Gerçek zamanlı sensörler, tema senkronu. Bluetooth ile doğrudan kurulum v2.0'da geliyor."},
   "badge.stable":{en:"Stable",tr:"Kararlı"},
   "badge.progress":{en:"In Progress",tr:"Devam Ediyor"},
-  "founder.eyebrow":{en:"The team · The family",tr:"Ekip · Aile"},
+  "founder.eyebrow":{en:"Team",tr:"EKİP"},
   "founder.title":{en:'Founder &amp; <span class="gold">co-founders</span>',tr:'Kurucu ve <span class="gold">eş kurucular</span>'},
   "founder.role":{en:"Founder · AI/IT Trainer [C] · ICF Professional Coach · Operations Manager · R&D · 25+ years in IT",tr:"Kurucu · YZ/BT Eğitmeni [C] · ICF Profesyonel Koç · Operasyon Müdürü · Ar-Ge · BT'de 25+ yıl"},
   "founder.cv":{en:"📄 Full profile & CV",tr:"📄 Tam profil ve CV"},
   "cofounder.label":{en:"Co-Founders",tr:"Eş Kurucular"},
   "cf.role.guzin":{en:"Co-Founder · English Teacher & Professional Coach",tr:"Eş Kurucu · İngilizce Öğretmeni ve Profesyonel Koç"},
   "cf.role.emrah":{en:"Co-Founder · English Teacher & Tech Wizard",tr:"Eş Kurucu · İngilizce Öğretmeni ve Teknoloji Sihirbazı"},
-  "connect.eyebrow":{en:"Find us",tr:"Bize ulaşın"},
+  "connect.eyebrow":{en:"Contact",tr:"İLETİŞİM"},
   "connect.title":{en:'Connect with <span class="gold">MIR ACADEMY</span>',tr:'<span class="gold">MIR AKADEMİ</span> ile bağlanın'},
   "conn.email":{en:"Email",tr:"E-posta"},
   "conn.soon":{en:"Coming soon",tr:"Yakında"},
@@ -1298,7 +1297,65 @@ button:focus,a:focus{outline:none;}
 <!-- ══ CENTER TORII (hero frame) ══ -->
 <canvas id="torii-C" aria-hidden="true" style="position:fixed;top:0;left:50%;transform:translateX(-50%);pointer-events:none;z-index:1;display:none;"></canvas>
 
+<!-- ══ FX PANEL ══ -->
+<div id="fxBtn" title="Effects panel" onclick="FX.toggle()" style="position:fixed;left:14px;top:62px;z-index:600;cursor:pointer;font-size:16px;color:rgba(200,169,110,.4);transition:color .2s;user-select:none;padding:4px 6px;border-radius:4px;">✦</div>
+<div id="fxPanel" style="display:none;position:fixed;left:14px;top:88px;z-index:601;width:230px;background:rgba(8,7,6,.98);border:1px solid rgba(200,169,110,.22);border-radius:12px;padding:16px 14px;font-family:Inter,system-ui,sans-serif;font-size:12px;color:#d4ccbc;backdrop-filter:blur(16px);box-shadow:0 10px 40px rgba(0,0,0,.7);">
+  <div style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(200,169,110,.5);margin-bottom:13px;">✦ Side Effects</div>
 
+  <!-- on/off toggles -->
+  <label style="display:flex;align-items:center;gap:8px;margin-bottom:7px;cursor:pointer;">
+    <input type="checkbox" id="fxRainCk" onchange="FX.setRain(this.checked)" style="accent-color:#c8a96e;">
+    <span>Data Rain</span>
+  </label>
+  <label style="display:flex;align-items:center;gap:8px;margin-bottom:13px;cursor:pointer;">
+    <input type="checkbox" id="fxToriiCk" onchange="FX.setTorii(this.checked)" style="accent-color:#c8a96e;">
+    <span>Side Ornaments</span>
+  </label>
+
+  <!-- style versions -->
+  <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,169,110,.45);margin-bottom:8px;">Particle Style</div>
+  <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:13px;">
+    <label style="cursor:pointer;display:flex;align-items:center;gap:7px;"><input type="radio" name="toriiV" value="1" onchange="FX.setVersion(1)" style="accent-color:#c8a96e;"> 🌸 Cherry Storm — pink swirl</label>
+    <label style="cursor:pointer;display:flex;align-items:center;gap:7px;"><input type="radio" name="toriiV" value="2" onchange="FX.setVersion(2)" style="accent-color:#c8a96e;"> 🍂 Dragon Autumn — red spiral</label>
+    <label style="cursor:pointer;display:flex;align-items:center;gap:7px;"><input type="radio" name="toriiV" value="3" onchange="FX.setVersion(3)" style="accent-color:#c8a96e;"> ❄ Ice Crystals — blue snow</label>
+    <label style="cursor:pointer;display:flex;align-items:center;gap:7px;"><input type="radio" name="toriiV" value="4" onchange="FX.setVersion(4)" style="accent-color:#c8a96e;"> 🔥 Fire Spirits — flames rise</label>
+  </div>
+
+  <!-- center gate opacity slider -->
+  <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,169,110,.45);margin-bottom:6px;">Center Gate <span id="fxGateV" style="color:#c8a96e;font-style:normal;">Subtle</span></div>
+  <input type="range" id="fxGateSlider" min="0" max="20" value="10" oninput="FX.setGate(this.value)" style="width:100%;accent-color:#c8a96e;margin-bottom:12px;">
+  <!-- gate style -->
+  <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,169,110,.45);margin-bottom:7px;">Gate Style</div>
+  <div style="display:flex;gap:5px;margin-bottom:10px;">
+    <div id="gs1" onclick="FX.setGateStyle(1)" title="Classic" style="flex:1;text-align:center;padding:5px 2px;border:1px solid rgba(200,169,110,.2);border-radius:6px;font-size:9px;cursor:pointer;line-height:1.4;">⛩<br>Classic</div>
+    <div id="gs2" onclick="FX.setGateStyle(2)" title="Grand" style="flex:1;text-align:center;padding:5px 2px;border:1px solid rgba(200,169,110,.2);border-radius:6px;font-size:9px;cursor:pointer;line-height:1.4;">🏯<br>Grand</div>
+    <div id="gs3" onclick="FX.setGateStyle(3)" title="Ancient" style="flex:1;text-align:center;padding:5px 2px;border:1px solid rgba(200,169,110,.2);border-radius:6px;font-size:9px;cursor:pointer;line-height:1.4;">🪨<br>Ancient</div>
+    <div id="gs4" onclick="FX.setGateStyle(4)" title="Anime" style="flex:1;text-align:center;padding:5px 2px;border:1px solid rgba(200,169,110,.2);border-radius:6px;font-size:9px;cursor:pointer;line-height:1.4;">⚡<br>Anime</div>
+    <div id="gs5" onclick="FX.setGateStyle(5)" title="Celestial" style="flex:1;text-align:center;padding:5px 2px;border:1px solid rgba(200,169,110,.2);border-radius:6px;font-size:9px;cursor:pointer;line-height:1.4;">✨<br>Celestial</div>
+  </div>
+  <!-- gate color -->
+  <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,169,110,.45);margin-bottom:8px;">Gate Color</div>
+  <div style="display:flex;gap:6px;margin-bottom:13px;">
+    <div id="gc0" onclick="FX.setGateColor(0)" title="Gold" style="flex:1;height:24px;border-radius:5px;background:rgba(210,168,70,.55);border:2px solid transparent;cursor:pointer;transition:transform .15s;"></div>
+    <div id="gc1" onclick="FX.setGateColor(1)" title="Silver" style="flex:1;height:24px;border-radius:5px;background:rgba(180,185,210,.55);border:2px solid transparent;cursor:pointer;transition:transform .15s;"></div>
+    <div id="gc2" onclick="FX.setGateColor(2)" title="Cyan" style="flex:1;height:24px;border-radius:5px;background:rgba(40,205,215,.55);border:2px solid transparent;cursor:pointer;transition:transform .15s;"></div>
+    <div id="gc3" onclick="FX.setGateColor(3)" title="Indigo" style="flex:1;height:24px;border-radius:5px;background:rgba(80,110,220,.55);border:2px solid transparent;cursor:pointer;transition:transform .15s;"></div>
+  </div>
+
+  <!-- speed slider -->
+  <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,169,110,.45);margin-bottom:6px;">Speed <span id="fxSpeedV" style="color:#c8a96e;font-style:normal;">1.0×</span></div>
+  <input type="range" id="fxSpeed" min="2" max="30" value="10" oninput="FX.setSpeed(this.value)" style="width:100%;accent-color:#c8a96e;margin-bottom:12px;">
+
+  <!-- size slider -->
+  <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,169,110,.45);margin-bottom:6px;">Size <span id="fxSizeV" style="color:#c8a96e;font-style:normal;">M</span></div>
+  <input type="range" id="fxSize" min="4" max="20" value="10" oninput="FX.setSize(this.value)" style="width:100%;accent-color:#c8a96e;margin-bottom:12px;">
+
+  <!-- anime slider -->
+  <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,169,110,.45);margin-bottom:6px;">Natural <span id="fxAnimeV" style="color:#c8a96e;">⟷</span> Anime</div>
+  <input type="range" id="fxAnime" min="0" max="10" value="5" oninput="FX.setAnime(this.value)" style="width:100%;accent-color:#c8a96e;margin-bottom:4px;">
+
+  <div style="margin-top:10px;font-size:10px;color:rgba(200,169,110,.25);">Wide screens only (&gt;1200px)</div>
+</div>
 
 <script>
 /* ════════════════════════════════════════════
@@ -1311,11 +1368,11 @@ button:focus,a:focus{outline:none;}
   var MAIN_W=1100, MIN_SIDE=80;
 
   /* ── CONFIG (persisted) ── */
-  var /* ══ MIR DEFAULTS — only edit this line to change site-wide settings ══
+  /* ══ MIR DEFAULTS — only edit this line to change site-wide settings ══
      ver: particle style 1-4 | gate: opacity 0-20 | gateStyle: 1-5 | gateColor: 0-3
      speed: 2-30 | size: 4-20 | anime: 0-10 | rain: true/false                   ══ */
   const MIR_D={ver:4,gate:8,gateStyle:1,gateColor:2,speed:13,size:4,anime:7,rain:false};
-  cfg={
+  var cfg={
     ver:       +(localStorage.getItem('fxVer')||MIR_D.ver),
     gate:      +(localStorage.getItem('fxGate')||MIR_D.gate),
     gateStyle: +(localStorage.getItem('fxGateStyle')||MIR_D.gateStyle),
@@ -1900,6 +1957,79 @@ window.RAIN=(function(){
   function setVis(on){ if(!cv)return; cv.style.transition='opacity .5s'; cv.style.opacity=on?'1':'0'; localStorage.setItem('rainOff',on?'0':'1'); }
   if(localStorage.getItem('rainOff')!=='0'&&cv) cv.style.opacity='0';
   return{ enable:setVis, isOn:function(){ return localStorage.getItem('rainOff')==='0'; } };
-})();</script>
+})();
+
+/* ── FX PANEL CONTROLLER ── */
+window.FX={
+  toggle:function(){
+    var p=document.getElementById('fxPanel');
+    var opening=p.style.display==='none';
+    p.style.display=opening?'block':'none';
+    if(!opening) return;
+    /* sync checkboxes */
+    document.getElementById('fxRainCk').checked=RAIN.isOn();
+    document.getElementById('fxToriiCk').checked=TORII.isOn();
+    /* sync radios — version */
+    var v=TORII.getVer();
+    var rv=document.querySelector('input[name="toriiV"][value="'+v+'"]'); if(rv)rv.checked=true;
+    /* sync gate slider */
+    var gv=+(localStorage.getItem('fxGate')||10);
+    FX._updGateSlider(gv);
+    /* sync gate style */
+    var gsv=+(localStorage.getItem('fxGateStyle')||1);
+    FX._updGateStyle(gsv);
+    /* sync gate color */
+    var gc=+(localStorage.getItem('fxGateColor')||0);
+    FX._updGateColor(gc);
+    /* sync sliders */
+    var sp=+(localStorage.getItem('fxSpeed')||10);
+    var sz=+(localStorage.getItem('fxSize')||10);
+    var an=+(localStorage.getItem('fxAnime')||5);
+    document.getElementById('fxSpeed').value=sp; FX._updSpeed(sp);
+    document.getElementById('fxSize').value=sz;  FX._updSize(sz);
+    document.getElementById('fxAnime').value=an; FX._updAnime(an);
+  },
+  _updSpeed:function(v){ document.getElementById('fxSpeedV').textContent=(v/10).toFixed(1)+'×'; },
+  _updSize:function(v){ var labels=['XS','S','M','L','XL']; document.getElementById('fxSizeV').textContent=labels[Math.round((v-4)/4)]||'M'; },
+  _updAnime:function(v){ var pct=Math.round(v*10); document.getElementById('fxAnimeV').textContent=pct+'%'; },
+  _updGateSlider:function(v){
+    v=+v;
+    var lbl=v===0?'Off':(v<=7?'Faint':v<=13?'Subtle':v<=17?'Medium':'Bold');
+    var el=document.getElementById('fxGateV'); if(el) el.textContent=lbl;
+    var sl=document.getElementById('fxGateSlider'); if(sl) sl.value=v;
+  },
+  _updGateStyle:function(v){
+    [1,2,3,4,5].forEach(function(i){
+      var el=document.getElementById('gs'+i);
+      if(!el)return;
+      el.style.background=i===v?'rgba(200,169,110,.16)':'';
+      el.style.borderColor=i===v?'rgba(200,169,110,.65)':'rgba(200,169,110,.2)';
+      el.style.color=i===v?'#c8a96e':'';
+    });
+  },
+  _updGateColor:function(v){
+    [0,1,2,3].forEach(function(i){
+      var el=document.getElementById('gc'+i);
+      if(!el)return;
+      el.style.borderColor=i===v?'#c8a96e':'transparent';
+      el.style.transform=i===v?'scale(1.12)':'scale(1)';
+    });
+  },
+  setRain:function(b){ RAIN.enable(b); },
+  setTorii:function(b){ TORII.enable(b); },
+  setVersion:function(v){ TORII.setVersion(v); },
+  setGate:function(v){ v=+v; TORII.setGate(v); FX._updGateSlider(v); },
+  setGateStyle:function(v){ v=+v; TORII.setGateStyle(v); FX._updGateStyle(v); },
+  setGateColor:function(v){ v=+v; TORII.setGateColor(v); FX._updGateColor(v); },
+  setSpeed:function(v){ TORII.setSpeed(v); FX._updSpeed(v); },
+  setSize:function(v){ TORII.setSize(v); FX._updSize(v); },
+  setAnime:function(v){ TORII.setAnime(v); FX._updAnime(v); }
+};
+document.addEventListener('click',function(e){
+  var p=document.getElementById('fxPanel'),btn=document.getElementById('fxBtn');
+  if(p&&p.style.display!=='none'&&!p.contains(e.target)&&btn&&!btn.contains(e.target))
+    p.style.display='none';
+},{passive:true});
+</script>
 </body>
 </html>
